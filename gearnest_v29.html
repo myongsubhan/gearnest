@@ -1,0 +1,2711 @@
+<!DOCTYPE html>
+<html lang='ko'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1.0,viewport-fit=cover'>
+<meta name='mobile-web-app-capable' content='yes'>
+<title>GearNest v28</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}html,body,#root{height:100%;width:100%;overflow:hidden;}body{background:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}*::-webkit-scrollbar{display:none}@keyframes spin{to{transform:rotate(360deg)}}</style>
+</head>
+<body>
+<div id='root'></div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js'></script>
+<script>if(!window.React||!window.ReactDOM){document.body.innerHTML='<div style="padding:40px;text-align:center"><b>인터넷 연결이 필요합니다</b></div>';}</script>
+<script>
+(function(){
+'use strict';
+var useState=React.useState;
+var useEffect=React.useEffect;
+var useRef=React.useRef;
+var useCallback=React.useCallback;
+var _ic=function(p){return function(pr){var sz=pr.size||24,col=pr.color||'currentColor',sty=pr.style||{};return React.createElement('svg',{width:sz,height:sz,viewBox:'0 0 24 24',fill:'none',stroke:col,strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round',style:sty},p.map(function(d,i){return React.createElement('path',{key:i,d:d});}));};}; 
+var LayoutGrid=_ic(["M3 3h7v7H3z", "M14 3h7v7h-7z", "M14 14h7v7h-7z", "M3 14h7v7H3z"]);
+var Backpack=_ic(["M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10z", "M9 6V5a3 3 0 0 1 6 0v1", "M8 21v-5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5", "M8 10h8", "M8 18h8"]);
+var ClipboardList=_ic(["M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2", "M15 2H9a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z", "M12 11h4", "M12 16h4", "M8 11h.01", "M8 16h.01"]);
+var Cloud=_ic(["M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"]);
+var Users=_ic(["M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", "M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z", "M22 21v-2a4 4 0 0 0-3-3.87", "M16 3.13a4 4 0 0 1 0 7.75"]);
+var Tent=_ic(["M19 20 10 4 3 20", "M4 20h16", "M12 20v-8l-5 8", "M12 12l5 8"]);
+var BedDouble=_ic(["M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8", "M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4", "M12 10v10", "M2 16h20"]);
+var Shirt=_ic(["M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"]);
+var Flame=_ic(["M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"]);
+var ShieldCheck=_ic(["M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", "M9 12l2 2 4-4"]);
+var Package=_ic(["M11 21H3V3h18v8", "M3 9h18", "M8 3v6", "M16 3v6", "M16 19h6", "M19 16v6"]);
+var Briefcase=_ic(["M20 7H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z", "M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"]);
+var Plus=_ic(["M12 5v14", "M5 12h14"]);
+var X=_ic(["M18 6 6 18", "M6 6l12 12"]);
+var ChevronRight=_ic(["M9 18l6-6-6-6"]);
+var ChevronLeft=_ic(["M15 18l-6-6 6-6"]);
+var RefreshCw=_ic(["M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", "M3 8v4h4", "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", "M21 16v-4h-4"]);
+var ArrowLeft=_ic(["M19 12H5", "M12 19l-7-7 7-7"]);
+var ArrowUpDown=_ic(["M21 16l-4 4-4-4", "M17 20V4", "M3 8l4-4 4 4", "M7 4v16"]);
+var Wind=_ic(["M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2", "M9.6 4.6A2 2 0 1 1 11 8H2", "M12.6 19.4A2 2 0 1 0 14 16H2"]);
+var Check=_ic(["M20 6 9 17l-5-5"]);
+var AlertTriangle=_ic(["M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z", "M12 9v4", "M12 17h.01"]);
+var Loader=_ic(["M12 2v4", "M12 18v4", "M4.93 4.93l2.83 2.83", "M16.24 16.24l2.83 2.83", "M2 12h4", "M18 12h4", "M4.93 19.07l2.83-2.83", "M16.24 7.76l2.83-2.83"]);
+var CloudRain=_ic(["M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25", "M8 19v1", "M8 23v1", "M12 21v1", "M12 17v1", "M16 19v1", "M16 23v1"]);
+var Thermometer=_ic(["M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"]);
+var MessageSquare=_ic(["M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"]);
+var Moon=_ic(["M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"]);
+var Heart=_ic(["M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"]);
+var MessageCircle=_ic(["M7.9 20A9 9 0 1 0 4 16.1L2 22z"]);
+var MapPin=_ic(["M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z", "M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"]);
+var Camera=_ic(["M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z", "M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"]);
+var CalendarDays=_ic(["M8 2v4", "M16 2v4", "M3 10h18", "M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6z", "M8 14h.01", "M12 14h.01", "M16 14h.01", "M8 18h.01", "M12 18h.01", "M16 18h.01"]);
+var Info=_ic(["M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z", "M12 16v-4", "M12 8h.01"]);
+var CheckSquare=_ic(["M9 11l3 3L22 4", "M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"]);
+var Square=_ic(["M3 3h18v18H3z"]);
+var UserCircle=_ic(["M18 20a6 6 0 0 0-12 0", "M12 14a4 4 0 1 0 0-8 4 4 0 0 0 0 8z", "M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"]);
+var Bell=_ic(["M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9", "M13.73 21a2 2 0 0 1-3.46 0"]);
+var LogIn=_ic(["M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4", "M10 17l5-5-5-5", "M15 12H3"]);
+var LogOut=_ic(["M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", "M16 17l5-5-5-5", "M21 12H9"]);
+var ImageIcon=_ic(["M21 15l-5-5L5 21", "M3 3h18v18H3z", "M8.5 8.5a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0"]);
+
+// ============================================================
+// 0. API KEYS — XOR 난독화
+// ============================================================
+function _dk(arr, x) { return arr.map(function(b){return String.fromCharCode(b^x);}).join(""); }
+var _k1e = [106, 108, 57, 99, 105, 60, 108, 108, 108, 107, 60, 107, 111, 63, 111, 106, 63, 109, 110, 57, 109, 111, 105, 56, 105, 99, 104, 108, 106, 107, 104, 62];
+var _k2e = [111, 110, 59, 107, 57, 99, 63, 62, 111, 107, 111, 99, 57, 99, 56, 107, 108, 63, 59, 108, 108, 105, 107, 63, 111, 109, 104, 99, 59, 106, 56, 108];
+var _gke = [126, 110, 17, 126, 93, 7, 109, 113, 9, 115, 80, 94, 122, 102, 108, 92, 113, 117, 18, 96, 73, 78, 89, 8, 81, 18, 108, 109, 123, 124, 93, 78, 106, 80, 106, 106, 9, 75, 119, 94, 87, 118, 116, 79, 88, 122, 116, 121, 79, 88, 117, 8, 72];
+var OWM_KEYS = [_dk(_k1e, 0x5A), _dk(_k2e, 0x5A)];
+var GEMINI_KEY = _dk(_gke, 0x3F);
+// 사용자가 직접 키 입력한 경우 우선 사용
+(function(){ var k = localStorage.getItem("gn_gemini_key"); if(k && k.length > 10) GEMINI_KEY = k; })();
+var ANTHROPIC_KEY = null;
+
+// Supabase
+var SUPA_URL = "https://mmsyxxqejstycazaotwr.supabase.co";
+var SUPA_KEY = "sb_publishable_vKahVabs6iNAnP6xR8ms6Q_ffNxI0dE";
+
+var MOCK_WX = {
+  ok: true, src: "Mock", label: "Seoul, KR",
+  temp: 18, feels: 17, hum: 55, wind: 2.5,
+  rain: 10, cond: "맑음", tn: 10, td: 24,
+  time: "--:-- (캐시)",
+};
+
+// ============================================================
+// 1. AUTH HELPERS
+// ============================================================
+var AUTH_USERS_KEY   = "gn_users_v1";
+var AUTH_SESSION_KEY = "gn_session_v1";
+
+function getUsers() {
+  try { return JSON.parse(localStorage.getItem(AUTH_USERS_KEY) || "[]"); }
+  catch (e) { return []; }
+}
+function saveUsers(u) {
+  try { localStorage.setItem(AUTH_USERS_KEY, JSON.stringify(u)); } catch (e) {}
+}
+function getSession() {
+  try { return JSON.parse(localStorage.getItem(AUTH_SESSION_KEY) || "null"); }
+  catch (e) { return null; }
+}
+function saveSession(s) {
+  try { localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(s)); } catch (e) {}
+}
+function clearSession() {
+  try { localStorage.removeItem(AUTH_SESSION_KEY); } catch (e) {}
+}
+function simpleHash(str) {
+  var h = 5381;
+  for (var i = 0; i < str.length; i++) { h = Math.imul(h,33)^str.charCodeAt(i); h=h^(h>>>16); }
+  return "sh_"+(h>>>0).toString(16);
+}
+async function hashPassword(str) {
+  try {
+    var enc = new TextEncoder().encode("GearNest_v1_"+str);
+    var buf = await crypto.subtle.digest("SHA-256", enc);
+    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
+  } catch(e) { return simpleHash(str); }
+}
+
+// ============================================================
+// 2. INTERNAL LOCATION DB (200+ entries)
+// format: [name, nameEn, country, lat, lon, region, tags]
+// ============================================================
+var RAW_LOCS = [
+  ["서울","Seoul","KR",37.5665,126.9780,"서울","수도권,서울특별시"],
+  ["인천","Incheon","KR",37.4563,126.7052,"경기","인천"],
+  ["수원","Suwon","KR",37.2636,127.0286,"경기","경기도"],
+  ["고양","Goyang","KR",37.6584,126.8320,"경기","경기도"],
+  ["부천","Bucheon","KR",37.4989,126.7831,"경기","경기도"],
+  ["가평","Gapyeong","KR",37.8317,127.5110,"경기","경기도,캠핑"],
+  ["양평","Yangpyeong","KR",37.4917,127.4875,"경기","경기도,캠핑"],
+  ["포천","Pocheon","KR",37.8949,127.2003,"경기","경기도,캠핑"],
+  ["연천","Yeoncheon","KR",38.0967,127.0748,"경기","경기도,캠핑"],
+  ["남양주","Namyangju","KR",37.6360,127.2165,"경기","경기도"],
+  ["여주","Yeoju","KR",37.2976,127.6374,"경기","경기도"],
+  ["파주","Paju","KR",37.7599,126.7800,"경기","경기도"],
+  ["춘천","Chuncheon","KR",37.8813,127.7298,"강원","강원도,강원특별자치도"],
+  ["강릉","Gangneung","KR",37.7519,128.8761,"강원","강원도,강원특별자치도"],
+  ["속초","Sokcho","KR",38.2070,128.5918,"강원","강원도,강원특별자치도"],
+  ["양양","Yangyang","KR",38.0750,128.6197,"강원","강원도,강원특별자치도"],
+  ["인제","Inje","KR",38.0695,128.1704,"강원","강원도,강원특별자치도"],
+  ["홍천","Hongcheon","KR",37.6967,127.8888,"강원","강원도,강원특별자치도"],
+  ["평창","Pyeongchang","KR",37.3736,128.3907,"강원","강원도,강원특별자치도"],
+  ["태백","Taebaek","KR",37.1640,128.9858,"강원","강원도,강원특별자치도"],
+  ["삼척","Samcheok","KR",37.4498,129.1652,"강원","강원도,강원특별자치도"],
+  ["정선","Jeongseon","KR",37.3795,128.6607,"강원","강원도,강원특별자치도"],
+  ["영월","Yeongwol","KR",37.1836,128.4617,"강원","강원도,강원특별자치도"],
+  ["고성","Goseong","KR",38.3801,128.4674,"강원","강원도,강원특별자치도"],
+  ["화천","Hwacheon","KR",38.1065,127.7084,"강원","강원도,강원특별자치도"],
+  ["원주","Wonju","KR",37.3423,127.9202,"강원","강원도,강원특별자치도"],
+  ["강원도","Gangwon","KR",37.8228,128.1555,"강원","강원도,강원특별자치도"],
+  ["설악산","Seoraksan","KR",38.1194,128.4656,"강원","강원도,산,국립공원"],
+  ["오대산","Odaesan","KR",37.7936,128.5465,"강원","강원도,산"],
+  ["양양 죽도","Yangyang Jukdo","KR",38.0867,128.7278,"강원","강원도,양양죽도,죽도"],
+  ["경포","Gyeongpo","KR",37.8007,128.8997,"강원","강원도,해수욕장,경포대"],
+  ["낙산","Naksan","KR",38.1211,128.6372,"강원","강원도,낙산해수욕장"],
+  ["충주","Chungju","KR",37.0000,127.9500,"충북","충청북도,충북"],
+  ["청주","Cheongju","KR",36.6424,127.4890,"충북","충청북도,충북"],
+  ["단양","Danyang","KR",36.9847,128.3657,"충북","충청북도,충북,캠핑"],
+  ["제천","Jecheon","KR",37.1325,128.1951,"충북","충청북도,충북"],
+  ["속리산","Songnisan","KR",36.5399,127.8861,"충북","충청북도,산"],
+  ["천안","Cheonan","KR",36.8151,127.1139,"충남","충청남도,충남"],
+  ["공주","Gongju","KR",36.4467,127.1191,"충남","충청남도,충남"],
+  ["보령","Boryeong","KR",36.3331,126.6129,"충남","충청남도,충남,대천해수욕장"],
+  ["홍성 죽도","Hongseong Jukdo","KR",36.5453,126.4856,"충남","충청남도,충남,홍성죽도,죽도"],
+  ["태안","Taean","KR",36.7454,126.2981,"충남","충청남도,충남"],
+  ["안면도","Anmyeondo","KR",36.5374,126.4044,"충남","충청남도,충남,섬"],
+  ["대전","Daejeon","KR",36.3504,127.3845,"대전","대전광역시"],
+  ["경주","Gyeongju","KR",35.8562,129.2247,"경북","경상북도,경북"],
+  ["포항","Pohang","KR",36.0190,129.3435,"경북","경상북도,경북"],
+  ["안동","Andong","KR",36.5684,128.7294,"경북","경상북도,경북"],
+  ["봉화","Bonghwa","KR",36.8935,128.9321,"경북","경상북도,경북"],
+  ["울진","Uljin","KR",36.9930,129.4027,"경북","경상북도,경북"],
+  ["울릉도","Ulleungdo","KR",37.4851,130.9057,"경북","경상북도,섬,울릉"],
+  ["독도","Dokdo","KR",37.2426,131.8697,"경북","경상북도,섬,독도"],
+  ["대구","Daegu","KR",35.8714,128.6014,"대구","대구광역시"],
+  ["부산","Busan","KR",35.1796,129.0756,"부산","부산광역시"],
+  ["울산","Ulsan","KR",35.5384,129.3114,"울산","울산광역시"],
+  ["통영","Tongyeong","KR",34.8544,128.4330,"경남","경상남도,경남,캠핑"],
+  ["거제","Geoje","KR",34.8800,128.6211,"경남","경상남도,경남,섬,캠핑"],
+  ["남해","Namhae","KR",34.8374,127.8926,"경남","경상남도,경남,섬,캠핑"],
+  ["하동","Hadong","KR",35.0672,127.7513,"경남","경상남도,지리산"],
+  ["거창","Geochang","KR",35.6876,127.9098,"경남","경상남도,덕유산"],
+  ["전주","Jeonju","KR",35.8242,127.1480,"전북","전라북도,전북"],
+  ["무주","Muju","KR",35.9079,127.6616,"전북","전라북도,전북,덕유산,캠핑"],
+  ["덕유산","Deogyusan","KR",35.8539,127.7475,"전북","전라북도,산,캠핑"],
+  ["지리산","Jirisan","KR",35.3372,127.7303,"전남","전라남도,산,캠핑"],
+  ["여수","Yeosu","KR",34.7604,127.6622,"전남","전라남도,전남,캠핑"],
+  ["순천","Suncheon","KR",34.9506,127.4874,"전남","전라남도,전남"],
+  ["완도","Wando","KR",34.3128,126.7550,"전남","전라남도,전남,섬"],
+  ["진도","Jindo","KR",34.4868,126.2635,"전남","전라남도,전남,섬"],
+  ["흑산도","Heuksando","KR",34.6892,125.4343,"전남","전라남도,전남,섬"],
+  ["광주","Gwangju","KR",35.1595,126.8526,"광주","광주광역시"],
+  ["제주","Jeju","KR",33.4996,126.5312,"제주","제주도,제주특별자치도"],
+  ["서귀포","Seogwipo","KR",33.2541,126.5600,"제주","제주도,제주특별자치도"],
+  ["한라산","Hallasan","KR",33.3617,126.5292,"제주","제주도,산"],
+  ["성산일출봉","Seongsan","KR",33.4583,126.9425,"제주","제주도"],
+  ["추자도","Chujado","KR",33.9540,126.3020,"제주","제주도,섬,추자"],
+  ["마라도","Marado","KR",33.1124,126.2697,"제주","제주도,섬"],
+  ["우도","Udo","KR",33.5064,126.9537,"제주","제주도,섬"],
+  ["도쿄","Tokyo","JP",35.6762,139.6503,"일본","도쿄,Japan"],
+  ["후지산","Mt Fuji","JP",35.3606,138.7274,"일본","후지산,야마나시,시즈오카"],
+  ["가와구치코","Lake Kawaguchi","JP",35.5120,138.7530,"일본","야마나시"],
+  ["시즈오카","Shizuoka","JP",34.9769,138.3831,"일본","시즈오카,Japan"],
+  ["하코네","Hakone","JP",35.2323,139.1069,"일본","가나가와"],
+  ["나가노","Nagano","JP",36.6513,138.1810,"일본","나가노"],
+  ["가미코치","Kamikochi","JP",36.2381,137.6472,"일본","나가노,알프스"],
+  ["오사카","Osaka","JP",34.6937,135.5023,"일본","관서"],
+  ["교토","Kyoto","JP",35.0116,135.7681,"일본","관서"],
+  ["후쿠오카","Fukuoka","JP",33.5904,130.4017,"일본","규슈,후쿠오카"],
+  ["나가사키","Nagasaki","JP",32.7503,129.8779,"일본","규슈"],
+  ["구마모토","Kumamoto","JP",32.7898,130.7417,"일본","규슈"],
+  ["야쿠시마","Yakushima","JP",30.3353,130.5265,"일본","가고시마"],
+  ["대마도","Tsushima","JP",34.2041,129.2924,"일본","나가사키,대마도"],
+  ["삿포로","Sapporo","JP",43.0618,141.3545,"일본","홋카이도"],
+  ["하코다테","Hakodate","JP",41.7688,140.7288,"일본","홋카이도"],
+  ["도야코","Lake Toya","JP",42.5900,140.8167,"일본","홋카이도"],
+  ["마슈코","Lake Mashu","JP",43.5675,144.5533,"일본","홋카이도"],
+  ["오키나와","Okinawa","JP",26.2124,127.6809,"일본","오키나와"],
+  ["이시가키","Ishigaki","JP",24.3476,124.1556,"일본","오키나와"],
+  ["요세미티","Yosemite","US",37.8651,-119.5383,"미국","캘리포니아"],
+  ["그랜드캐니언","Grand Canyon","US",36.1069,-112.1129,"미국","애리조나"],
+  ["옐로스톤","Yellowstone","US",44.4280,-110.5885,"미국","와이오밍"],
+  ["레이니어산","Mt Rainier","US",46.8523,-121.7603,"미국","워싱턴"],
+  ["밴프","Banff","CA",51.1784,-115.5708,"캐나다","앨버타"],
+  ["밴쿠버","Vancouver","CA",49.2827,-123.1207,"캐나다","BC"],
+  ["샤모니","Chamonix","FR",45.9237,6.8694,"유럽","프랑스"],
+  ["돌로미테","Dolomites","IT",46.4102,11.8440,"유럽","이탈리아"],
+  ["인터라켄","Interlaken","CH",46.6863,7.8632,"유럽","스위스"],
+  ["체르마트","Zermatt","CH",46.0207,7.4491,"유럽","스위스"],
+  ["트롬쇠","Tromso","NO",69.6489,18.9551,"유럽","노르웨이"],
+  ["레이캬비크","Reykjavik","IS",64.1466,-21.9426,"유럽","아이슬란드"],
+  ["퀸즈타운","Queenstown","NZ",-45.0312,168.6626,"오세아니아","뉴질랜드"],
+  ["밀포드사운드","Milford Sound","NZ",-44.6413,167.8972,"오세아니아","뉴질랜드"],
+  ["포카라","Pokhara","NP",28.2096,83.9856,"아시아","네팔"],
+  ["치앙마이","Chiang Mai","TH",18.7883,98.9853,"아시아","태국"],
+  ["발리","Bali","ID",-8.3405,115.0920,"아시아","인도네시아"],
+  ["황산","Huangshan","CN",30.1442,118.1654,"중국","안후이"],
+  ["장가계","Zhangjiajie","CN",29.1168,110.4785,"중국","후난"],
+];
+
+var LOC_DB = RAW_LOCS.map(function(r) {
+  return { name:r[0], nameEn:r[1], country:r[2], lat:r[3], lon:r[4], region:r[5], tags:r[6], state:r[5] };
+});
+
+function searchLocalDB(query) {
+  if (!query || query.length < 1) return [];
+  var q = query.trim().toLowerCase();
+  var qNoSpace = q.replace(/\s+/g, "");
+  var abbrev = {
+    "강원": "강원도", "경기": "경기도", "충북": "충청북도",
+    "충남": "충청남도", "전북": "전라북도", "전남": "전라남도",
+    "경북": "경상북도", "경남": "경상남도", "제주": "제주도",
+  };
+  var expanded = abbrev[qNoSpace] || null;
+  var results = LOC_DB.filter(function(loc) {
+    var hay = (loc.name + " " + loc.nameEn + " " + loc.region + " " + loc.tags).toLowerCase().replace(/\s+/g, "");
+    if (expanded && hay.includes(expanded.toLowerCase())) return true;
+    return hay.includes(qNoSpace);
+  });
+  results.sort(function(a, b) {
+    var aName = a.name.toLowerCase();
+    var bName = b.name.toLowerCase();
+    var aStart = aName.startsWith(q) ? 0 : aName.includes(q) ? 1 : 2;
+    var bStart = bName.startsWith(q) ? 0 : bName.includes(q) ? 1 : 2;
+    return aStart - bStart;
+  });
+  return results.slice(0, 8);
+}
+
+// ============================================================
+// 3. SHARED STORAGE (window.storage — shared across all users)
+// ============================================================
+var SHARED_FEEDS_KEY = "gearnest_feeds_v1";
+
+async function loadSharedFeeds(fallback) {
+  try {
+    var result = await window.storage.get(SHARED_FEEDS_KEY, true);
+    if (result && result.value) {
+      var parsed = JSON.parse(result.value);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (e) {}
+  return fallback || [];
+}
+
+async function saveSharedFeeds(feeds) {
+  try {
+    await window.storage.set(SHARED_FEEDS_KEY, JSON.stringify(feeds), true);
+    return true;
+  } catch (e) { return false; }
+}
+
+// ============================================================
+// 3. LLM PROXY
+// ============================================================
+
+// ============================================================
+// SUPABASE CLIENT
+// ============================================================
+async function sbFetch(path, opts) {
+  var res = await fetch(SUPA_URL + path, Object.assign({
+    headers: {
+      "apikey": SUPA_KEY, "Authorization": "Bearer " + SUPA_KEY,
+      "Content-Type": "application/json", "Prefer": "return=representation",
+    }
+  }, opts || {}));
+  if (!res.ok) { var t = await res.text().catch(function(){return "";}); throw new Error("Supabase " + res.status + ": " + t.slice(0,100)); }
+  return res.json().catch(function(){return null;});
+}
+async function sbUpsertUser(user) {
+  return sbFetch("/rest/v1/gn_users", { method: "POST", headers: { "Prefer": "resolution=merge-duplicates,return=representation" }, body: JSON.stringify(user) });
+}
+async function sbGetUsers(id) {
+  return sbFetch("/rest/v1/gn_users" + (id ? "?user_id=eq." + encodeURIComponent(id) : ""));
+}
+async function sbGetGear(userId) {
+  try {
+    var rows = await sbFetch("/rest/v1/gn_gear?user_id=eq." + encodeURIComponent(userId) + "&order=id.asc");
+    return (rows || []).map(function(r) { return { id:r.id, n:r.n, br:r.br||"", wg:r.wg, cat:r.cat, wc:r.wc||"Base", memo:r.memo||"", optTemp:r.opt_temp, limitTemp:r.limit_temp }; });
+  } catch(e) { return null; }
+}
+async function sbUpsertGear(userId, gear) {
+  try {
+    var rows = gear.map(function(g) { return { id:g.id, user_id:userId, n:g.n, br:g.br||"", wg:g.wg, cat:g.cat, wc:g.wc||"Base", memo:g.memo||"", opt_temp:g.optTemp||null, limit_temp:g.limitTemp||null }; });
+    return sbFetch("/rest/v1/gn_gear", { method:"POST", headers:{"Prefer":"resolution=merge-duplicates,return=minimal"}, body:JSON.stringify(rows) });
+  } catch(e) {}
+}
+async function sbDeleteGear(gearId) {
+  try { return sbFetch("/rest/v1/gn_gear?id=eq." + gearId, { method:"DELETE" }); } catch(e) {}
+}
+async function sbGetFeeds() {
+  try { return await sbFetch("/rest/v1/gn_feeds?order=created_at.desc&limit=100") || []; } catch(e) { return []; }
+}
+async function sbUpsertFeed(feed) {
+  try { return sbFetch("/rest/v1/gn_feeds", { method:"POST", headers:{"Prefer":"resolution=merge-duplicates,return=minimal"}, body:JSON.stringify(feed) }); } catch(e) {}
+}
+async function sbDeleteFeed(id) {
+  try { return sbFetch("/rest/v1/gn_feeds?id=eq." + encodeURIComponent(id), { method:"DELETE" }); } catch(e) {}
+}
+async function sbSearchGearDict(brand) {
+  try {
+    // exact match 먼저, 없으면 부분 매칭
+    var exact = await sbFetch("/rest/v1/public_gear_dict?brand=ilike." + encodeURIComponent(brand.trim()) + "&order=name.asc&limit=100");
+    if (exact && exact.length > 0) return exact;
+    var rows = await sbFetch("/rest/v1/public_gear_dict?brand=ilike.*" + encodeURIComponent(brand.trim()) + "*&order=name.asc&limit=50");
+    return rows || [];
+  } catch(e) { return []; }
+}
+async function sbInsertGearDict(item) {
+  try { return sbFetch("/rest/v1/public_gear_dict", { method:"POST", headers:{"Prefer":"resolution=ignore-duplicates,return=minimal"}, body:JSON.stringify(item) }); } catch(e) {}
+}
+// 카테고리 전체 조회
+async function sbGetGearByCategory(cat) {
+  try {
+    var url = cat === "ALL"
+      ? "/rest/v1/public_gear_dict?order=brand.asc,name.asc&limit=200"
+      : "/rest/v1/public_gear_dict?cat=eq." + encodeURIComponent(cat) + "&order=brand.asc,name.asc&limit=200";
+    return await sbFetch(url);
+  } catch(e) { return []; }
+}
+// 통합 키워드 검색 (브랜드+제품명+스펙)
+async function sbSearchByKeyword(q) {
+  try {
+    var enc = encodeURIComponent(q.trim());
+    var [r1, r2, r3] = await Promise.all([
+      sbFetch("/rest/v1/public_gear_dict?brand=ilike.*" + enc + "*&order=brand.asc&limit=50"),
+      sbFetch("/rest/v1/public_gear_dict?name=ilike.*" + enc + "*&order=brand.asc&limit=50"),
+      sbFetch("/rest/v1/public_gear_dict?specs=ilike.*" + enc + "*&order=brand.asc&limit=30"),
+    ]);
+    var seen = new Set();
+    var merged = [];
+    [r1||[], r2||[], r3||[]].flat().forEach(function(item) {
+      var key = item.brand + "__" + item.name;
+      if (!seen.has(key)) { seen.add(key); merged.push(item); }
+    });
+    return merged;
+  } catch(e) { return []; }
+}
+function _sbInsertGearDictDummy(item) {
+}
+
+// 장비 검색 — 3단계 Fallback: Edge Function → DB 직접 → Gemini 내장
+function searchBuiltinDB(q) { return []; }
+
+function _mapGearItem(item, brand, fromDB) {
+  return {
+    name: String(item.name || ""),
+    brand: String(item.brand || brand),
+    weight_g: Number(item.weight_g) || 0,
+    cat: item.cat || "ETC",
+    wc: item.wc || "Base",
+    specs: String(item.specs || ""),
+    opt_temp: item.opt_temp != null ? Number(item.opt_temp) : undefined,
+    limit_temp: item.limit_temp != null ? Number(item.limit_temp) : undefined,
+    fromDB: fromDB,
+  };
+}
+
+// STEP 1: Edge Function 호출
+async function _searchViaEdge(brand) {
+  var res = await fetch(SUPA_URL + "/functions/v1/search-gear", {
+    method: "POST",
+    headers: { "Content-Type":"application/json", "apikey":SUPA_KEY, "Authorization":"Bearer "+SUPA_KEY },
+    body: JSON.stringify({ brand: brand }),
+    signal: (function(){ var c=new AbortController(); setTimeout(function(){c.abort();},15000); return c.signal; })(),
+  });
+  if (!res.ok) throw new Error("Edge " + res.status);
+  var data = await res.json();
+  if (!data.items || data.items.length === 0) return null; // null → fallback
+  return data.items.map(function(i) { return _mapGearItem(i, brand, data.source === "cache"); });
+}
+
+// STEP 2: public_gear_dict DB 직접 조회
+async function _searchViaDB(brand) {
+  var rows = await sbSearchGearDict(brand);
+  if (!rows || rows.length === 0) return null;
+  return rows.map(function(r) { return _mapGearItem(r, brand, true); });
+}
+
+// STEP 3: Gemini로 장비 스펙 생성 (브랜드 공식 라인업 추정)
+async function _searchViaGemini(brand) {
+  var prompt = "아웃도어 브랜드 \"" + brand + "\"의 대표 캠핑/등산 장비 목록을 JSON으로 알려줘.\n" +
+    "반드시 아래 형식만 출력하고 설명 없이 JSON 배열만 반환:\n" +
+    '[{"name":"제품명","brand":"' + brand + '","weight_g":숫자,"cat":"Shelter|Sleep|Cooking|Pack|Clothing|ETC","specs":"간단한 스펙"}]\n' +
+    "최대 8개, 실제 존재하는 제품만. JSON 외 텍스트 금지.";
+  try {
+    var result = await callLLM({ messages:[{role:"user",content:prompt}], max_tokens:800 });
+    var text = (result.content[0] && result.content[0].text) || "";
+    // JSON 추출 (마크다운 코드블록 제거)
+    var jsonMatch = text.match(/\[[\s\S]*\]/);
+    if (!jsonMatch) return null;
+    var items = JSON.parse(jsonMatch[0]);
+    if (!Array.isArray(items) || items.length === 0) return null;
+    // 브랜드명이 검색어와 일치하지 않는 결과 필터링
+    var brandLower = brand.toLowerCase();
+    var filtered = items.filter(function(i) {
+      if (!i.brand) return false;
+      var ib = String(i.brand).toLowerCase();
+      return ib.includes(brandLower) || brandLower.includes(ib.split(" ")[0]);
+    });
+    if (filtered.length === 0) filtered = items; // 전부 필터링되면 원본 유지
+    return filtered.map(function(i) { return _mapGearItem(i, brand, false); });
+  } catch(e) { return null; }
+}
+
+// 한국어 브랜드명 → 영문 변환 테이블
+var KO_BRAND_MAP = {
+  "헬리녹스": "Helinox", "엠에스알": "MSR", "니모": "NEMO", "네모": "NEMO",
+  "빅아그네스": "Big Agnes", "빅 아그네스": "Big Agnes",
+  "써모레스트": "Therm-a-Rest", "써마레스트": "Therm-a-Rest", "서모레스트": "Therm-a-Rest",
+  "씨투서밋": "Sea to Summit", "시투서밋": "Sea to Summit",
+  "스노우피크": "Snow Peak", "스노피크": "Snow Peak",
+  "더스턴": "Durston Gear", "더스턴기어": "Durston Gear",
+  "노스페이스": "The North Face", "더노스페이스": "The North Face",
+  "앤드원더": "and wander", "앤드 원더": "and wander",
+  "나이키에이씨지": "Nike ACG", "나이키 acg": "Nike ACG",
+  "힐레베르그": "Hilleberg", "힐레버그": "Hilleberg",
+  "미니멀웍스": "Minimal Works", "미니멀 웍스": "Minimal Works",
+  "무라코": "Muraco", "몽벨": "Montbell", "몬벨": "Montbell",
+  "제로그램": "Zerogram", "지팩스": "Zpacks", "지패스": "Zpacks",
+  "오스프리": "Osprey", "그레고리": "Gregory",
+  "블랙다이아몬드": "Black Diamond",
+  "헬스포츠": "Helsport", "노르텐트": "Nortent", "사마야": "Samaya",
+  "더스턴기어": "Durston Gear", "에이치엠지": "HMG",
+  "하이퍼라이트": "HMG", "하이퍼라이트마운틴기어": "HMG",
+  "네이탈디자인": "Natal Design", "네이탈 디자인": "Natal Design",
+  "폴러": "Poler Stuff", "폴러스터프": "Poler Stuff",
+  "첨스": "Chums", "콜만": "Coleman", "코베아": "Kovea",
+  "내처하이크": "Naturehike", "네이처하이크": "Naturehike",
+  "도드": "DOD", "디오디": "DOD",
+  "그라운드커버": "Groundcover", "어썸크리에이티브": "Awesome Creative",
+  "와일드와일드웨스트": "Wild Wild West", "와일드 와일드 웨스트": "Wild Wild West",
+  "메이크투하이크": "MakeToHike", "tfs": "TFS",
+  "더프리스피릿": "TFS", "더 프리 스피릿": "TFS",
+};
+function koToBrand(q) {
+  var lower = q.trim().toLowerCase();
+  return KO_BRAND_MAP[lower] || KO_BRAND_MAP[lower.replace(/\s/g,"")] || null;
+}
+
+async function searchGearByBrand(brand) {
+  // 한국어 브랜드명이면 영문으로 변환
+  var mapped = koToBrand(brand);
+  if (mapped) { brand = mapped; }
+  // STEP 1: Edge Function
+  try {
+    var edgeResult = await _searchViaEdge(brand);
+    if (edgeResult && edgeResult.length > 0) {
+      console.log("[GearSearch] Edge Function 성공:", edgeResult.length + "개");
+      return edgeResult;
+    }
+  } catch(e) { console.warn("[GearSearch] Edge 실패:", e.message); }
+
+  // STEP 2: DB 직접
+  try {
+    var dbResult = await _searchViaDB(brand);
+    if (dbResult && dbResult.length > 0) {
+      console.log("[GearSearch] DB 직접 조회 성공:", dbResult.length + "개");
+      return dbResult;
+    }
+  } catch(e) { console.warn("[GearSearch] DB 실패:", e.message); }
+
+  // STEP 3: Gemini 내장
+  console.log("[GearSearch] Gemini fallback 시작...");
+  try {
+    var geminiResult = await _searchViaGemini(brand);
+    if (geminiResult && geminiResult.length > 0) {
+      console.log("[GearSearch] Gemini 성공:", geminiResult.length + "개");
+      // DB에 캐싱 (다음 검색 빠르게)
+      geminiResult.forEach(function(item) {
+        sbInsertGearDict({ name:item.name, brand:item.brand, weight_g:item.weight_g,
+          cat:item.cat, wc:item.wc||"Base", specs:item.specs||"",
+          opt_temp:item.opt_temp||null, limit_temp:item.limit_temp||null });
+      });
+      return geminiResult;
+    }
+  } catch(e) { console.warn("[GearSearch] Gemini 실패:", e.message); }
+
+  return [];
+}
+
+// 로컬 AI 분석 폴백
+function localGearAnalysis(locLabel, campStyle, wx, gear) {
+  var w = wx && wx.ok ? wx : null;
+  var tn = w?w.tn:8, wind = w?w.wind:3, rain = w?w.rain:10;
+  var gearCheck = gear.map(function(g) {
+    var score=80, reasons=[];
+    if (g.cat==="Sleep" && g.optTemp!==undefined) {
+      if (tn<(g.limitTemp!==undefined?g.limitTemp:g.optTemp-3)) { score=30; reasons.push("야간 "+tn+"°C — 한계온도 이하"); }
+      else if (tn<g.optTemp) { score=60; reasons.push("야간 "+tn+"°C — 최적온도 이하"); }
+      else { score=95; reasons.push("야간 온도 "+tn+"°C에 적합"); }
+    }
+    if (campStyle==="Backpacking"&&g.wg>2000) { score=Math.max(score-15,40); reasons.push(g.wg+"g — 백패킹용 무게 과다"); }
+    if ((g.cat==="Tent"||g.cat==="Shelter")&&wind>=10) reasons.push("강풍 "+wind+"m/s — 팩 고정 필수");
+    return { n:g.n, ok:score>=60, score:score, reason:reasons.length?reasons[0]:"현재 날씨 조건에 적합" };
+  });
+  var hasCat={}; gear.forEach(function(g){hasCat[g.cat]=true;});
+  var missingRec=[];
+  if(!hasCat["Tent"]&&!hasCat["Shelter"]) missingRec.push({cat:"Tent",prod:"텐트",brand:"추천",wg:1000,score:90,reason:"텐트/쉘터가 없습니다",price:""});
+  if(!hasCat["Sleep"])   missingRec.push({cat:"Sleep",prod:"침낭",brand:"추천",wg:500,score:85,reason:"침낭이 없습니다",price:""});
+  if(!hasCat["Cooking"]) missingRec.push({cat:"Cooking",prod:"버너",brand:"추천",wg:100,score:80,reason:"취사 도구가 없습니다",price:""});
+  var warnings=[];
+  if(tn<0) warnings.push("야간 "+tn+"°C — 동계 장비 필수");
+  if(wind>=10) warnings.push("강풍 "+wind+"m/s — 팩 전체 고정 필수");
+  if(rain>=60) warnings.push("강수 "+rain+"% — 방수 타프 필수");
+  gearCheck.sort(function(a,b){return (b.score||50)-(a.score||50);});
+  return { gearCheck:gearCheck, warnings:warnings, missingRec:missingRec, isLocal:true };
+}
+
+async function callLLM(body) {
+  var ctrl = new AbortController();
+  var tid = setTimeout(function() { ctrl.abort(); }, 30000);
+  var userMsg = "";
+  if (body.messages && body.messages.length > 0) {
+    userMsg = body.messages.map(function(m) { return m.content; }).join("\n");
+  }
+  if (body.system) userMsg = body.system + "\n\n" + userMsg;
+  var geminiBody = {
+    contents: [{ parts: [{ text: userMsg }] }],
+    generationConfig: { maxOutputTokens: body.max_tokens || 1000, temperature: 0.3 },
+  };
+  try {
+    var models = ["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-1.5-flash-002", "gemini-1.0-pro"];
+    var res = null;
+    for (var mi = 0; mi < models.length; mi++) {
+      var url = "https://generativelanguage.googleapis.com/v1beta/models/" + models[mi] + ":generateContent";
+      try {
+        res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": GEMINI_KEY }, body: JSON.stringify(geminiBody), signal: ctrl.signal });
+        if (res.status === 429 && mi < models.length-1) { res = null; await new Promise(function(r){setTimeout(r,1000);}); continue; }
+        break;
+      } catch(fe) { if (mi < models.length-1) continue; throw fe; }
+    }
+    clearTimeout(tid);
+    if (!res || !res.ok) {
+      var et = res ? await res.text().catch(function(){return "";}) : "";
+      throw new Error("Gemini " + (res?res.status:0) + ": " + et.slice(0,80));
+    }
+    var data = await res.json();
+    var text = "";
+    try { text = data.candidates[0].content.parts[0].text; } catch(e) { text = ""; }
+    return { content: [{ type: "text", text: text }] };
+  } catch(e) {
+    clearTimeout(tid);
+    if (e.name === "AbortError") throw new Error("시간 초과");
+    throw e;
+  }
+}
+
+// ============================================================
+// 4. PERSISTENCE
+// ============================================================
+function useLocalStorage(key, initial) {
+  var init = useState(function() {
+    try {
+      var raw = localStorage.getItem(key);
+      return raw !== null ? JSON.parse(raw) : initial;
+    } catch (e) { return initial; }
+  });
+  var val = init[0];
+  var setVal = init[1];
+  var set = useCallback(function(next) {
+    setVal(function(prev) {
+      var r = typeof next === "function" ? next(prev) : next;
+      try { localStorage.setItem(key, JSON.stringify(r)); } catch (e) {}
+      return r;
+    });
+  }, [key]);
+  return [val, set];
+}
+
+// ============================================================
+// 5. WEATHER — OWM dual key + Mock fallback
+// ============================================================
+async function geocode(query) {
+  if (!query || query.length < 1) return [];
+  var localResults = searchLocalDB(query);
+  var owmResults = [];
+  for (var ki = 0; ki < OWM_KEYS.length; ki++) {
+    try {
+      var url = "https://api.openweathermap.org/geo/1.0/direct?q=" +
+        encodeURIComponent(query) + "&limit=5&appid=" + OWM_KEYS[ki];
+      var res = await fetch(url);
+      if (!res.ok) continue;
+      var list = await res.json();
+      if (list && list.length > 0) {
+        owmResults = list.map(function(item) {
+          return {
+            name: item.local_names && item.local_names.ko ? item.local_names.ko : item.name,
+            nameEn: item.name, country: item.country,
+            state: item.state || "", region: item.state || "",
+            lat: item.lat, lon: item.lon, tags: "",
+          };
+        });
+        break;
+      }
+    } catch (ge) { continue; }
+  }
+  var combined = localResults.slice();
+  owmResults.forEach(function(owm) {
+    var isDup = combined.some(function(loc) {
+      return Math.abs(loc.lat - owm.lat) < 0.15 && Math.abs(loc.lon - owm.lon) < 0.15;
+    });
+    if (!isDup) {
+      // OWM 결과에 state 없으면 localDB에서 가까운 지역 state 보강
+      if (!owm.state) {
+        var nearby = localResults.find(function(loc) {
+          return Math.abs(loc.lat - owm.lat) < 0.5 && Math.abs(loc.lon - owm.lon) < 0.5;
+        });
+        if (nearby && nearby.state) owm.state = nearby.state;
+      }
+      combined.push(owm);
+    }
+  });
+  return combined.slice(0, 8);
+}
+
+function owmCond(id) {
+  if (id >= 200 && id < 300) return "뇌우";
+  if (id >= 300 && id < 400) return "이슬비";
+  if (id >= 500 && id < 600) { if (id === 500) return "가벼운 비"; if (id >= 502) return "폭우"; return "비"; }
+  if (id >= 600 && id < 700) return "눈";
+  if (id === 800) return "맑음";
+  if (id === 801) return "구름 조금";
+  if (id === 802) return "구름 약간";
+  if (id >= 803) return "흐림";
+  if (id >= 700) return "안개";
+  return "알 수 없음";
+}
+function wEmoji(c) {
+  if (!c) return "🌡";
+  if (c.includes("맑")) return "☀️";
+  if (c.includes("구름")) return "⛅";
+  if (c.includes("흐")) return "☁️";
+  if (c.includes("안개")) return "🌫";
+  if (c.includes("이슬") || c.includes("소나기")) return "🌦";
+  if (c.includes("폭우") || c.includes("뇌우")) return "⛈";
+  if (c.includes("비")) return "🌧";
+  if (c.includes("눈")) return "❄️";
+  return "🌡";
+}
+
+var WX_CACHE = {};
+var CACHE_MS = 5 * 60 * 1000;
+
+async function fetchWeatherWithKey(loc, key) {
+  var ctrl = new AbortController();
+  var tid  = setTimeout(function() { ctrl.abort(); }, 9000);
+  try {
+    var qs = "&appid=" + key + "&units=metric&lang=kr";
+    var base = "https://api.openweathermap.org/data/2.5/";
+    var results = await Promise.all([
+      fetch(base + "weather?lat=" + loc.lat + "&lon=" + loc.lon + qs, { signal: ctrl.signal }),
+      fetch(base + "forecast?lat=" + loc.lat + "&lon=" + loc.lon + "&cnt=8" + qs, { signal: ctrl.signal }),
+    ]);
+    clearTimeout(tid);
+    var cr = results[0]; var fr = results[1];
+    if (!cr.ok) throw new Error("HTTP_" + cr.status);
+    var parsed = await Promise.all([cr.json(), fr.ok ? fr.json() : null]);
+    var cd = parsed[0]; var fd = parsed[1];
+    var wid = cd.weather[0].id;
+    var tzOff = cd.timezone;
+    var nowLoc = new Date((Date.now() / 1000 + tzOff) * 1000);
+    var timeStr = nowLoc.toISOString().slice(11, 16) + " (현지)";
+    var tdMax = cd.main.temp_max; var tnMin = cd.main.temp_min;
+    if (fd && fd.list) {
+      var todayStr = new Date((fd.list[0].dt + tzOff) * 1000).toISOString().slice(0, 10);
+      fd.list.forEach(function(item) {
+        var dStr = new Date((item.dt + tzOff) * 1000).toISOString().slice(0, 10);
+        if (dStr === todayStr) {
+          if (item.main.temp_max > tdMax) tdMax = item.main.temp_max;
+          if (item.main.temp_min < tnMin) tnMin = item.main.temp_min;
+        }
+      });
+    }
+    var rainP = (fd && fd.list && fd.list[0])
+      ? Math.round((fd.list[0].pop || 0) * 100)
+      : (wid >= 200 && wid < 700 ? 70 : Math.round(cd.clouds.all * 0.4));
+    return {
+      ok: true, src: "OWM",
+      label: loc.name + (loc.country ? ", " + loc.country : ""),
+      lat: loc.lat, lon: loc.lon,
+      temp: Math.round(cd.main.temp), feels: Math.round(cd.main.feels_like),
+      hum: cd.main.humidity, wind: Math.round(cd.wind.speed * 10) / 10,
+      rain: rainP, cond: owmCond(wid),
+      tn: Math.round(tnMin), td: Math.round(tdMax), time: timeStr,
+    };
+  } catch (e) {
+    clearTimeout(tid);
+    throw e;
+  }
+}
+
+async function fetchWeather(loc) {
+  if (!loc) return Object.assign({}, MOCK_WX);
+  var cacheKey = loc.lat + "," + loc.lon;
+  var hit = WX_CACHE[cacheKey];
+  if (hit && Date.now() - hit.ts < CACHE_MS) return Object.assign({}, hit.data, { cached: true });
+  var lastErr = null;
+  for (var ki = 0; ki < OWM_KEYS.length; ki++) {
+    try {
+      var data = await fetchWeatherWithKey(loc, OWM_KEYS[ki]);
+      WX_CACHE[cacheKey] = { data: JSON.parse(JSON.stringify(data)), ts: Date.now() };
+      return data;
+    } catch (e) { lastErr = e.message; continue; }
+  }
+  var stale = WX_CACHE[cacheKey];
+  if (stale) return Object.assign({}, stale.data, { cached: true, src: "Cache" });
+  return Object.assign({}, MOCK_WX, {
+    label: loc.name + (loc.country ? ", " + loc.country : ""),
+    src: "Mock",
+  });
+}
+
+function localTip(w) {
+  if (!w || !w.ok) return null;
+  if (w.tn < 0)     return "야간 " + w.tn + "°C — 동계 침낭 필수!";
+  if (w.tn < 5)     return "야간 " + w.tn + "°C — 방한 레이어 챙기기";
+  if (w.wind >= 10) return "강풍 " + w.wind + "m/s — 팩·가이라인 고정";
+  if (w.wind >= 5)  return "바람 " + w.wind + "m/s — 팩 고정 권장";
+  if (w.rain >= 60) return "강수 " + w.rain + "% — 방수 타프 필수";
+  if (w.rain >= 40) return "강수 " + w.rain + "% — 우비 필수";
+  var diff = w.td - w.tn;
+  if (diff >= 15)   return "일교차 " + diff + "°C — 경량 다운 필수";
+  if (w.temp >= 25) return "더위 " + w.temp + "°C — 수분 보충 필수 ☀️";
+  return w.cond + " " + w.temp + "°C — 쾌적한 캠핑 날씨 ✅";
+}
+async function fetchTip(w) {
+  if (!w || !w.ok) return localTip(w);
+  try {
+    var d = await callLLM({ max_tokens: 60, messages: [{ role: "user", content:
+      "캠핑 날씨 한줄 조언 20자 이내로만. 텍스트만: " + w.label + " " + w.temp + "도 " + w.cond +
+      " 풍속" + w.wind + "m/s 강수" + w.rain + "% 야간" + w.tn + "도" }] });
+    var t = (d.content && d.content[0] && d.content[0].text) ? d.content[0].text.trim() : null;
+    return t || localTip(w);
+  } catch(e) { return localTip(w); }
+}
+
+// ============================================================
+// 6. AI ANALYSIS
+// ============================================================
+async function runAIAnalysis(locLabel, campStyle, wx, gear) {
+  var w = wx && wx.ok ? wx : null;
+  var temp = w ? w.temp : 15; var tn = w ? w.tn : 8;
+  var td = w ? w.td : 22; var wind = w ? w.wind : 3; var rain = w ? w.rain : 10;
+  var gearLines = gear.map(function(g, i) {
+    var tmp = (g.cat === "Sleep" && g.optTemp !== undefined) ? " opt:" + g.optTemp + "C" : "";
+    return (i + 1) + ". " + g.n + " [" + g.cat + "/" + g.wc + "/" + g.wg + "g" + tmp + "]";
+  }).join("\n");
+  var catW = {};
+  gear.forEach(function(g) { catW[g.cat] = (catW[g.cat] || 0) + g.wg; });
+  var baseKg = ((catW["Tent"] || 0) + (catW["Shelter"] || 0) + (catW["Sleep"] || 0) + (catW["Cooking"] || 0) + (catW["Bag"] || 0)) / 1000;
+  var totalKg = gear.reduce(function(a, g) { return a + g.wg; }, 0) / 1000;
+  var hasCat = {}; gear.forEach(function(g) { hasCat[g.cat] = true; });
+  var missing = ["Tent","Sleep","Clothing","Cooking"].filter(function(c) { return !hasCat[c]; });
+  var prompt = [
+    "You are a pro camping gear analyst. Respond ONLY with valid JSON, no markdown.",
+    "Fields: gearCheck(array), warnings(array), missingRec(array).",
+    "gearCheck item: n(string), ok(bool), score(1-100), reason(Korean).",
+    "missingRec item: cat, prod, brand, wg(number), score(1-100), reason(Korean), price.",
+    "Sort both arrays by score DESC. All reason/warning text in Korean.",
+    "Backpacking prefers base weight under 9kg. AutoCamp: comfort OK.",
+    "For insulation gear recommend: 10D nylon, Hungarian goose down 270g, minimal design.",
+    "",
+    "Location: " + locLabel + " | Style: " + campStyle,
+    "Weather: " + temp + "C now / " + tn + "C night / " + td + "C day / " + wind + "m/s wind / " + rain + "% rain",
+    "Base: " + baseKg.toFixed(1) + "kg | Total: " + totalKg.toFixed(1) + "kg",
+    "Missing cats: " + (missing.length ? missing.join(", ") : "none"),
+    "",
+    "Gear:",
+    gearLines,
+    "",
+    "JSON only:",
+  ].join("\n");
+  var d = await callLLM({
+    model: "claude-3-5-sonnet-20241022", max_tokens: 2000,
+    messages: [{ role: "user", content: prompt }],
+  });
+  var txt = (d.content && d.content[0] && d.content[0].text) ? d.content[0].text : "";
+  var tb = String.fromCharCode(96, 96, 96);
+  txt = txt.split(tb + "json").join("").split(tb).join("");
+  txt = txt.replace(/[\u201C\u201D]/g, '"').replace(/[\u2018\u2019]/g, "'");
+  var si = txt.indexOf("{"); var ei = txt.lastIndexOf("}");
+  if (si === -1 || ei <= si) throw new Error("AI가 JSON을 반환하지 않았습니다");
+  var js = txt.slice(si, ei + 1);
+  js = js.replace(/,(\s*[}\]])/g, "$1").replace(/,(\s*,)/g, ",");
+  var result;
+  try {
+    result = JSON.parse(js);
+  } catch (err1) {
+    result = { gearCheck: [], warnings: [], missingRec: [] };
+    try {
+      var gcM = js.match(/"gearCheck"\s*:\s*(\[[\s\S]*?\])[\s,}]/);
+      if (gcM) result.gearCheck = JSON.parse(gcM[1].replace(/,(\s*[}\]])/g, "$1"));
+    } catch (e) {}
+    try {
+      var wnM = js.match(/"warnings"\s*:\s*(\[[\s\S]*?\])[\s,}]/);
+      if (wnM) result.warnings = JSON.parse(wnM[1].replace(/,(\s*[}\]])/g, "$1"));
+    } catch (e) {}
+    try {
+      var mrM = js.match(/"missingRec"\s*:\s*(\[[\s\S]*?\])[\s,}]/);
+      if (mrM) result.missingRec = JSON.parse(mrM[1].replace(/,(\s*[}\]])/g, "$1"));
+    } catch (e) {}
+    if (!result.gearCheck.length && !result.missingRec.length) {
+      throw new Error("AI 응답 파싱 실패: " + err1.message.slice(0, 60));
+    }
+  }
+  if (!Array.isArray(result.gearCheck)) result.gearCheck = [];
+  if (!Array.isArray(result.warnings)) result.warnings = [];
+  if (!Array.isArray(result.missingRec)) result.missingRec = [];
+  result.gearCheck.sort(function(a, b) { return (b.score || 50) - (a.score || 50); });
+  result.missingRec.sort(function(a, b) { return (b.score || 50) - (a.score || 50); });
+  return result;
+}
+
+// ============================================================
+// 7. RISK / BPL / CHECKLIST
+// ============================================================
+function windRisk(ms) {
+  if (ms < 5)  return { l: "안전",      c: "#1A7A4A", pct: ms / 20 * 100 };
+  if (ms < 10) return { l: "주의",      c: "#B8860B", pct: ms / 20 * 100 };
+  if (ms < 15) return { l: "타프 위험", c: "#CC4400", pct: ms / 20 * 100 };
+  if (ms < 20) return { l: "고정 강화", c: "#AA2200", pct: ms / 20 * 100 };
+  return             { l: "위험",      c: "#880000", pct: 100 };
+}
+function rainRisk(p) {
+  if (p < 20) return { l: "안전",       c: "#1A7A4A", pct: p };
+  if (p < 40) return { l: "우비 준비",  c: "#B8860B", pct: p };
+  if (p < 60) return { l: "방수 필수",  c: "#CC4400", pct: p };
+  if (p < 80) return { l: "침수 주의",  c: "#AA2200", pct: p };
+  return            { l: "캠핑 비권장", c: "#880000", pct: p };
+}
+function tempRisk(t) {
+  if (t > 10)  return { l: "적정",           c: "#1A7A4A", pct: Math.max(0, (25 - t) / 35 * 100) };
+  if (t > 0)   return { l: "방한 필요",      c: "#B8860B", pct: Math.max(0, (25 - t) / 35 * 100) };
+  if (t > -10) return { l: "동계 장비 필수", c: "#CC4400", pct: Math.max(0, (25 - t) / 35 * 100) };
+  return              { l: "극한",            c: "#880000", pct: 100 };
+}
+function bplTier(kg) {
+  if (kg < 2.2) return { code: "SUL", label: "Super Ultralight", color: "#7B5EA7", tip: "최고 수준 경량. 기술 장비 최적화 필수." };
+  if (kg < 4.5) return { code: "UL",  label: "Ultralight",       color: "#1A7A4A", tip: "울트라라이트 기준선. 3계절 목표치." };
+  if (kg < 9)   return { code: "LW",  label: "Lightweight",      color: "#3388CC", tip: "경량 구성. 안전성과 무게의 균형." };
+  if (kg <= 15) return { code: "NM",  label: "Normal",           color: "#B8860B", tip: "일반적인 백패킹 무게대." };
+  if (kg <= 20) return { code: "HV",  label: "Heavy",            color: "#CC4400", tip: "무거운 구성. 짧은 거리 적합." };
+  return              { code: "MX",  label: "Maximal",           color: "#880000", tip: "오토/모토캠핑 영역." };
+}
+function buildChecklist(wx, wr, rr, sleepGear) {
+  var items = [];
+  if (!wx || !wx.ok) return items;
+  var diff = wx.td - wx.tn;
+  var matched = false;
+  (sleepGear || []).forEach(function(g) {
+    if (g.cat !== "Sleep" || g.optTemp === undefined) return;
+    matched = true;
+    var lim = g.limitTemp !== undefined ? g.limitTemp : g.optTemp - 3;
+    if (wx.tn < lim) items.push("⚠️ " + g.n + " 한계온도 초과 위험!");
+    else if (wx.tn < g.optTemp) items.push("🌡 " + g.n + " 최적온도 이하 — 레이어 추가");
+    else items.push("✅ " + g.n + " 야간온도 적합");
+  });
+  if (!matched) {
+    if (wx.tn < 0) items.push("🧊 동계 침낭 필수 (야간 " + wx.tn + "°C)");
+    else if (wx.tn < 5) items.push("🧥 -5°C급 침낭 권장");
+    else if (wx.tn < 12) items.push("🌡 3계절 침낭 권장");
+    else items.push("😊 경량 침낭 가능");
+  }
+  if (diff >= 15) items.push("↕ 일교차 " + diff + "°C — 경량 다운 필수");
+  else if (diff >= 10) items.push("↕ 일교차 " + diff + "°C — 경량 다운 챙기기");
+  if (rr.pct >= 60) { items.push("☔ 방수 타프 필수"); items.push("💧 드라이색 필수"); }
+  else if (rr.pct >= 40) { items.push("☔ 방수 타프 권장"); items.push("🌂 우비 필수"); }
+  else if (rr.pct >= 20) items.push("🌂 우비 준비");
+  else items.push("✅ 강수 걱정 없음");
+  if (wr.pct >= 75) { items.push("⚓ 강풍! 팩 전부 고정"); items.push("🔩 풀팩 필수"); }
+  else if (wr.pct >= 50) items.push("⚓ 팩 고정 + 가이라인");
+  else items.push("✅ 바람 안전");
+  return items;
+}
+function fw(g) { return g >= 1000 ? (g / 1000).toFixed(2) + "kg" : g + "g"; }
+
+// ============================================================
+// 8. IMAGE COMPRESSION
+// ============================================================
+function compressImage(dataUrl, maxPx) {
+  return new Promise(function(resolve) {
+    try {
+      var img = new window.Image();
+      img.onload = function() {
+        var ratio = Math.min(1, maxPx / Math.max(img.width, img.height));
+        var canvas = document.createElement("canvas");
+        canvas.width = Math.round(img.width * ratio);
+        canvas.height = Math.round(img.height * ratio);
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL("image/jpeg", 0.72));
+      };
+      img.onerror = function() { resolve(dataUrl); };
+      img.src = dataUrl;
+    } catch (e) { resolve(dataUrl); }
+  });
+}
+
+// ============================================================
+// 9. CALENDAR HELPERS
+// ============================================================
+function getCalDays(year, month) {
+  var first = new Date(year, month, 1);
+  var last  = new Date(year, month + 1, 0);
+  var days  = [];
+  for (var i = 0; i < first.getDay(); i++) days.push(null);
+  for (var d = 1; d <= last.getDate(); d++) days.push(d);
+  return days;
+}
+function todayKey() {
+  var n = new Date();
+  return n.getFullYear() + "-" + String(n.getMonth() + 1).padStart(2, "0") + "-" + String(n.getDate()).padStart(2, "0");
+}
+function dateKey(y, m, d) {
+  return y + "-" + String(m + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+}
+
+// ============================================================
+// 10. APP CONSTANTS
+// ============================================================
+var ArmchairIcon = function(p) {
+  return React.createElement("svg", {
+    xmlns: "http://www.w3.org/2000/svg", width: p.size || 24, height: p.size || 24,
+    viewBox: "0 0 24 24", fill: "none", stroke: p.color || "currentColor",
+    strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round",
+  },
+    React.createElement("path", { d: "M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3" }),
+    React.createElement("path", { d: "M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z" }),
+    React.createElement("path", { d: "M5 18v2" }),
+    React.createElement("path", { d: "M19 18v2" })
+  );
+};
+
+var CAT_ICONS = {
+  Tent: Tent, Shelter: Tent, Sleep: BedDouble, Clothing: Shirt, Cooking: Flame,
+  Bag: Briefcase, Chair: ArmchairIcon, Table: ShieldCheck,
+  Safety: ShieldCheck, ETC: Package,
+};
+var CATS = ["Tent","Shelter","Sleep","Clothing","Cooking","Bag","Chair","Table","Safety","ETC"];
+var WCS  = ["Base","Option","Wear","ETC"];
+var CAMP_STYLES = [
+  { n: "Backpacking", max: 30 }, { n: "Auto Camp", max: 50 },
+  { n: "Moto Camp", max: 20 },   { n: "Bromping",  max: 8  },
+];
+var GEAR_INIT = [
+  { id:1,  n:"Nemo Hornet Elite Osmo 2P", br:"NEMO",           wg:907, cat:"Tent",  wc:"Base",   memo:"", optTemp:undefined, limitTemp:undefined },
+  { id:2,  n:"EE Enigma 20F Quilt",       br:"Enlightened Eq", wg:480, cat:"Sleep",    wc:"Base",   memo:"", optTemp:-4, limitTemp:-7 },
+  { id:3,  n:"NeoAir XLite NXT Regular",  br:"Thermarest",     wg:354, cat:"Sleep",    wc:"Base",   memo:"", optTemp:undefined, limitTemp:undefined },
+  { id:4,  n:"PocketRocket 2",            br:"MSR",            wg:73,  cat:"Cooking",  wc:"Base",   memo:"", optTemp:undefined, limitTemp:undefined },
+  { id:5,  n:"Ti-Single 450",             br:"Snow Peak",      wg:70,  cat:"Cooking",  wc:"Base",   memo:"", optTemp:undefined, limitTemp:undefined },
+  { id:6,  n:"Fuel Canister 110g",        br:"MSR",            wg:207, cat:"Cooking",  wc:"Option", memo:"", optTemp:undefined, limitTemp:undefined },
+  { id:7,  n:"Beta AR Jacket",            br:"Arcteryx",       wg:485, cat:"Clothing", wc:"Wear",   memo:"", optTemp:undefined, limitTemp:undefined },
+  { id:8,  n:"Arc Blast 55L",             br:"Zpacks",         wg:340, cat:"Bag",      wc:"Base",   memo:"배낭", optTemp:undefined, limitTemp:undefined },
+  { id:9,  n:"Helinox Chair One",         br:"Helinox",        wg:890, cat:"Chair",    wc:"Option", memo:"", optTemp:undefined, limitTemp:undefined },
+];
+var FEED_INIT = [
+  { id:"f1", author:"trailwatcher_k", locName:"설악산, 강원도", sty:"Backpacking", date:"25.04.22",
+    kg:7.84, grad:["#BBC2C8","#E8EDF2"], emoji:"🏔️", imageData:null,
+    caption:"설악산 첫 솔캠. 야간 3도 침낭 덕에 버텼다.",
+    gearUsed:["Nemo Hornet","EE Enigma","Arc Blast 55L"],
+    weather:{ temp:5, tn:3, td:14, wind:4.2, rain:10, cond:"맑음" }, lk:47, cm:8 },
+  { id:"f2", author:"autocamp_jo", locName:"남이섬 캠핑장", sty:"Auto Camp", date:"25.03.30",
+    kg:38.5, grad:["#C8D5B9","#E8EDE0"], emoji:"🌿", imageData:null,
+    caption:"벚꽃 만개한 남이섬 오토캠.",
+    gearUsed:["Snow Peak TT-662","Helinox Chair One"],
+    weather:{ temp:14, tn:8, td:20, wind:5.1, rain:15, cond:"구름 조금" }, lk:31, cm:5 },
+  { id:"f3", author:"motocamp_rider", locName:"설악산, 강원도", sty:"Moto Camp", date:"24.10.15",
+    kg:14.1, grad:["#2C2C2C","#5A5A5A"], emoji:"🏍️", imageData:null,
+    caption:"10월 바이크캠. 야간 -2도. 동계 침낭 필수.",
+    gearUsed:["Hilleberg Akto","Cumulus Panyam 450"],
+    weather:{ temp:3, tn:-2, td:10, wind:8.3, rain:5, cond:"맑음" }, lk:62, cm:14 },
+];
+var GUIDE_SLIDES = [
+  { emoji:"🏠", title:"홈 화면",   desc:"실시간 날씨와 장비 현황을 한눈에 확인. 검색창에서 전 세계 어느 도시든 검색 가능합니다." },
+  { emoji:"🎒", title:"장비 관리", desc:"카테고리별 장비 등록/관리. 무게 입력 시 BPL 등급이 자동 계산됩니다." },
+  { emoji:"📊", title:"세팅 분석", desc:"AI 장비 분석으로 현재 날씨에 맞는 장비를 추천받으세요. 적합도 점수로 정렬됩니다." },
+  { emoji:"🌤", title:"날씨 정보", desc:"OWM 기반 실시간 날씨. 낮/밤 기온, 일교차, 캠핑 위험도를 확인하세요." },
+  { emoji:"📸", title:"커뮤니티",  desc:"캠핑 사진과 장비 세팅을 공유하세요. + 버튼으로 새 피드를 작성할 수 있습니다." },
+];
+var NOTICES = [
+  { date:"26.05.28", title:"날씨 검색 업데이트",   body:"강원도, 독도, 울릉도, 추자도, 대마도 등 내장 DB 110개 이상 추가. OWM 이중 키 폴백 안정화." },
+  { date:"26.05.27", title:"마이페이지 개선",       body:"개인정보 수정 탭 추가. 주소/상세주소 입력 기능 추가. 로그인/로그아웃 버튼 배치." },
+  { date:"26.05.26", title:"AI 분석 안정화",        body:"AI 장비 분석 JSON 파싱 오류 수정. 적합도 점수(1-100) 도입, 높은 순 자동 정렬." },
+  { date:"26.05.25", title:"알림 기능 추가",        body:"설정 탭에서 실제 디바이스 Push Notification 지원. 강풍/강수/저온 시 자동 알림." },
+  { date:"26.05.20", title:"커뮤니티 피드 업데이트",body:"FAB 버튼으로 갤러리 사진 업로드 지원. 캘린더 기록 피드 자동 등록 기능." },
+  { date:"26.05.15", title:"GearNest v1.0 출시",   body:"Personal Gear Archive 서비스 정식 오픈. 캠핑 장비 관리, AI 분석, 실시간 날씨 연동." },
+];
+var GRAD_PRESETS = [
+  ["#BBC2C8","#E8EDF2"], ["#C8D5B9","#E8EDE0"], ["#2C2C2C","#5A5A5A"],
+  ["#D4C5B0","#EDE5D8"], ["#C5C8D0","#E2E5F0"], ["#1A1A2E","#16213E"],
+];
+var EMOJI_PRESETS = ["🏔️","🌿","🏍️","🌸","⛺","🌊","❄️","🌄"];
+
+// ============================================================
+// 11. DESIGN TOKENS
+// ============================================================
+var BG = "#FFFFFF"; var SF = "#FFFFFF"; var PX = "#151715";
+var SC = "#888888"; var BD = "#E2E2E2"; var WN = "#CC4400"; var OK = "#1A7A4A";
+var MN = "'SF Mono','Courier New',monospace"; var BDR = "0.5px solid #E2E2E2";
+
+var SS = {
+  card: { background: SF, border: BDR, borderRadius: 3, margin: "0 16px 10px", overflow: "hidden" },
+  cp:   { padding: "12px 14px" },
+  hdr:  { background: SF, position: "sticky", top: 0, zIndex: 20, padding: "44px 16px 10px", borderBottom: BDR },
+  ipt:  { width: "100%", height: 44, border: BDR, borderRadius: 3, padding: "0 12px", fontSize: 16, background: SF, color: PX, fontFamily: "inherit", outline: "none", WebkitAppearance: "none" },
+  btn1: { width: "100%", height: 48, background: PX, color: "#fff", border: "none", borderRadius: 3, fontSize: 11, letterSpacing: 2, textTransform: "uppercase", cursor: "pointer" },
+  btn2: { width: "100%", height: 48, background: "transparent", color: PX, border: BDR, borderRadius: 3, fontSize: 11, letterSpacing: 2, textTransform: "uppercase", cursor: "pointer" },
+  sv:   { fontFamily: MN, fontSize: 13, color: PX },
+  sl:   { fontSize: 6.5, letterSpacing: 1, textTransform: "uppercase", color: SC, marginTop: 2 },
+  slbl: { fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: SC },
+  flbl: { fontSize: 8, letterSpacing: 1.5, textTransform: "uppercase", color: SC, marginBottom: 4 },
+  sh2:  { display: "flex", justifyContent: "space-between", alignItems: "baseline", padding: "4px 16px 6px" },
+};
+function sTag(c) { return { display: "inline-block", fontSize: 7, letterSpacing: 1, textTransform: "uppercase", padding: "2px 6px", border: "0.5px solid " + c, borderRadius: 2, color: c }; }
+function sChip(on) { return { display: "inline-flex", alignItems: "center", gap: 4, padding: "6px 11px", border: on ? "0.5px solid " + PX : BDR, borderRadius: 3, fontSize: 8, letterSpacing: .8, cursor: "pointer", background: on ? PX : "transparent", color: on ? "#fff" : SC, whiteSpace: "nowrap", minHeight: 34 }; }
+function sSc2(last) { return { flex: 1, padding: "9px 6px", textAlign: "center", borderRight: last ? "none" : BDR }; }
+function bgA(c, a) { return c + a; }
+
+// ============================================================
+// 12. MAIN COMPONENT
+// ============================================================
+function GearNest() {
+
+  // -- Splash
+  var splashState = useState(true);
+  var splash = splashState[0]; var setSplash = splashState[1];
+  useEffect(function() {
+    var t = setTimeout(function() { setSplash(false); }, 2500);
+    return function() { clearTimeout(t); };
+  }, []);
+
+  // -- Auth
+  var sessionState = useState(function() { return getSession(); });
+  var session = sessionState[0]; var setSessionState = sessionState[1];
+  var authScreenState = useState(false);
+  var authScreen = authScreenState[0]; var setAuthScreen = authScreenState[1];
+  var authModeState = useState("login");
+  var authMode = authModeState[0]; var setAuthMode = authModeState[1];
+
+  var loginIdState   = useState(""); var loginId   = loginIdState[0];   var setLoginId   = loginIdState[1];
+  var loginPwState   = useState(""); var loginPw   = loginPwState[0];   var setLoginPw   = loginPwState[1];
+  var loginAutoState = useState(false); var loginAuto = loginAutoState[0]; var setLoginAuto = loginAutoState[1];
+  var loginErrState  = useState(""); var loginErr  = loginErrState[0];  var setLoginErr  = loginErrState[1];
+
+  var signupIdState     = useState(""); var signupId     = signupIdState[0];     var setSignupId     = signupIdState[1];
+  var signupPwState     = useState(""); var signupPw     = signupPwState[0];     var setSignupPw     = signupPwState[1];
+  var signupNickState   = useState(""); var signupNick   = signupNickState[0];   var setSignupNick   = signupNickState[1];
+  var signupEmailState  = useState(""); var signupEmail  = signupEmailState[0];  var setSignupEmail  = signupEmailState[1];
+  var signupPhoneState  = useState(""); var signupPhone  = signupPhoneState[0];  var setSignupPhone  = signupPhoneState[1];
+  var signupAddrState   = useState(""); var signupAddr   = signupAddrState[0];   var setSignupAddr   = signupAddrState[1];
+  var signupAddrDState  = useState(""); var signupAddrD  = signupAddrDState[0];  var setSignupAddrD  = signupAddrDState[1];
+  var signupStylesState = useState([]); var signupStyles = signupStylesState[0]; var setSignupStyles = signupStylesState[1];
+  var signupIdStState   = useState(null); var signupIdSt = signupIdStState[0];   var setSignupIdSt   = signupIdStState[1];
+  var signupErrState    = useState(""); var signupErr   = signupErrState[0];     var setSignupErr    = signupErrState[1];
+  var CAMP_STYLE_CHIPS = ["오토캠핑","백패킹","차박캠핑","바이크투어","브롬핑"];
+
+  var doSetSession = function(s) {
+    setSessionState(s); saveSession(s);
+    if (s && s.userId && !s.guest) {
+      sbGetGear(s.userId).then(function(rows) { if (rows && rows.length > 0) setGear(rows); }).catch(function(){});
+    }
+  };
+
+  useEffect(function() {
+    if (!splash) {
+      var s = getSession();
+      if (s && s.autoLogin) { setSessionState(s); setAuthScreen(false); }
+      else setAuthScreen(true);
+    }
+  }, [splash]);
+
+  var checkDupId = function(id) {
+    if (!id || id.length < 3) { setSignupIdSt("short"); return; }
+    setSignupIdSt("checking");
+    setTimeout(function() {
+      var users = getUsers();
+      setSignupIdSt(users.some(function(u) { return u.id === id; }) ? "dup" : "ok");
+    }, 400);
+  };
+  var doLogin = async function() {
+    setLoginErr("");
+    if (!loginId.trim() || !loginPw.trim()) { setLoginErr("아이디와 비밀번호를 입력하세요."); return; }
+    var users = getUsers();
+    var pw = await hashPassword(loginPw);
+    var user = users.find(function(u) { return u.id === loginId && (u.pwHash === pw || u.pwHash === simpleHash(loginPw)); });
+    if (!user) { setLoginErr("아이디 또는 비밀번호가 올바르지 않습니다."); return; }
+    var ns = { userId: user.id, nick: user.nick, email: user.email, autoLogin: loginAuto, guest: false };
+    doSetSession(ns); setAuthScreen(false); setLoginId(""); setLoginPw("");
+  };
+  var doSignup = async function() {
+    setSignupErr("");
+    if (!signupId.trim()) { setSignupErr("아이디를 입력하세요."); return; }
+    if (signupIdSt !== "ok") { setSignupErr("아이디 중복확인을 완료하세요."); return; }
+    if (!signupPw.trim() || signupPw.length < 4) { setSignupErr("비밀번호는 4자 이상이어야 합니다."); return; }
+    var users = getUsers();
+    var pw2 = await hashPassword(signupPw);
+    var newUser = { id: signupId.trim(), pwHash: pw2, nick: signupNick.trim() || signupId.trim(), email: signupEmail.trim(), phone: signupPhone.trim(), addr: signupAddr.trim(), addrDetail: signupAddrD.trim(), styles: signupStyles, createdAt: new Date().toISOString() };
+    saveUsers([...users, newUser]);
+    var ns = { userId: newUser.id, nick: newUser.nick, email: newUser.email, autoLogin: false, guest: false };
+    doSetSession(ns); setAuthScreen(false);
+    setSignupId(""); setSignupPw(""); setSignupNick(""); setSignupEmail(""); setSignupPhone(""); setSignupAddr(""); setSignupAddrD(""); setSignupStyles([]); setSignupIdSt(null);
+  };
+  var doGuest = function() {
+    var gs = { userId: "guest", nick: "게스트", email: "", autoLogin: false, guest: true };
+    doSetSession(gs); setAuthScreen(false);
+  };
+  var doLogout = function() {
+    clearSession(); setSessionState(null); setAuthScreen(true); setAuthMode("login");
+  };
+
+  var nick    = session ? session.nick  : "게스트";
+  var email   = session ? session.email : "";
+  var isGuest = !session || session.guest;
+
+  // -- Persisted state
+  var gearState        = useLocalStorage("gn_gear_v5",    GEAR_INIT);
+  var gear = gearState[0]; var setGear = gearState[1];
+  var campStyleState   = useLocalStorage("gn_style",      "Backpacking");
+  var campStyle = campStyleState[0]; var setCampStyle = campStyleState[1];
+  var catFState        = useLocalStorage("gn_catF",       null);
+  var catF = catFState[0]; var setCatF = catFState[1];
+  var savedLocState    = useLocalStorage("gn_loc_v4",     null);
+  var savedLoc = savedLocState[0]; var setSavedLoc = savedLocState[1];
+  var savedLocRef = useRef(savedLoc);
+  useEffect(function() { savedLocRef.current = savedLoc; }, [savedLoc]);
+  // feeds: shared storage로 관리 (기기 간 공유)
+  var feedsState = useState(FEED_INIT);
+  var feeds = feedsState[0]; var setFeeds = feedsState[1];
+  var feedsSyncState = useState("idle"); // "idle"|"loading"|"saving"|"error"
+  var feedsSync = feedsSyncState[0]; var setFeedsSync = feedsSyncState[1];
+  var feedSyncTimer = useRef(null);
+  var campRecordsState = useLocalStorage("gn_records_v1", {});
+  var campRecords = campRecordsState[0]; var setCampRecords = campRecordsState[1];
+
+  // -- Ephemeral state
+  var tabState       = useState("home");       var tab = tabState[0];       var setTab       = tabState[1];
+  var subPageState   = useState(null);         var subPage = subPageState[0]; var setSubPage   = subPageState[1];
+  var wxState        = useState(null);         var wx = wxState[0];         var setWx        = wxState[1];
+  var wxLoadState    = useState(false);        var wxLoad = wxLoadState[0]; var setWxLoad    = wxLoadState[1];
+  var tipState       = useState(null);         var tip = tipState[0];       var setTip       = tipState[1];
+  var tipLoadState   = useState(false);        var tipLoad = tipLoadState[0]; var setTipLoad   = tipLoadState[1];
+  var wgFState       = useState(null);         var wgF = wgFState[0];       var setWgF       = wgFState[1];
+  var sortByState    = useState(null);         var sortBy = sortByState[0]; var setSortBy    = sortByState[1];
+  var editGState     = useState(null);         var editG = editGState[0];   var setEditG     = editGState[1];
+  var addModeState   = useState(false);        var addMode = addModeState[0]; var setAddMode   = addModeState[1];
+  var gearSearchModeS = useState(false); var gearSearchMode = gearSearchModeS[0]; var setGearSearchMode = gearSearchModeS[1];
+  var addedIdsS = useState({}); var addedIds = addedIdsS[0]; var setAddedIds = addedIdsS[1];
+  var gearSearchQS    = useState("");    var gearSearchQ    = gearSearchQS[0];    var setGearSearchQ    = gearSearchQS[1];
+  var gearSearchResS  = useState([]);    var gearSearchRes  = gearSearchResS[0];  var setGearSearchRes  = gearSearchResS[1];
+  var gearSearchLoadS = useState(false); var gearSearchLoad = gearSearchLoadS[0]; var setGearSearchLoad = gearSearchLoadS[1];
+  var gearSearchSrcS  = useState("");    var gearSearchSrc  = gearSearchSrcS[0];  var setGearSearchSrc  = gearSearchSrcS[1];
+  var gearBrowseTabS  = useState("ALL"); var gearBrowseTab  = gearBrowseTabS[0];  var setGearBrowseTab  = gearBrowseTabS[1];
+  var gearBrowseResS  = useState([]);    var gearBrowseRes  = gearBrowseResS[0];  var setGearBrowseRes  = gearBrowseResS[1];
+  var gearBrowseLoadS = useState(false); var gearBrowseLoad = gearBrowseLoadS[0]; var setGearBrowseLoad = gearBrowseLoadS[1];
+  var gearSearchTypeS = useState("brand");var gearSearchType = gearSearchTypeS[0]; var setGearSearchType = gearSearchTypeS[1];
+  var feedDetState   = useState(null);         var feedDetail = feedDetState[0]; var setFeedDetail = feedDetState[1];
+  var showFABState   = useState(false);        var showFAB = showFABState[0]; var setShowFAB   = showFABState[1];
+  var bplTipState    = useState(false);        var bplTooltip = bplTipState[0]; var setBplTooltip = bplTipState[1];
+  var notifOnState   = useState(true);         var notifOn = notifOnState[0]; var setNotifOn   = notifOnState[1];
+  var guideIdxState  = useState(0);            var guideIdx = guideIdxState[0]; var setGuideIdx  = guideIdxState[1];
+
+  // FAB form
+  var fabLocState   = useState(""); var fabLoc   = fabLocState[0];   var setFabLoc   = fabLocState[1];
+  var fabCapState   = useState(""); var fabCap   = fabCapState[0];   var setFabCap   = fabCapState[1];
+  var fabStyState   = useState("Backpacking"); var fabSty = fabStyState[0]; var setFabSty = fabStyState[1];
+  var fabGearState  = useState({}); var fabGear  = fabGearState[0];  var setFabGear  = fabGearState[1];
+  var fabGradState  = useState(0);  var fabGrad  = fabGradState[0];  var setFabGrad  = fabGradState[1];
+  var fabEmojiState = useState(0);  var fabEmoji = fabEmojiState[0]; var setFabEmoji = fabEmojiState[1];
+  var fabImageState = useState(null); var fabImage = fabImageState[0]; var setFabImage = fabImageState[1];
+  var imgInputRef   = useRef(null);
+
+  // Calendar
+  var today0 = new Date();
+  var calYearState  = useState(today0.getFullYear()); var calYear  = calYearState[0];  var setCalYear  = calYearState[1];
+  var calMonthState = useState(today0.getMonth());    var calMonth = calMonthState[0]; var setCalMonth = calMonthState[1];
+  var calSelState   = useState(null);                 var calSel   = calSelState[0];   var setCalSel   = calSelState[1];
+  var calModalState = useState(false);                var calModal = calModalState[0]; var setCalModal = calModalState[1];
+  var recGearState  = useState({});                   var recGear  = recGearState[0];  var setRecGear  = recGearState[1];
+  var recLocState   = useState("");                   var recLoc   = recLocState[0];   var setRecLoc   = recLocState[1];
+  var recStyState   = useState("Backpacking");        var recSty   = recStyState[0];   var setRecSty   = recStyState[1];
+
+  // Geocoding
+  var geoQState       = useState(""); var geoQ       = geoQState[0];       var setGeoQ       = geoQState[1];
+  var geoResState     = useState([]); var geoResults = geoResState[0];     var setGeoResults = geoResState[1];
+  var geoLoadState    = useState(false); var geoLoad  = geoLoadState[0];   var setGeoLoad    = geoLoadState[1];
+  var showGeoState    = useState(false); var showGeo  = showGeoState[0];   var setShowGeo    = showGeoState[1];
+  var geoTimer = useRef(null);
+
+  // Customer support form
+  var csTitleState = useState(""); var csTitle = csTitleState[0]; var setCsTitle = csTitleState[1];
+  var csEmailState = useState(""); var csEmail = csEmailState[0]; var setCsEmail = csEmailState[1];
+  var csBodyState  = useState(""); var csBody  = csBodyState[0];  var setCsBody  = csBodyState[1];
+
+  // Gear form
+  var eNState = useState(""); var eN = eNState[0]; var setEN = eNState[1];
+  var eBState = useState(""); var eB = eBState[0]; var setEB = eBState[1];
+  var eWState = useState(""); var eW = eWState[0]; var setEW = eWState[1];
+  var eCState = useState("Shelter"); var eC = eCState[0]; var setEC = eCState[1];
+  var eWCState = useState("Base"); var eWC = eWCState[0]; var setEWC = eWCState[1];
+  var eMemoState = useState(""); var eMemo = eMemoState[0]; var setEMemo = eMemoState[1];
+  var eOTState = useState(""); var eOT = eOTState[0]; var setEOT = eOTState[1];
+  var eLTState = useState(""); var eLT = eLTState[0]; var setELT = eLTState[1];
+  var aNState = useState(""); var aN = aNState[0]; var setAN = aNState[1];
+  var aBState = useState(""); var aB = aBState[0]; var setAB = aBState[1];
+  var aWState = useState(""); var aW = aWState[0]; var setAW = aWState[1];
+  var aCState = useState("Shelter"); var aC = aCState[0]; var setAC = aCState[1];
+  var aWCState = useState("Base"); var aWC = aWCState[0]; var setAWC = aWCState[1];
+  var aMemoState = useState(""); var aMemo = aMemoState[0]; var setAMemo = aMemoState[1];
+  var aOTState = useState(""); var aOT = aOTState[0]; var setAOT = aOTState[1];
+  var aLTState = useState(""); var aLT = aLTState[0]; var setALT = aLTState[1];
+
+  // Profile edit
+  var editNickState  = useState(""); var editNick  = editNickState[0];  var setEditNick  = editNickState[1];
+  var editEmailState = useState(""); var editEmail = editEmailState[0]; var setEditEmail = editEmailState[1];
+  var editPhoneState = useState(""); var editPhone = editPhoneState[0]; var setEditPhone = editPhoneState[1];
+  var editAddrState  = useState(""); var editAddr  = editAddrState[0];  var setEditAddr  = editAddrState[1];
+  var editAddrDState = useState(""); var editAddrD = editAddrDState[0]; var setEditAddrD = editAddrDState[1];
+
+  // AI
+  var aiModeState = useState(false); var aiMode = aiModeState[0]; var setAiMode = aiModeState[1];
+  var aiLoadState = useState(false); var aiLoad = aiLoadState[0]; var setAiLoad = aiLoadState[1];
+  var aiDoneState = useState(false); var aiDone = aiDoneState[0]; var setAiDone = aiDoneState[1];
+  var aiResState  = useState(null);  var aiRes  = aiResState[0];  var setAiRes  = aiResState[1];
+  var aiErrState  = useState(null);  var aiErr  = aiErrState[0];  var setAiErr  = aiErrState[1];
+
+  // Feed edit modal
+  var editFeedState     = useState(null);  var editFeed     = editFeedState[0];  var setEditFeed     = editFeedState[1];
+  var editFeedCapState  = useState("");    var editFeedCap  = editFeedCapState[0]; var setEditFeedCap  = editFeedCapState[1];
+  var editFeedLocState  = useState("");    var editFeedLoc  = editFeedLocState[0]; var setEditFeedLoc  = editFeedLocState[1];
+
+  var timerRef = useRef(null); var cancelRef = useRef(false);
+
+  // -- Stats
+  var totalKg = gear.reduce(function(a, g) { return a + g.wg; }, 0) / 1000;
+  var baseKg  = gear.filter(function(g) { return g.wc === "Base"; }).reduce(function(a, g) { return a + g.wg; }, 0) / 1000;
+  var optKg   = gear.filter(function(g) { return g.wc === "Option"; }).reduce(function(a, g) { return a + g.wg; }, 0) / 1000;
+  var wearKg  = gear.filter(function(g) { return g.wc === "Wear"; }).reduce(function(a, g) { return a + g.wg; }, 0) / 1000;
+
+  // -- Weather
+  var doLoad = function(loc) {
+    var target = loc
+      ? { name:loc.name, nameEn:loc.nameEn||loc.name, country:loc.country||"KR", lat:loc.lat, lon:loc.lon, region:loc.region||"" }
+      : savedLocRef.current
+      ? { name:savedLocRef.current.name, nameEn:savedLocRef.current.nameEn||savedLocRef.current.name, country:savedLocRef.current.country||"KR", lat:savedLocRef.current.lat, lon:savedLocRef.current.lon, region:savedLocRef.current.region||"" }
+      : { name:"서울", nameEn:"Seoul", country:"KR", lat:37.5665, lon:126.9780 };
+    cancelRef.current = false; setWxLoad(true); setTip(null); setTipLoad(false);
+    fetchWeather(target).then(function(data) {
+      if (cancelRef.current) return;
+      setWx(data); setWxLoad(false);
+      if (data && data.ok) {
+        sendWeatherAlert(data);
+        setTipLoad(true);
+        fetchTip(data).then(function(t) {
+          if (!cancelRef.current) { setTip(t); setTipLoad(false); }
+        });
+      }
+    });
+  };
+  useEffect(function() {
+    var defLoc = savedLoc || { name: "서울", nameEn: "Seoul", country: "KR", lat: 37.5665, lon: 126.9780 };
+    if (!savedLoc) setSavedLoc(defLoc);
+    doLoad(defLoc);
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(function() { if (!cancelRef.current) doLoad(null); }, CACHE_MS);
+    return function() {
+      cancelRef.current = true;
+      if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+    };
+  }, []);
+
+  // -- Shared feed sync
+  var doSyncFeeds = function() {
+    setFeedsSync("loading");
+    loadSharedFeeds(FEED_INIT).then(function(loaded) {
+      setFeeds(loaded);
+      setFeedsSync("idle");
+    }).catch(function() { setFeedsSync("error"); });
+  };
+
+  // 초기 로드 + 30초마다 자동 동기화
+  useEffect(function() {
+    doSyncFeeds();
+    if (feedSyncTimer.current) clearInterval(feedSyncTimer.current);
+    feedSyncTimer.current = setInterval(doSyncFeeds, 30000);
+    return function() {
+      if (feedSyncTimer.current) clearInterval(feedSyncTimer.current);
+    };
+  }, []);
+
+  // 피드 저장 헬퍼 (저장 후 상태 동기화)
+  var persistFeeds = function(nextFeeds) {
+    setFeeds(nextFeeds);
+    setFeedsSync("saving");
+    saveSharedFeeds(nextFeeds).then(function(ok) {
+      setFeedsSync(ok ? "idle" : "error");
+    });
+  };
+
+  // -- Geocoding
+  var onGeoInput = function(q) {
+    setGeoQ(q);
+    if (geoTimer.current) clearTimeout(geoTimer.current);
+    if (!q || q.length < 1) { setGeoResults([]); setShowGeo(false); return; }
+    setGeoLoad(true); setShowGeo(true);
+    geoTimer.current = setTimeout(function() {
+      geocode(q).then(function(res) { setGeoResults(res); setGeoLoad(false); });
+    }, 300);
+  };
+  var selectGeoLoc = function(loc) {
+    savedLocRef.current = loc;
+    setSavedLoc(loc); setGeoQ(""); setGeoResults([]); setShowGeo(false);
+    delete WX_CACHE[loc.lat + "," + loc.lon]; doLoad(loc);
+  };
+
+  // -- Gear handlers
+  var openEdit = function(g) {
+    setEditG(g); setEN(g.n); setEB(g.br); setEW(String(g.wg)); setEC(g.cat); setEWC(g.wc); setEMemo(g.memo || "");
+    setEOT(g.optTemp !== undefined ? String(g.optTemp) : "");
+    setELT(g.limitTemp !== undefined ? String(g.limitTemp) : "");
+  };
+  var saveEdit = function() {
+    setGear(function(p) {
+      return p.map(function(g) {
+        if (g.id !== editG.id) return g;
+        return Object.assign({}, g, { n: eN || g.n, br: eB || g.br, wg: parseFloat(eW) || g.wg, cat: eC, wc: eWC, memo: eMemo, optTemp: eOT !== "" ? parseFloat(eOT) : undefined, limitTemp: eLT !== "" ? parseFloat(eLT) : undefined });
+      });
+    });
+    setEditG(null);
+  };
+  var deleteG = function() { setGear(function(p) { return p.filter(function(g) { return g.id !== editG.id; }); }); setEditG(null); };
+  var addGear = function() {
+    if (!aN.trim() || !aB.trim() || !aW) return;
+    setGear(function(p) { return [...p, { id: Date.now(), n: aN, br: aB, wg: parseFloat(aW), cat: aC, wc: aWC, memo: aMemo, optTemp: aOT !== "" ? parseFloat(aOT) : undefined, limitTemp: aLT !== "" ? parseFloat(aLT) : undefined }]; });
+    setAN(""); setAB(""); setAW(""); setAMemo(""); setAOT(""); setALT(""); setAddMode(false);
+  };
+
+
+  var rGearCard = function(item, i) {
+    var key = item.brand + "__" + item.name;
+    var added = !!addedIds[key];
+    var catBg = item.cat==="Tent"?"#E8F5E9":item.cat==="Shelter"?"#F1F8E9":item.cat==="Sleep"?"#E3F2FD":item.cat==="Cooking"?"#FFF3E0":item.cat==="Bag"?"#F3E5F5":item.cat==="Chair"?"#FCE4EC":"#F5F5F5";
+    var catColor = item.cat==="Tent"?"#2E7D32":item.cat==="Shelter"?"#558B2F":item.cat==="Sleep"?"#1565C0":item.cat==="Cooking"?"#E65100":item.cat==="Bag"?"#6A1B9A":item.cat==="Chair"?"#AD1457":"#616161";
+    return React.createElement("div", { key:i,
+      style:{ padding:"12px 14px", background: added?"#F0FFF4":SF, border: added?"0.5px solid #22C55E":BDR, borderRadius:4, marginBottom:0 } },
+      React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center" } },
+        React.createElement("div", { style:{ flex:1, minWidth:0 } },
+          React.createElement("div", { style:{ fontSize:14, fontWeight:600, color:PX, marginBottom:1 } }, item.name),
+          React.createElement("div", { style:{ fontSize:11, color:SC } }, item.brand)
+        ),
+        React.createElement("div", { style:{ textAlign:"right", flexShrink:0, marginLeft:10, display:"flex", flexDirection:"column", alignItems:"flex-end", gap:4 } },
+          React.createElement("div", { style:{ fontFamily:MN, fontSize:14, fontWeight:700, color:PX } }, fw(item.weight_g||0)),
+          React.createElement("div", { style:{ fontSize:9, padding:"1px 6px", borderRadius:8, display:"inline-block", background:catBg, color:catColor } }, item.cat)
+        )
+      ),
+      item.specs && React.createElement("div", { style:{ fontSize:11, color:SC, lineHeight:1.5, marginTop:4, marginBottom:6 } }, item.specs),
+      React.createElement("button", {
+        onClick: function(e) { e.stopPropagation(); if(!added) addGearFromSearch(item); },
+        style:{ width:"100%", padding:"7px 0", border:"none", borderRadius:3, fontSize:11, fontWeight:600, cursor: added?"default":"pointer",
+          background: added?"#22C55E":PX, color:"#fff", marginTop:2 }
+      }, added ? "✅ 내 장비에 추가됨" : "+ 내 장비에 추가")
+    );
+  };
+
+  var doGearSearch = async function(q) {
+    if (!q || !q.trim()) return;
+    if (window.location.protocol === "file:") {
+      setGearSearchSrc("file_err");
+      setGearSearchLoad(false);
+      return;
+    }
+    setGearSearchLoad(true); setGearSearchRes([]); setGearSearchSrc("");
+    try {
+      var items;
+      var searchQ = q.trim();
+      // 한국어 브랜드명이면 영문으로 자동 변환
+      var mappedBrand = koToBrand(searchQ);
+      if (mappedBrand) searchQ = mappedBrand;
+
+      if (gearSearchType === "keyword") {
+        // 통합 키워드 검색 — 브랜드+제품명+스펙 동시
+        items = await sbSearchByKeyword(searchQ);
+        if (!items || items.length === 0) {
+          items = await searchGearByBrand(searchQ);
+        }
+      } else {
+        // 브랜드 검색
+        items = await searchGearByBrand(searchQ);
+      }
+      if (!items || items.length === 0) { setGearSearchRes([]); setGearSearchSrc("empty"); }
+      else {
+        setGearSearchRes(items);
+        var src = items.every(function(i){return i.fromDB;}) ? "캐시"
+                : items.some(function(i){return i.fromDB;}) ? "웹검색"
+                : items[0] && items[0].fromDB === false && items[0].specs ? "gemini"
+                : "웹검색";
+        setGearSearchSrc(src);
+      }
+    } catch(e) { setGearSearchSrc("err"); }
+    setGearSearchLoad(false);
+  };
+  var doBrowseCategory = async function(cat, overrideQ) {
+    if (window.location.protocol === "file:") { setGearSearchSrc("file_err"); return; }
+    setGearBrowseTab(cat);
+    setGearSearchType("browse");
+    setGearBrowseLoad(true); setGearBrowseRes([]);
+    try {
+      var rows = await sbGetGearByCategory(cat);
+      // 검색어가 있으면 해당 브랜드/키워드로 필터링 (한국어 변환 포함)
+      var rawQ = overrideQ !== undefined ? overrideQ : gearSearchQ;
+      if (rawQ && rawQ.trim()) {
+        var mappedQ = koToBrand(rawQ.trim());
+        var q = (mappedQ || rawQ.trim()).toLowerCase();
+        rows = (rows || []).filter(function(r) {
+          return r.brand.toLowerCase().includes(q) ||
+                 r.name.toLowerCase().includes(q) ||
+                 (r.specs && r.specs.toLowerCase().includes(q));
+        });
+      }
+      setGearBrowseRes(rows || []);
+    } catch(e) { setGearBrowseRes([]); }
+    setGearBrowseLoad(false);
+  };
+
+  var addGearFromSearch = function(item) {
+    var key = item.brand + "__" + item.name;
+    if (addedIds[key]) return; // 이미 추가됨
+    var newG = { id:Date.now(), n:item.name, br:item.brand, wg:item.weight_g||0, cat:item.cat||"ETC", wc:item.wc||"Base", memo:item.specs||"", optTemp:item.opt_temp, limitTemp:item.limit_temp };
+    setGear(function(prev) {
+      if (session && session.userId && !session.guest) sbUpsertGear(session.userId, [newG]);
+      return [...prev, newG];
+    });
+    if (!item.fromDB) sbInsertGearDict({ name:item.name, brand:item.brand, weight_g:item.weight_g, cat:item.cat, wc:item.wc||"Base", specs:item.specs||"", opt_temp:item.opt_temp||null, limit_temp:item.limit_temp||null });
+    // 화면 유지 + 추가됨 표시
+    setAddedIds(function(prev) { var next = Object.assign({}, prev); next[key] = true; return next; });
+  };
+
+  // -- AI
+  var runAI = async function() {
+    setAiLoad(true); setAiErr(null);
+    try {
+      var label = savedLoc ? savedLoc.name + (savedLoc.country ? ", " + savedLoc.country : "") : "알 수 없음";
+      var result = null;
+      try {
+        result = await runAIAnalysis(label, campStyle, wx, gear);
+      } catch(aiErr) {
+        // Gemini 실패(할당량/키 오류) → 로컬 분석으로 자동 fallback
+        console.warn("[AI] Gemini 실패, 로컬 분석으로 전환:", aiErr.message);
+        result = localGearAnalysis(label, campStyle, wx, gear);
+        result.isLocal = true;
+      }
+      setAiRes(result);
+    } catch (e) { setAiErr(e.message || "AI 분석 실패"); setAiRes(null); }
+    setAiLoad(false); setAiDone(true);
+  };
+
+  // -- Notification
+  var requestNotifPermission = async function() {
+    if (!("Notification" in window)) { alert("이 브라우저는 알림을 지원하지 않습니다."); return false; }
+    if (Notification.permission === "granted") return true;
+    if (Notification.permission === "denied") { alert("알림이 차단되어 있습니다.\n브라우저 설정에서 알림을 허용해 주세요."); return false; }
+    var perm = await Notification.requestPermission();
+    return perm === "granted";
+  };
+  var sendTestNotif = function() {
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    try {
+      var n = new Notification("GearNest", { body: "알림이 정상적으로 설정되었습니다!", tag: "gearnest-test", requireInteraction: false });
+      n.onclick = function() { window.focus(); n.close(); };
+      setTimeout(function() { n.close(); }, 5000);
+    } catch (e) {}
+  };
+  var handleNotifToggle = async function() {
+    if (!notifOn) {
+      var granted = await requestNotifPermission();
+      if (granted) { setNotifOn(true); sendTestNotif(); }
+    } else { setNotifOn(false); }
+  };
+  var sendWeatherAlert = function(w) {
+    if (!notifOn || !("Notification" in window) || Notification.permission !== "granted") return;
+    if (!w || !w.ok) return;
+    var wr = windRisk(w.wind); var rr = rainRisk(w.rain); var alerts = [];
+    if (wr.pct >= 75) alerts.push("강풍 " + w.wind + "m/s — 팩 고정 필수!");
+    if (rr.pct >= 60) alerts.push("강수 " + w.rain + "% — 방수 장비 필수!");
+    if (w.tn < 0) alerts.push("야간 " + w.tn + "도 — 동계 장비!");
+    if (alerts.length === 0) return;
+    try { new Notification("GearNest 날씨 경고", { body: w.label + "\n" + alerts.join("\n"), tag: "gearnest-weather", requireInteraction: true }); } catch (e) {}
+  };
+
+  // -- FAB image
+  var handleImageFile = function(e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      compressImage(ev.target.result, 900).then(function(c) { setFabImage(c); });
+    };
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  };
+
+  // -- FAB submit
+  var submitFeed = function() {
+    var usedIds = Object.keys(fabGear).filter(function(k) { return fabGear[k]; });
+    var usedNames = gear.filter(function(g) { return usedIds.includes(String(g.id)); }).map(function(g) { return g.n; });
+    var usedKg = gear.filter(function(g) { return usedIds.includes(String(g.id)); }).reduce(function(a, g) { return a + g.wg; }, 0) / 1000;
+    var newFeed = {
+      id: "f" + Date.now(), author: nick, authorId: session ? session.userId : "guest",
+      locName: fabLoc || (savedLoc ? savedLoc.name : ""),
+      sty: fabSty, date: new Date().toLocaleDateString("ko-KR").slice(2).replace(/\. /g, "."),
+      kg: usedKg, grad: GRAD_PRESETS[fabGrad], emoji: EMOJI_PRESETS[fabEmoji], imageData: fabImage || null,
+      caption: fabCap, gearUsed: usedNames,
+      weather: wx && wx.ok ? { temp: wx.temp, tn: wx.tn, td: wx.td, wind: wx.wind, rain: wx.rain, cond: wx.cond } : { temp: 15, tn: 8, td: 22, wind: 3, rain: 10, cond: "맑음" },
+      lk: 0, cm: 0,
+    };
+    var nextFeeds = [newFeed, ...feeds];
+    persistFeeds(nextFeeds);
+    setShowFAB(false); setFabLoc(""); setFabCap(""); setFabGear({}); setFabGrad(0); setFabEmoji(0); setFabImage(null);
+  };
+
+  // -- Calendar save
+  var saveCalRecord = function() {
+    if (!calSel) return;
+    var key = dateKey(calYear, calMonth, calSel);
+    var usedIds = Object.keys(recGear).filter(function(k) { return recGear[k]; });
+    var usedNames = gear.filter(function(g) { return usedIds.includes(String(g.id)); }).map(function(g) { return g.n; });
+    var usedKg = gear.filter(function(g) { return usedIds.includes(String(g.id)); }).reduce(function(a, g) { return a + g.wg; }, 0) / 1000;
+    setCampRecords(function(p) { var n = Object.assign({}, p); n[key] = { locName: recLoc, sty: recSty, gearUsed: usedNames, kg: usedKg }; return n; });
+    var newFeed = {
+      id: "cal_" + key, author: nick, locName: recLoc || "캠핑 기록",
+      sty: recSty, date: key, kg: usedKg, grad: GRAD_PRESETS[2], emoji: "📅", imageData: null,
+      caption: key + " 캠핑 기록 — " + recLoc, gearUsed: usedNames,
+      weather: wx && wx.ok ? { temp: wx.temp, tn: wx.tn, td: wx.td, wind: wx.wind, rain: wx.rain, cond: wx.cond } : { temp: 15, tn: 8, td: 22, wind: 3, rain: 10, cond: "맑음" },
+      lk: 0, cm: 0,
+    };
+    var nextCalFeeds = [newFeed, ...feeds.filter(function(f) { return f.id !== "cal_" + key; })];
+    persistFeeds(nextCalFeeds);
+    setCalModal(false); setRecGear({}); setRecLoc(""); setRecSty("Backpacking");
+  };
+
+  // ============================================================
+  // RENDER HELPERS
+  // ============================================================
+  var rSpinner = function(msg) {
+    return React.createElement("div", { style: { display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "44px 20px", gap: 12 } },
+      React.createElement(Loader, { size: 26, color: SC, style: { animation: "spin 1s linear infinite" } }),
+      React.createElement("div", { style: { fontSize: 12, color: SC, letterSpacing: 1 } }, msg)
+    );
+  };
+
+  var rGeoSearch = function() {
+    var curLabel = savedLoc ? savedLoc.name + (savedLoc.country ? " (" + savedLoc.country + ")" : "") : "위치 검색...";
+    return React.createElement("div", { style: { position: "relative" }, onClick: function(e) { e.stopPropagation(); } },
+      React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 8, padding: "8px 12px", border: BDR, borderRadius: 3, background: SF } },
+        React.createElement(MapPin, { size: 14, color: SC, style: { flexShrink: 0 } }),
+        React.createElement("input", {
+          value: geoQ, onChange: function(e) { onGeoInput(e.target.value); },
+          onFocus: function() { if (geoQ.length >= 1) setShowGeo(true); },
+          placeholder: curLabel,
+          style: { flex: 1, border: "none", outline: "none", fontSize: 14, fontWeight: 500, color: PX, background: "transparent", minWidth: 0 },
+        }),
+        geoLoad && React.createElement(Loader, { size: 13, color: SC, style: { animation: "spin 1s linear infinite", flexShrink: 0 } }),
+        geoQ && React.createElement("button", { onClick: function() { setGeoQ(""); setGeoResults([]); setShowGeo(false); }, style: { border: "none", background: "none", cursor: "pointer", color: SC, padding: "0 2px", flexShrink: 0, display: "flex", alignItems: "center" } }, React.createElement(X, { size: 14 }))
+      ),
+      showGeo && geoResults.length > 0 && React.createElement("div", { style: { position: "absolute", top: "calc(100% + 4px)", left: 0, right: 0, background: SF, border: BDR, borderRadius: 4, zIndex: 100, boxShadow: "0 6px 24px rgba(0,0,0,.10)", maxHeight: 280, overflowY: "auto" } },
+        geoResults.map(function(loc, i) {
+          return React.createElement("button", { key: i, onClick: function() { selectGeoLoc(loc); }, style: { display: "flex", width: "100%", alignItems: "center", padding: "11px 14px", border: "none", borderBottom: BDR, background: SF, cursor: "pointer", textAlign: "left", gap: 8 } },
+            React.createElement(MapPin, { size: 12, color: SC, style: { flexShrink: 0 } }),
+            React.createElement("div", null,
+              React.createElement("div", { style: { fontSize: 13, fontWeight: 500, color: PX } }, loc.name),
+              React.createElement("div", { style: { fontSize: 11, color: SC } }, loc.nameEn + (loc.country ? ", " + loc.country : ""))
+            ),
+            loc.state && React.createElement("span", { style: { marginLeft: "auto", fontSize: 10, color: SC, flexShrink: 0, background: "#F0F0F0", padding: "1px 6px", borderRadius: 8, fontWeight: 500 } }, loc.state)
+          );
+        })
+      ),
+      showGeo && !geoLoad && geoQ.length >= 1 && geoResults.length === 0 && React.createElement("div", { style: { position: "absolute", top: "calc(100% + 4px)", left: 0, right: 0, background: SF, border: BDR, borderRadius: 4, zIndex: 100, padding: "14px", fontSize: 12, color: SC, textAlign: "center" } }, "검색 결과 없음")
+    );
+  };
+
+  var rWxCard = function(w, sz) {
+    var size = sz || 40;
+    if (!w) return null;
+    if (!w.ok) return React.createElement("div", { style: SS.card },
+      React.createElement("div", { style: SS.cp },
+        React.createElement("div", { style: { color: WN, fontSize: 13, fontWeight: 600, marginBottom: 6 } }, "날씨 불러오기 실패"),
+        React.createElement("div", { style: { fontSize: 10, color: SC, marginBottom: 10, fontFamily: MN, background: "#F9F9F9", padding: "6px 8px", borderRadius: 3 } }, w.error || "알 수 없는 오류"),
+        React.createElement("button", { onClick: function() { doLoad(null); }, style: { padding: "8px 14px", background: PX, color: "#fff", border: "none", borderRadius: 3, fontSize: 10, cursor: "pointer" } }, "다시 시도")
+      )
+    );
+    var wr = windRisk(w.wind); var rr = rainRisk(w.rain); var tr = tempRisk(w.temp); var diff = w.td - w.tn;
+    var srcC = w.src === "OWM" ? OK : w.src === "Mock" ? "#888" : SC;
+    return React.createElement("div", { style: SS.card },
+      React.createElement("div", { style: { padding: "14px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" } },
+        React.createElement("div", null,
+          React.createElement("div", { style: { fontSize: size, fontWeight: 200, lineHeight: 1, letterSpacing: -1, color: PX } }, w.temp + "°C"),
+          React.createElement("div", { style: { fontSize: 12, color: SC, marginTop: 4 } }, "체감 " + w.feels + "°C · " + w.cond),
+          React.createElement("div", { style: { display: "flex", gap: 5, marginTop: 6, flexWrap: "wrap" } },
+            React.createElement("span", { style: sTag(wr.c) }, wr.l),
+            React.createElement("span", { style: sTag(tr.c) }, tr.l)
+          )
+        ),
+        React.createElement("div", { style: { textAlign: "right" } },
+          React.createElement("div", { style: { fontSize: Math.round(size * .85) } }, wEmoji(w.cond)),
+          React.createElement("div", { style: { fontSize: 8, color: SC, marginTop: 6 } }, (w.cached ? "캐시" : "실시간") + " " + w.time),
+          React.createElement("div", { style: { fontSize: 7, marginTop: 2, color: srcC, fontWeight: 700 } }, w.src || "—")
+        )
+      ),
+      React.createElement("div", { style: { display: "flex", borderTop: BDR, background: "#FAFAFA" } },
+        React.createElement("div", { style: sSc2(false) }, React.createElement("div", { style: { fontFamily: MN, fontSize: 13, color: "#CC4400" } }, w.td + "°C"), React.createElement("div", { style: SS.sl }, "낮 최고")),
+        React.createElement("div", { style: sSc2(false) }, React.createElement("div", { style: { fontFamily: MN, fontSize: 13, color: "#2244BB" } }, w.tn + "°C"), React.createElement("div", { style: SS.sl }, "야간 최저")),
+        React.createElement("div", { style: sSc2(true) }, React.createElement("div", { style: { fontFamily: MN, fontSize: 13, color: diff >= 15 ? "#AA2200" : diff >= 10 ? "#B8860B" : OK } }, diff + "°C"), React.createElement("div", { style: SS.sl }, "일교차"))
+      ),
+      React.createElement("div", { style: { display: "flex", borderTop: BDR } },
+        [["습도", w.hum + "%"], ["풍속", w.wind + "m/s"], ["강수", w.rain + "%"]].map(function(item, i) {
+          return React.createElement("div", { key: item[0], style: sSc2(i === 2) }, React.createElement("div", { style: SS.sv }, item[1]), React.createElement("div", { style: SS.sl }, item[0]));
+        })
+      ),
+      React.createElement("div", { style: { padding: "7px 12px", background: bgA(wr.c, "10"), borderTop: BDR, display: "flex", alignItems: "center", gap: 8 } },
+        React.createElement(Wind, { size: 12, color: wr.c }),
+        React.createElement("span", { style: { fontSize: 12, color: wr.c } }, w.wind + "m/s · " + wr.l),
+        rr.pct >= 40 && React.createElement("span", { style: { fontSize: 12, color: rr.c, marginLeft: 4 } }, "· " + w.rain + "% " + rr.l)
+      ),
+      React.createElement("div", { style: { padding: "8px 12px", borderTop: BDR, display: "flex", alignItems: "center", gap: 8, minHeight: 36 } },
+        React.createElement(MessageSquare, { size: 11, color: SC }),
+        tipLoad ? React.createElement("span", { style: { fontSize: 11, color: SC, display: "flex", alignItems: "center", gap: 4 } }, React.createElement(Loader, { size: 11, style: { animation: "spin 1s linear infinite" } }), "...") :
+        tip ? React.createElement("span", { style: { fontSize: 12, color: PX } }, tip) :
+        React.createElement("span", { style: { fontSize: 11, color: SC } }, "—")
+      )
+    );
+  };
+
+  // ============================================================
+  // SCREENS
+  // ============================================================
+
+  // -- AUTH SCREEN
+  if (splash) {
+    return React.createElement(React.Fragment, null,
+      React.createElement("style", null, "@keyframes spin{to{transform:rotate(360deg)}} @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}"),
+      React.createElement("div", { style: { width: "100%", maxWidth: 430, height: "100dvh", margin: "0 auto", background: BG, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", fontFamily: "-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif" } },
+        React.createElement("div", { style: { animation: "fadeIn .8s ease both" } },
+          React.createElement("div", { style: { fontSize: 38, fontWeight: 800, letterSpacing: -1.5, color: PX, textAlign: "center", marginBottom: 8 } }, "GEARNEST"),
+          React.createElement("div", { style: { fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: SC, textAlign: "center" } }, "Personal Gear Archive")
+        )
+      )
+    );
+  }
+
+  if (authScreen) {
+    var isLogin = authMode === "login";
+    return React.createElement(React.Fragment, null,
+      React.createElement("style", null, "@keyframes spin{to{transform:rotate(360deg)}} *::-webkit-scrollbar{display:none} *{box-sizing:border-box}"),
+      React.createElement("div", { style: { width: "100%", maxWidth: 430, height: "100dvh", margin: "0 auto", background: BG, display: "flex", flexDirection: "column", fontFamily: "-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif", overflowY: "auto" } },
+        React.createElement("div", { style: { padding: "56px 24px 0" } },
+          React.createElement("div", { style: { fontSize: 8, letterSpacing: 3, textTransform: "uppercase", color: SC, marginBottom: 4 } }, "PERSONAL GEAR ARCHIVE"),
+          React.createElement("div", { style: { fontSize: 32, fontWeight: 800, letterSpacing: -1.5, color: PX, marginBottom: 24 } }, "GEARNEST"),
+          // tabs
+          React.createElement("div", { style: { display: "flex", marginBottom: 24, border: BDR, borderRadius: 3, overflow: "hidden" } },
+            React.createElement("button", { onClick: function() { setAuthMode("login"); }, style: { flex: 1, height: 40, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 600, background: isLogin ? PX : SF, color: isLogin ? "#fff" : SC } }, "로그인"),
+            React.createElement("button", { onClick: function() { setAuthMode("signup"); }, style: { flex: 1, height: 40, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 600, background: !isLogin ? PX : SF, color: !isLogin ? "#fff" : SC } }, "회원가입")
+          ),
+          isLogin ? React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 12 } },
+            React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "아이디"), React.createElement("input", { value: loginId, onChange: function(e) { setLoginId(e.target.value); }, style: SS.ipt, placeholder: "아이디 입력", autoCapitalize: "none" })),
+            React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "비밀번호"), React.createElement("input", { type: "password", value: loginPw, onChange: function(e) { setLoginPw(e.target.value); }, style: SS.ipt, placeholder: "비밀번호 입력", onKeyDown: function(e) { if (e.key === "Enter") doLogin(); } })),
+            React.createElement("div", { onClick: function() { setLoginAuto(function(v) { return !v; }); }, style: { display: "flex", alignItems: "center", gap: 8, cursor: "pointer", padding: "4px 0" } },
+              React.createElement(loginAuto ? CheckSquare : Square, { size: 18, color: loginAuto ? PX : SC }),
+              React.createElement("span", { style: { fontSize: 13, color: loginAuto ? PX : SC } }, "자동 로그인")
+            ),
+            loginErr && React.createElement("div", { style: { fontSize: 12, color: WN, padding: "6px 8px", background: bgA(WN, "0F"), borderRadius: 3 } }, loginErr)
+          ) : React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 12 } },
+            React.createElement("div", null,
+              React.createElement("div", { style: SS.flbl }, "아이디"),
+              React.createElement("div", { style: { display: "flex", gap: 6 } },
+                React.createElement("input", { value: signupId, onChange: function(e) { setSignupId(e.target.value); setSignupIdSt(null); }, style: Object.assign({}, SS.ipt, { flex: 1, borderColor: signupIdSt === "ok" ? OK : signupIdSt === "dup" ? WN : BD }), placeholder: "영문/숫자 3자 이상", autoCapitalize: "none" }),
+                React.createElement("button", { onClick: function() { checkDupId(signupId); }, style: { flexShrink: 0, height: 44, padding: "0 12px", border: BDR, borderRadius: 3, background: PX, color: "#fff", fontSize: 11, cursor: "pointer", whiteSpace: "nowrap" } }, "중복확인")
+              ),
+              signupIdSt === "ok"       && React.createElement("div", { style: { fontSize: 11, color: OK, marginTop: 4 } }, "✅ 사용 가능한 아이디입니다"),
+              signupIdSt === "dup"      && React.createElement("div", { style: { fontSize: 11, color: WN, marginTop: 4 } }, "❌ 이미 사용 중인 아이디입니다"),
+              signupIdSt === "checking" && React.createElement("div", { style: { fontSize: 11, color: SC, marginTop: 4 } }, "확인 중..."),
+              signupIdSt === "short"    && React.createElement("div", { style: { fontSize: 11, color: WN, marginTop: 4 } }, "아이디는 3자 이상이어야 합니다")
+            ),
+            React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "비밀번호 (4자 이상)"), React.createElement("input", { type: "password", value: signupPw, onChange: function(e) { setSignupPw(e.target.value); }, style: SS.ipt, placeholder: "비밀번호 입력" })),
+            React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "닉네임"), React.createElement("input", { value: signupNick, onChange: function(e) { setSignupNick(e.target.value); }, style: SS.ipt, placeholder: "앱에서 표시될 이름" })),
+            React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "이메일 (선택)"), React.createElement("input", { type: "email", value: signupEmail, onChange: function(e) { setSignupEmail(e.target.value); }, style: SS.ipt, placeholder: "example@email.com" })),
+            React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "핸드폰 (선택)"), React.createElement("input", { type: "tel", value: signupPhone, onChange: function(e) { setSignupPhone(e.target.value); }, style: SS.ipt, placeholder: "010-0000-0000" })),
+            React.createElement("div", null,
+              React.createElement("div", { style: SS.flbl }, "주소 (선택)"),
+              React.createElement("div", { style: { display: "flex", gap: 6 } },
+                React.createElement("input", { value: signupAddr, onChange: function(e) { setSignupAddr(e.target.value); }, style: Object.assign({}, SS.ipt, { flex: 1 }), placeholder: "도로명 또는 지번 주소" }),
+                React.createElement("button", { onClick: function() { var q = window.prompt("주소를 입력하세요", ""); if (q && q.trim()) setSignupAddr(q.trim()); }, style: { flexShrink: 0, height: 44, padding: "0 12px", border: "0.5px solid " + WN, borderRadius: 3, background: WN, color: "#fff", fontSize: 11, cursor: "pointer", whiteSpace: "nowrap" } }, "주소검색")
+              )
+            ),
+            React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "상세주소 (선택)"), React.createElement("input", { value: signupAddrD, onChange: function(e) { setSignupAddrD(e.target.value); }, style: SS.ipt, placeholder: "아파트 동/호수 등" })),
+            React.createElement("div", null,
+              React.createElement("div", { style: SS.flbl }, "선호하는 캠핑"),
+              React.createElement("div", { style: { display: "flex", gap: 5, marginTop: 4, flexWrap: "wrap" } },
+                CAMP_STYLE_CHIPS.map(function(s) {
+                  var on = signupStyles.includes(s);
+                  return React.createElement("button", { key: s, onClick: function() { setSignupStyles(function(p) { return on ? p.filter(function(x) { return x !== s; }) : [...p, s]; }); }, style: sChip(on) }, s);
+                })
+              )
+            ),
+            signupErr && React.createElement("div", { style: { fontSize: 12, color: WN, padding: "6px 8px", background: bgA(WN, "0F"), borderRadius: 3 } }, signupErr)
+          )
+        ),
+        React.createElement("div", { style: { padding: "24px 24px 20px", marginTop: "auto", display: "flex", flexDirection: "column", gap: 10 } },
+          isLogin ? React.createElement(React.Fragment, null,
+            React.createElement("button", { onClick: doLogin, style: SS.btn1 }, "로그인"),
+            React.createElement("button", { onClick: function() { setAuthMode("signup"); }, style: SS.btn2 }, "함께하기 (회원가입)"),
+            React.createElement("button", { onClick: doGuest, style: { width: "100%", height: 40, background: "transparent", border: "none", color: SC, fontSize: 12, cursor: "pointer" } }, "비회원 이용하기")
+          ) : React.createElement(React.Fragment, null,
+            React.createElement("button", { onClick: doSignup, style: SS.btn1 }, "가입하기"),
+            React.createElement("button", { onClick: function() { setAuthMode("login"); }, style: SS.btn2 }, "로그인으로 돌아가기"),
+            React.createElement("button", { onClick: doGuest, style: { width: "100%", height: 40, background: "transparent", border: "none", color: SC, fontSize: 12, cursor: "pointer" } }, "비회원 이용하기")
+          )
+        )
+      )
+    );
+  }
+
+  // ============================================================
+  // MAIN APP (tabs)
+  // ============================================================
+
+  // -- HOME
+  var rHome = function() {
+    var wr = wx && wx.ok ? windRisk(wx.wind) : null;
+    var hasAlert = wr && !wxLoad && wx && wx.ok;
+    return React.createElement("div", { onClick: function() { setShowGeo(false); } },
+      React.createElement("div", { style: SS.hdr },
+        React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" } },
+          React.createElement("div", null,
+            React.createElement("div", { style: { fontSize: 8, letterSpacing: 3, textTransform: "uppercase", color: SC, marginBottom: 2 } }, "PERSONAL GEAR ARCHIVE"),
+            React.createElement("div", { style: { fontSize: 26, fontWeight: 800, letterSpacing: -1, color: PX } }, "GEARNEST")
+          ),
+          React.createElement("button", { onClick: function() { doLoad(null); }, style: { width: 40, height: 40, border: BDR, borderRadius: 3, background: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: SC } },
+            wxLoad ? React.createElement(Loader, { size: 15, style: { animation: "spin 1s linear infinite" } }) : React.createElement(RefreshCw, { size: 15 })
+          )
+        ),
+        React.createElement("div", { style: { marginTop: 10 } }, rGeoSearch())
+      ),
+      React.createElement("div", { style: SS.sh2 }, React.createElement("span", { style: SS.slbl }, "실시간 날씨" + (savedLoc ? " · " + savedLoc.name : "")), React.createElement("span", { style: { fontSize: 9, color: SC } }, "10분 갱신")),
+      wxLoad ? React.createElement("div", { style: Object.assign({}, SS.card, { overflow: "visible" }) }, rSpinner("날씨 불러오는 중...")) : rWxCard(wx, 40),
+      React.createElement("div", { style: SS.sh2 }, React.createElement("span", { style: SS.slbl }, "장비 현황")),
+      React.createElement("div", { style: SS.card },
+        React.createElement("div", { style: { display: "flex" } },
+          [["장비", gear.length + "개"], ["총 무게", totalKg.toFixed(2) + "kg"], ["베이스", baseKg.toFixed(2) + "kg"]].map(function(item, i) {
+            return React.createElement("div", { key: item[0], style: sSc2(i === 2) }, React.createElement("div", { style: SS.sv }, item[1]), React.createElement("div", { style: SS.sl }, item[0]));
+          })
+        )
+      ),
+      React.createElement("div", { style: SS.sh2 },
+        React.createElement("span", { style: SS.slbl }, "최근 세팅"),
+        React.createElement("button", { onClick: function() { setTab("community"); }, style: { fontSize: 9, color: SC, border: "none", background: "none", cursor: "pointer", letterSpacing: 1, textTransform: "uppercase" } }, "전체 보기")
+      ),
+      React.createElement("div", { style: { overflowX: "auto", WebkitOverflowScrolling: "touch", display: "flex", gap: 12, padding: "0 16px 16px" } },
+        feeds.slice(0, 5).map(function(s) {
+          var cardBg = s.imageData ? { backgroundImage: "url(" + s.imageData + ")", backgroundSize: "cover", backgroundPosition: "center" } : { background: "linear-gradient(135deg," + s.grad[0] + "," + s.grad[1] + ")" };
+          return React.createElement("div", { key: s.id, onClick: function() { setFeedDetail(s); }, style: { flexShrink: 0, width: 190, borderRadius: 6, overflow: "hidden", border: BDR, cursor: "pointer", background: SF } },
+            React.createElement("div", { style: Object.assign({ height: 130, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 44, position: "relative" }, cardBg) },
+              !s.imageData && s.emoji,
+              React.createElement("div", { style: { position: "absolute", bottom: 8, left: 8, fontSize: 7.5, letterSpacing: 1.2, textTransform: "uppercase", padding: "2px 6px", background: "rgba(0,0,0,.2)", color: "#fff", borderRadius: 2 } }, s.sty)
+            ),
+            React.createElement("div", { style: { padding: "8px 10px" } },
+              React.createElement("div", { style: { fontSize: 13, fontWeight: 600, color: PX, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, s.locName || s.author),
+              React.createElement("div", { style: { fontSize: 10, color: SC, marginTop: 1 } }, s.date),
+              React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 5 } },
+                React.createElement("span", { style: { fontFamily: MN, fontSize: 13, fontWeight: 500, color: PX } }, (s.kg || 0).toFixed(2) + "kg"),
+                React.createElement("span", { style: { fontSize: 11, color: SC, display: "flex", alignItems: "center", gap: 3 } }, React.createElement(Heart, { size: 11 }), " " + s.lk)
+              )
+            )
+          );
+        })
+      ),
+      React.createElement("div", { style: Object.assign({}, SS.sh2, {display:"flex", alignItems:"center", justifyContent:"space-between"}) },
+        React.createElement("span", { style: SS.slbl }, "AI 분석"),
+        aiRes && aiRes.isLocal && React.createElement("span", { style: { fontSize: 10, padding: "2px 8px", borderRadius: 10, background: "#fff3cd", color: "#856404", border: "1px solid #ffc107" } }, "⚡ 로컬 분석")
+      ),
+      React.createElement("div", { style: SS.card },
+        React.createElement("div", { style: SS.cp },
+          React.createElement("div", { style: { fontSize: 11, color: SC, marginBottom: 8 } }, "날씨 + 스타일 기반 장비 적합도 분석"),
+          React.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 } },
+            React.createElement("div", { style: { fontSize: 16, fontWeight: 600, color: PX } }, "AI Setup"),
+            React.createElement("button", { onClick: function() { setTab("setups"); }, style: { padding: "10px 20px", background: PX, color: "#fff", border: "none", borderRadius: 3, fontSize: 10, letterSpacing: 1.5, cursor: "pointer", flexShrink: 0 } }, "START →")
+          ),
+          hasAlert && React.createElement("div", { style: { marginTop: 8, padding: "7px 10px", borderRadius: 3, background: bgA(wr.c, "10"), fontSize: 12, color: wr.c } }, (savedLoc ? savedLoc.name : "") + "  " + wx.temp + "°C / 야간 " + wx.tn + "°C · 풍속 " + wx.wind + "m/s")
+        )
+      )
+    );
+  };
+
+  // -- GEAR
+  var rGear = function() {
+    var filtered = catF ? gear.filter(function(g) { return g.cat === catF; }) : gear;
+    if (wgF === "light") filtered = filtered.filter(function(g) { return g.wg < 500; });
+    else if (wgF === "mid") filtered = filtered.filter(function(g) { return g.wg >= 500 && g.wg < 1500; });
+    else if (wgF === "heavy") filtered = filtered.filter(function(g) { return g.wg >= 1500; });
+    if (sortBy === "wg_asc") filtered = filtered.slice().sort(function(a, b) { return a.wg - b.wg; });
+    if (sortBy === "wg_desc") filtered = filtered.slice().sort(function(a, b) { return b.wg - a.wg; });
+    var byCat = {};
+    filtered.forEach(function(g) { if (!byCat[g.cat]) byCat[g.cat] = []; byCat[g.cat].push(g); });
+    var wgChips = [{ id: null, l: "전체" }, { id: "light", l: "<500g" }, { id: "mid", l: "500~1.5kg" }, { id: "heavy", l: ">1.5kg" }];
+    if (gearSearchMode) return React.createElement("div", { style:{ display:"flex", flexDirection:"column", height:"100%" } },
+      // 고정 헤더 영역
+      React.createElement("div", { style:{ flexShrink:0 } },
+        React.createElement("div", { style: Object.assign({}, SS.hdr, { display:"flex", alignItems:"center", gap:10 }) },
+          React.createElement("button", { onClick: function(){ setGearSearchMode(false); setGearSearchQ(""); setGearSearchRes([]); setGearSearchSrc(""); }, style:{ border:"none", background:"none", cursor:"pointer", minHeight:44, color:PX, padding:"4px" } }, React.createElement(ArrowLeft, { size:22 })),
+          React.createElement("div", { style:{ flex:1, fontSize:15, fontWeight:700, color:PX } }, "장비 검색")
+        ),
+        // 검색창
+        React.createElement("div", { style:{ padding:"10px 16px 8px" } },
+          React.createElement("div", { style:{ display:"flex", gap:8 } },
+            React.createElement("input", { type:"text", placeholder:"브랜드·제품명·키워드 (예: Helinox, 텐트, 침낭)",
+              value:gearSearchQ, onChange:function(e){setGearSearchQ(e.target.value);},
+              onKeyDown:function(e){if(e.key==="Enter")doGearSearch(gearSearchQ);},
+              style:Object.assign({},SS.ipt,{flex:1}), autoFocus:true }),
+            React.createElement("button", { onClick:function(){doGearSearch(gearSearchQ);}, disabled:gearSearchLoad||!gearSearchQ.trim(),
+              style:{ padding:"0 14px", height:44, background:PX, color:"#fff", border:"none", borderRadius:3, fontSize:13, cursor:"pointer", flexShrink:0, opacity:(!gearSearchQ.trim()||gearSearchLoad)?0.5:1 }
+            }, gearSearchLoad?"검색중":"검색")
+          )
+        ),
+        // 카테고리 칩 (항상 표시)
+        React.createElement("div", { style:{ padding:"0 16px 10px", overflowX:"auto", whiteSpace:"nowrap" } },
+          React.createElement("div", { style:{ display:"inline-flex", gap:6 } },
+            [{id:"ALL",label:"전체"},{id:"Tent",label:"⛺ 텐트"},{id:"Shelter",label:"🏕 쉘터/타프"},{id:"Sleep",label:"🛏 침낭/매트"},{id:"Cooking",label:"🍳 버너"},{id:"Bag",label:"🎒 배낭"},{id:"Chair",label:"🪑 체어"},{id:"Table",label:"🪵 테이블"},{id:"Clothing",label:"🧥 의류"},{id:"Safety",label:"🔦 안전"},{id:"ETC",label:"📦 기타"}].map(function(c){
+              var active = gearBrowseTab===c.id && gearSearchType==="browse";
+              return React.createElement("button", { key:c.id,
+                onClick:function(){
+                  setGearSearchType("browse");
+                  setGearSearchRes([]); setGearSearchSrc("");
+                  doBrowseCategory(c.id, gearSearchQ);
+                },
+                style:{ padding:"5px 11px", fontSize:11, fontWeight:600, borderRadius:16, flexShrink:0,
+                  background: active ? PX : SF,
+                  color: active ? "#fff" : SC,
+                  border:"0.5px solid "+(active?PX:BD), cursor:"pointer" }
+              }, c.label);
+            })
+          )
+        ),
+        // 결과 카운트
+        (gearSearchSrc || (gearSearchType==="browse" && gearBrowseRes.length>0)) && React.createElement("div", { style:{ padding:"0 16px 6px", fontSize:10, color:SC } },
+          gearSearchType==="browse"
+            ? "📦 " + (gearSearchQ.trim() ? gearSearchQ.trim()+" · " : "") + gearBrowseRes.length+"개"
+            : gearSearchSrc==="캐시"?"💾 DB에서 "+gearSearchRes.length+"개"
+            : gearSearchSrc==="웹검색"?"🔍 "+gearSearchRes.length+"개"
+            : gearSearchSrc==="gemini"?"🤖 AI "+gearSearchRes.length+"개"
+            : gearSearchSrc==="file_err"?"⚠️ localhost로 열어주세요"
+            : gearSearchSrc==="empty"?"결과 없음"
+            : gearSearchSrc==="err"?"❌ 검색 실패":""
+        ),
+        React.createElement("div", { style:{ borderBottom:BDR } })
+      ),
+      // 스크롤 결과 영역
+      React.createElement("div", { style:{ flex:1, overflowY:"auto", padding:"8px 16px 80px" } },
+        gearSearchLoad && React.createElement("div", { style:{ textAlign:"center", padding:"40px", color:SC } }, "🔍 검색 중..."),
+        !gearBrowseLoad && gearSearchType==="browse" && gearBrowseRes.length > 0 && React.createElement("div", { style:{ display:"flex", flexDirection:"column", gap:8 } },
+          gearBrowseRes.map(function(item, i) { return rGearCard(item, i); })
+        ),
+        !gearSearchLoad && gearSearchType !== "browse" && gearSearchRes.length > 0 && React.createElement("div", { style:{ display:"flex", flexDirection:"column", gap:8 } },
+          gearSearchRes.map(function(item, i) {
+            return rGearCard(item, i);
+          })
+        )
+      )
+    );
+
+    return React.createElement("div", null,
+      React.createElement("div", { style: Object.assign({}, SS.hdr, { paddingBottom: 0 }) },
+        React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", paddingBottom: 10 } },
+          React.createElement("div", null, React.createElement("div", { style: { fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: SC } }, "MY GEAR"), React.createElement("div", { style: { fontSize: 24, fontWeight: 700, letterSpacing: -.5, color: PX } }, gear.length + "개 장비")),
+          React.createElement("div", { style: { display:"flex", gap:6 } },
+          React.createElement("button", { onClick: function() { setGearSearchMode(true); }, style: { padding:"8px 12px", border:BDR, borderRadius:3, background:PX, color:"#fff", fontSize:11, cursor:"pointer", display:"flex", alignItems:"center", gap:5, minHeight:42 } }, React.createElement(RefreshCw, { size: 12 }), "검색"),
+          React.createElement("button", { onClick: function() { setAddMode(true); }, style: { padding:"8px 12px", border:BDR, borderRadius:3, background:"none", color:PX, fontSize:11, cursor:"pointer", display:"flex", alignItems:"center", gap:5, minHeight:42 } }, React.createElement(Plus, { size: 14 }), "직접 추가")
+        )
+        )
+      ),
+      React.createElement("div", { style: SS.card }, React.createElement("div", { style: { display: "flex" } },
+        [["Base", baseKg.toFixed(2) + "kg"], ["Option", optKg.toFixed(2) + "kg"], ["Wear", wearKg.toFixed(2) + "kg"]].map(function(item, i) {
+          return React.createElement("div", { key: item[0], style: sSc2(i === 2) }, React.createElement("div", { style: SS.sv }, item[1]), React.createElement("div", { style: SS.sl }, item[0]));
+        })
+      )),
+      React.createElement("div", { style: { overflowX: "auto", WebkitOverflowScrolling: "touch", padding: "0 16px 6px", display: "flex", gap: 5 } },
+        [{ id: null, l: "전체" }].concat(CATS.map(function(c) {
+            var labels = {Tent:"⛺ 텐트",Shelter:"🏕 쉘터",Sleep:"🛏 침낭",Clothing:"🧥 의류",Cooking:"🍳 버너",Bag:"🎒 배낭",Chair:"🪑 체어",Table:"🪵 테이블",Safety:"🔦 안전",ETC:"📦 기타"};
+            return { id: c, l: labels[c]||c };
+          })).map(function(c) {
+          var on = (catF === null && !c.id) || (catF === c.id && !!c.id);
+          return React.createElement("button", { key: c.l, onClick: function() { setCatF(c.id); }, style: sChip(on) }, c.l);
+        })
+      ),
+      React.createElement("div", { style: { padding: "0 16px 8px", display: "flex", gap: 4, alignItems: "center", overflowX: "auto" } },
+        React.createElement("span", { style: { fontSize: 8, letterSpacing: 1, textTransform: "uppercase", color: SC, flexShrink: 0 } }, "KG"),
+        wgChips.map(function(c) {
+          var on = wgF === c.id;
+          return React.createElement("button", { key: c.l, onClick: function() { setWgF(c.id); }, style: Object.assign({}, sChip(on), { fontSize: 7.5, padding: "4px 9px", minHeight: 28 }) }, c.l);
+        }),
+        React.createElement("button", { onClick: function() { setSortBy(function(s) { return s === "wg_asc" ? "wg_desc" : s === "wg_desc" ? null : "wg_asc"; }); }, style: { marginLeft: "auto", display: "flex", alignItems: "center", gap: 3, padding: "4px 9px", border: sortBy ? ("0.5px solid " + PX) : BDR, borderRadius: 3, background: sortBy ? PX : "transparent", color: sortBy ? "#fff" : SC, fontSize: 7.5, cursor: "pointer", minHeight: 28, flexShrink: 0 } },
+          React.createElement(ArrowUpDown, { size: 10 }), sortBy === "wg_asc" ? "무게 ↑" : sortBy === "wg_desc" ? "무게 ↓" : "정렬"
+        )
+      ),
+      React.createElement("div", { style: { height: "0.5px", background: BD } }),
+      Object.keys(byCat).map(function(cat) {
+        var IC = CAT_ICONS[cat] || Package;
+        return React.createElement("div", { key: cat },
+          React.createElement("div", { style: { padding: "5px 16px 2px", display: "flex", alignItems: "center", gap: 6, background: "#FAFAFA" } },
+            React.createElement(IC, { size: 11, color: SC }),
+            React.createElement("span", { style: { fontSize: 8.5, letterSpacing: 1.5, textTransform: "uppercase", color: SC } }, cat),
+            React.createElement("span", { style: { fontSize: 8.5, color: SC, marginLeft: "auto" } }, byCat[cat].length)
+          ),
+          byCat[cat].map(function(g, i) {
+            var GIC = CAT_ICONS[g.cat] || Package;
+            var hasST = g.cat === "Sleep" && (g.optTemp !== undefined || g.limitTemp !== undefined);
+            return React.createElement("div", { key: g.id },
+              React.createElement("div", { onClick: function() { openEdit(g); }, style: { display: "flex", alignItems: "center", gap: 10, padding: "12px 14px", background: SF, cursor: "pointer", minHeight: 58 } },
+                React.createElement("div", { style: { width: 34, height: 34, border: BDR, borderRadius: 3, flexShrink: 0, background: "#FAFAFA", display: "flex", alignItems: "center", justifyContent: "center" } }, React.createElement(GIC, { size: 15, color: SC })),
+                React.createElement("div", { style: { flex: 1, minWidth: 0 } },
+                  React.createElement("div", { style: { fontSize: 13, fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: PX } }, g.n),
+                  React.createElement("div", { style: { fontSize: 11, color: SC } }, g.br),
+                  hasST && React.createElement("div", { style: { display: "flex", gap: 5, marginTop: 3 } },
+                    g.optTemp !== undefined && React.createElement("span", { style: { fontSize: 9, padding: "1px 5px", borderRadius: 2, background: "#1A7A4A0D", color: OK, border: "0.5px solid " + OK } }, "최적 " + g.optTemp + "°C"),
+                    g.limitTemp !== undefined && React.createElement("span", { style: { fontSize: 9, padding: "1px 5px", borderRadius: 2, background: "#CC44000D", color: WN, border: "0.5px solid " + WN } }, "한계 " + g.limitTemp + "°C")
+                  ),
+                  g.memo && React.createElement("div", { style: { fontSize: 10, color: SC, marginTop: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontStyle: "italic" } }, "📝 " + g.memo)
+                ),
+                React.createElement("div", { style: { textAlign: "right", flexShrink: 0 } }, React.createElement("div", { style: { fontFamily: MN, fontSize: 14, fontWeight: 600, color: PX } }, fw(g.wg)), React.createElement("div", { style: { fontSize: 7, letterSpacing: .8, textTransform: "uppercase", color: SC } }, g.wc)),
+                React.createElement(ChevronRight, { size: 12, color: BD, style: { flexShrink: 0, marginLeft: 4 } })
+              ),
+              i < byCat[cat].length - 1 && React.createElement("div", { style: { height: "0.5px", background: BD, marginLeft: 58 } })
+            );
+          }),
+          React.createElement("div", { style: { height: "0.5px", background: BD } })
+        );
+      }),
+      filtered.length === 0 && React.createElement("div", { style: { textAlign: "center", padding: "40px 20px", color: SC } }, React.createElement(Package, { size: 28, style: { display: "block", margin: "0 auto 10px", opacity: .3 } }), React.createElement("div", { style: { fontSize: 13 } }, "해당하는 장비 없음"))
+    );
+  };
+
+  // -- SETUPS
+  var rSetups = function() {
+    var st = CAMP_STYLES.find(function(x) { return x.n === campStyle; }) || CAMP_STYLES[0];
+    var pct = Math.min(totalKg / st.max, 1);
+    var tier = bplTier(totalKg);
+    var barC = totalKg > st.max ? "#AA2200" : totalKg > st.max * .8 ? WN : OK;
+    var barW = (pct * 100).toFixed(0) + "%";
+    var dows = ["일","월","화","수","목","금","토"];
+    var monthNames = ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"];
+    var calDays = getCalDays(calYear, calMonth);
+
+    if (aiMode && aiLoad) return React.createElement("div", null,
+      React.createElement("div", { style: Object.assign({}, SS.hdr, { display: "flex", alignItems: "center", gap: 10 }) },
+        React.createElement("button", { onClick: function() { setAiMode(false); }, style: { border: "none", background: "none", cursor: "pointer", minHeight: 44, color: PX, padding: "4px" } }, React.createElement(ArrowLeft, { size: 22 })),
+        React.createElement("div", { style: { fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: SC } }, "AI 분석 중")
+      ),
+      React.createElement("div", { style: { padding: "60px 20px" } }, rSpinner("AI 분석 중..."))
+    );
+
+    if (aiMode && aiDone && aiRes && !aiErr) {
+      var w2 = wx && wx.ok ? wx : null;
+      var locL = savedLoc ? savedLoc.name + (savedLoc.country ? ", " + savedLoc.country : "") : "—";
+      return React.createElement("div", null,
+        React.createElement("div", { style: Object.assign({}, SS.hdr, { display: "flex", alignItems: "center", gap: 10 }) },
+          React.createElement("button", { onClick: function() { setAiMode(false); setAiDone(false); setAiRes(null); setAiErr(null); }, style: { border: "none", background: "none", cursor: "pointer", minHeight: 44, color: PX, padding: "4px" } }, React.createElement(ArrowLeft, { size: 22 })),
+          React.createElement("div", { style: { fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: SC } }, "AI RECOMMENDATION")
+        ),
+        React.createElement("div", { style: { padding: "0 16px" } },
+          React.createElement("div", { style: { fontFamily: MN, fontSize: 10, color: SC, padding: 10, background: "#FAFAFA", border: BDR, borderRadius: 3, marginBottom: 12, lineHeight: 1.8 } }, locL + " · " + campStyle, React.createElement("br"), "현재 " + (w2 ? w2.temp + "°C" : "-") + " / 야간 " + (w2 ? w2.tn + "°C" : "-") + " / 낮 " + (w2 ? w2.td + "°C" : "-"), React.createElement("br"), "일교차 " + (w2 ? (w2.td - w2.tn) + "°C" : "-") + " · 풍속 " + (w2 ? w2.wind + "m/s" : "-")),
+          aiRes.warnings && aiRes.warnings.length > 0 && React.createElement("div", { style: { background: PX, color: "#fff", borderRadius: 3, padding: "10px 12px", marginBottom: 10 } }, aiRes.warnings.map(function(w, i) { return React.createElement("div", { key: i, style: { fontSize: 12, marginBottom: 3 } }, "⚠ " + w); })),
+          React.createElement("div", { style: SS.sh2 }, React.createElement("span", { style: SS.slbl }, "내 장비 체크")),
+          React.createElement("div", { style: SS.card },
+            (aiRes.gearCheck || []).map(function(g, i) {
+              var sc = typeof g.score === "number" ? g.score : g.ok ? 80 : 30;
+              var scC = sc >= 80 ? OK : WN;
+              return React.createElement("div", { key: i, style: { display: "flex", alignItems: "flex-start", gap: 10, padding: "10px 14px", borderBottom: BDR } },
+                g.ok ? React.createElement(Check, { size: 14, color: OK, style: { flexShrink: 0, marginTop: 2 } }) : React.createElement(AlertTriangle, { size: 14, color: WN, style: { flexShrink: 0, marginTop: 2 } }),
+                React.createElement("div", { style: { flex: 1 } },
+                  React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 6 } },
+                    React.createElement("div", { style: { fontSize: 13, fontWeight: 500, color: PX } }, g.n),
+                    React.createElement("span", { style: { fontSize: 9, padding: "1px 5px", borderRadius: 2, border: "0.5px solid " + scC, color: scC, fontFamily: MN } }, sc)
+                  ),
+                  React.createElement("div", { style: { fontSize: 11, color: SC, marginTop: 1 } }, g.reason)
+                )
+              );
+            })
+          ),
+          aiRes.missingRec && aiRes.missingRec.length > 0 && React.createElement("div", null,
+            React.createElement("div", { style: Object.assign({}, SS.sh2, { paddingLeft: 0, marginTop: 8 }) }, React.createElement("span", { style: SS.slbl }, "누락 장비 추천 (적합도 순)")),
+            (aiRes.missingRec || []).map(function(m, i) {
+              return React.createElement("div", { key: i, style: { borderLeft: "2px solid " + WN, padding: "10px 12px", marginBottom: 8, background: SF, border: BDR } },
+                React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" } },
+                  React.createElement("div", { style: { flex: 1 } },
+                    React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 6, marginBottom: 2 } },
+                      React.createElement("div", { style: { fontSize: 8, letterSpacing: 1.2, textTransform: "uppercase", color: WN } }, m.cat),
+                      typeof m.score === "number" && React.createElement("span", { style: { fontSize: 9, padding: "1px 5px", borderRadius: 2, border: "0.5px solid " + OK, color: OK, fontFamily: MN } }, "적합 " + m.score)
+                    ),
+                    React.createElement("div", { style: { fontSize: 15, fontWeight: 600, margin: "2px 0", color: PX } }, m.prod),
+                    React.createElement("div", { style: { fontSize: 11, color: SC } }, m.brand + (m.price ? " · " + m.price : ""))
+                  ),
+                  React.createElement("div", { style: { textAlign: "right", flexShrink: 0, marginLeft: 10 } }, React.createElement("div", { style: { fontFamily: MN, fontSize: 18, fontWeight: 500, color: PX } }, fw(m.wg || 500)))
+                ),
+                React.createElement("div", { style: { marginTop: 6, fontSize: 12, lineHeight: 1.5, color: SC } }, m.reason),
+                React.createElement("button", { onClick: function() { setGear(function(p) { return [...p, { id: Date.now(), n: m.prod || "", br: m.brand || "", wg: m.wg || 500, cat: m.cat || "ETC", wc: "Base", memo: "", optTemp: undefined, limitTemp: undefined }]; }); setAiMode(false); setAiDone(false); setAiRes(null); setAiErr(null); }, style: { marginTop: 8, padding: "8px 14px", background: PX, color: "#fff", border: "none", borderRadius: 3, fontSize: 9, letterSpacing: 1.5, cursor: "pointer" } }, "장비 추가 +")
+              );
+            })
+          ),
+          React.createElement("button", { onClick: function() { setAiMode(false); setAiDone(false); setAiRes(null); setAiErr(null); }, style: Object.assign({}, SS.btn2, { marginTop: 12, marginBottom: 40 }) }, "← 세팅으로")
+        )
+      );
+    }
+
+    if (aiMode && aiDone && aiErr) return React.createElement("div", null,
+      React.createElement("div", { style: Object.assign({}, SS.hdr, { display: "flex", alignItems: "center", gap: 10 }) },
+        React.createElement("button", { onClick: function() { setAiMode(false); setAiDone(false); setAiErr(null); }, style: { border: "none", background: "none", cursor: "pointer", minHeight: 44, color: PX, padding: "4px" } }, React.createElement(ArrowLeft, { size: 22 }))
+      ),
+      React.createElement("div", { style: { margin: 16, padding: 14, background: SF, border: BDR, borderRadius: 3 } },
+        React.createElement("div", { style: { color: WN, fontSize: 13, fontWeight: 600, marginBottom: 6 } }, "AI 분석 실패"),
+        React.createElement("div", { style: { fontSize: 11, color: SC, marginBottom: 12 } }, aiErr),
+        React.createElement("button", { onClick: runAI, style: SS.btn1 }, "다시 시도")
+      )
+    );
+
+    if (aiMode) return React.createElement("div", null,
+      React.createElement("div", { style: Object.assign({}, SS.hdr, { display: "flex", alignItems: "center", gap: 10 }) },
+        React.createElement("button", { onClick: function() { setAiMode(false); }, style: { border: "none", background: "none", cursor: "pointer", minHeight: 44, color: PX, padding: "4px" } }, React.createElement(ArrowLeft, { size: 22 })),
+        React.createElement("div", { style: { fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: SC } }, "AI SETUP")
+      ),
+      React.createElement("div", { style: { padding: "0 16px" } },
+        wxLoad ? React.createElement("div", { style: { padding: "40px 0" } }, rSpinner("날씨 불러오는 중...")) : rWxCard(wx, 32),
+        React.createElement("button", { onClick: runAI, style: SS.btn1 }, "✦ AI 장비 분석 시작")
+      )
+    );
+
+    return React.createElement("div", null,
+      React.createElement("div", { style: SS.hdr }, React.createElement("div", { style: { fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: SC } }, "SETUPS"), React.createElement("div", { style: { fontSize: 24, fontWeight: 700, letterSpacing: -.5, color: PX } }, "내 세팅")),
+      React.createElement("div", { style: { padding: "0 16px 10px", position: "relative" } },
+        React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 12 } },
+          React.createElement("div", { style: { fontFamily: MN, fontSize: 28, fontWeight: 200, color: PX } }, totalKg.toFixed(2) + "kg"),
+          React.createElement("div", null,
+            React.createElement("div", { onMouseDown: function() { setBplTooltip(true); }, onMouseUp: function() { setBplTooltip(false); }, onTouchStart: function() { setBplTooltip(true); }, onTouchEnd: function() { setBplTooltip(false); }, style: { display: "inline-flex", alignItems: "center", gap: 4, padding: "3px 8px", borderRadius: 2, border: "0.5px solid " + tier.color, color: tier.color, fontSize: 10, fontWeight: 700, cursor: "pointer", userSelect: "none" } },
+              tier.code, React.createElement(Info, { size: 10, color: tier.color })
+            ),
+            React.createElement("div", { style: { fontSize: 9, color: SC, marginTop: 2 } }, tier.label)
+          )
+        ),
+        bplTooltip && React.createElement("div", { style: { position: "absolute", left: 16, top: 52, zIndex: 30, background: PX, color: "#fff", padding: "10px 12px", borderRadius: 4, fontSize: 11, lineHeight: 1.5, maxWidth: 280, boxShadow: "0 4px 16px rgba(0,0,0,.2)" } }, tier.tip),
+        React.createElement("div", { style: { height: 3, background: BD, borderRadius: 2, overflow: "hidden", marginTop: 8 } }, React.createElement("div", { style: { height: "100%", width: barW, background: barC, borderRadius: 2, transition: "width .6s" } })),
+        React.createElement("div", { style: { display: "flex", justifyContent: "space-between", marginTop: 4 } },
+          React.createElement("span", { style: { fontSize: 8, color: SC } }, "SUL 2.2 / UL 4.5 / LW 9 / NM 15 / HV 20"),
+          React.createElement("span", { style: { fontSize: 8, color: SC } }, "Max " + st.max + "kg")
+        )
+      ),
+      React.createElement("div", { style: Object.assign({}, SS.card, { marginTop: 0 }) },
+        React.createElement("div", { style: SS.cp },
+          React.createElement("div", { style: Object.assign({}, SS.flbl, { marginBottom: 8 }) }, "Camping Style"),
+          React.createElement("div", { style: { display: "flex", gap: 6, flexWrap: "wrap" } }, CAMP_STYLES.map(function(x) { return React.createElement("button", { key: x.n, onClick: function() { setCampStyle(x.n); }, style: sChip(campStyle === x.n) }, x.n); }))
+        ),
+        React.createElement("div", { style: { height: "0.5px", background: BD } }),
+        React.createElement("div", { style: { display: "flex" } }, [["Base", baseKg.toFixed(2) + "kg"], ["Option", optKg.toFixed(2) + "kg"], ["Wear", wearKg.toFixed(2) + "kg"]].map(function(item, i) { return React.createElement("div", { key: item[0], style: sSc2(i === 2) }, React.createElement("div", { style: SS.sv }, item[1]), React.createElement("div", { style: SS.sl }, item[0])); }))
+      ),
+      React.createElement("div", { style: { padding: "0 16px", display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 } },
+        React.createElement("button", { onClick: function() { setAiMode(true); setAiDone(false); setAiRes(null); setAiErr(null); }, style: SS.btn1 }, "✦ AI 장비 분석 시작"),
+        React.createElement("button", { onClick: function() { setTab("gear"); }, style: SS.btn2 }, "장비 목록 관리 →")
+      ),
+      // Calendar
+      React.createElement("div", { style: SS.sh2 }, React.createElement("span", { style: SS.slbl }, "캠핑 기록 캘린더")),
+      React.createElement("div", { style: SS.card },
+        React.createElement("div", { style: SS.cp },
+          React.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 } },
+            React.createElement("button", { onClick: function() { if (calMonth === 0) { setCalYear(calYear - 1); setCalMonth(11); } else setCalMonth(calMonth - 1); }, style: { border: "none", background: "none", cursor: "pointer", color: SC, padding: "6px", display: "flex", alignItems: "center" } }, React.createElement(ChevronLeft, { size: 18 })),
+            React.createElement("div", { style: { fontSize: 14, fontWeight: 600, color: PX } }, calYear + "년 " + monthNames[calMonth]),
+            React.createElement("button", { onClick: function() { if (calMonth === 11) { setCalYear(calYear + 1); setCalMonth(0); } else setCalMonth(calMonth + 1); }, style: { border: "none", background: "none", cursor: "pointer", color: SC, padding: "6px", display: "flex", alignItems: "center" } }, React.createElement(ChevronRight, { size: 18 }))
+          ),
+          React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 2, marginBottom: 4 } },
+            dows.map(function(d, i) { return React.createElement("div", { key: d, style: { textAlign: "center", fontSize: 9, color: i === 0 ? "#CC4400" : i === 6 ? "#2244BB" : SC, padding: "4px 0" } }, d); })
+          ),
+          React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 2 } },
+            calDays.map(function(d, i) {
+              if (!d) return React.createElement("div", { key: "e" + i });
+              var key = dateKey(calYear, calMonth, d);
+              var hasRec = !!campRecords[key]; var isTod = key === todayKey(); var isSel = calSel === d;
+              return React.createElement("div", { key: key, onClick: function() { setCalSel(d); setRecLoc(""); setRecGear({}); setCalModal(true); }, style: { textAlign: "center", padding: "6px 2px", borderRadius: 3, cursor: "pointer", position: "relative", background: isSel ? PX : isTod ? "#F0F0F0" : "transparent", color: isSel ? "#fff" : isTod ? PX : SC, fontSize: 12 } },
+                d,
+                hasRec && React.createElement("div", { style: { position: "absolute", bottom: 2, left: "50%", transform: "translateX(-50%)", width: 4, height: 4, borderRadius: "50%", background: isSel ? "#fff" : OK } })
+              );
+            })
+          )
+        )
+      )
+    );
+  };
+
+  // -- WEATHER
+  var rWeather = function() {
+    var wr = wx && wx.ok ? windRisk(wx.wind) : null;
+    var rr = wx && wx.ok ? rainRisk(wx.rain) : null;
+    var tr = wx && wx.ok ? tempRisk(wx.temp) : null;
+    var hasRisk = wx && wx.ok && wr && rr && tr;
+    var worst = hasRisk ? (wr.pct >= rr.pct ? wr : rr) : null;
+    var slGear = gear.filter(function(g) { return g.cat === "Sleep"; });
+    var checklist = hasRisk ? buildChecklist(wx, wr, rr, slGear) : [];
+    var bars = hasRisk ? [
+      { label: "바람", Icon: Wind,        risk: wr, value: wx.wind + "m/s", barW: Math.min(wr.pct, 100).toFixed(0) + "%" },
+      { label: "강수", Icon: CloudRain,   risk: rr, value: wx.rain + "%",   barW: Math.min(rr.pct, 100).toFixed(0) + "%" },
+      { label: "기온", Icon: Thermometer, risk: tr, value: wx.temp + "°C",  barW: Math.min(tr.pct, 100).toFixed(0) + "%" },
+    ] : [];
+    return React.createElement("div", { onClick: function() { setShowGeo(false); } },
+      React.createElement("div", { style: Object.assign({}, SS.hdr, { position: "relative" }) },
+        React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 } },
+          React.createElement("div", null, React.createElement("div", { style: { fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: SC } }, "WEATHER"), React.createElement("div", { style: { fontSize: 24, fontWeight: 700, letterSpacing: -.5, color: PX } }, "실시간 날씨")),
+          React.createElement("button", { onClick: function() { doLoad(null); }, style: { width: 40, height: 40, border: BDR, borderRadius: 3, background: "none", cursor: "pointer", color: SC, display: "flex", alignItems: "center", justifyContent: "center" } },
+            wxLoad ? React.createElement(Loader, { size: 15, style: { animation: "spin 1s linear infinite" } }) : React.createElement(RefreshCw, { size: 15 })
+          )
+        ),
+        rGeoSearch(),
+        React.createElement("div", { style: { marginTop: 6, fontSize: 11, color: SC } }, "강원도 / 독도 / 울릉도 / 추자도 / 대마도 / 시즈오카 등 검색 가능")
+      ),
+      React.createElement("div", { style: SS.sh2 }, React.createElement("span", { style: SS.slbl }, (savedLoc ? savedLoc.name : "—") + " · 실시간"), React.createElement("span", { style: { fontSize: 9, color: SC } }, "내장DB + OWM · 10분 갱신")),
+      wxLoad ? React.createElement("div", { style: Object.assign({}, SS.card, { overflow: "visible" }) }, rSpinner("날씨 불러오는 중...")) : rWxCard(wx, 42),
+      hasRisk && React.createElement("div", null,
+        React.createElement("div", { style: SS.sh2 }, React.createElement("span", { style: SS.slbl }, "캠핑 위험도")),
+        React.createElement("div", { style: SS.card }, React.createElement("div", { style: SS.cp },
+          React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px", background: bgA(worst.c, "0F"), borderRadius: 3, marginBottom: 14, border: "0.5px solid " + worst.c + "40" } },
+            React.createElement("span", { style: { fontSize: 13, fontWeight: 700, color: PX } }, "종합 위험도"),
+            React.createElement("span", { style: sTag(worst.c) }, worst.l)
+          ),
+          bars.map(function(bar) {
+            return React.createElement("div", { key: bar.label, style: { marginBottom: 12 } },
+              React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 5 } },
+                React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 6 } }, React.createElement(bar.Icon, { size: 13, color: bar.risk.c }), React.createElement("span", { style: { fontSize: 11, fontWeight: 600, color: PX } }, bar.label)),
+                React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 6 } }, React.createElement("span", { style: { fontFamily: MN, fontSize: 12, color: PX } }, bar.value), React.createElement("span", { style: sTag(bar.risk.c) }, bar.risk.l))
+              ),
+              React.createElement("div", { style: { height: 3, background: BD, borderRadius: 2, overflow: "hidden" } }, React.createElement("div", { style: { height: "100%", width: bar.barW, background: bar.risk.c, borderRadius: 2, transition: "width .6s" } }))
+            );
+          })
+        )),
+        React.createElement("div", { style: SS.sh2 }, React.createElement("span", { style: SS.slbl }, "장비 체크리스트")),
+        React.createElement("div", { style: SS.card }, React.createElement("div", { style: SS.cp }, checklist.map(function(item, i) { return React.createElement("div", { key: i, style: { display: "flex", gap: 8, alignItems: "flex-start", padding: "7px 0", fontSize: 13, borderBottom: i < checklist.length - 1 ? BDR : "none", lineHeight: 1.4, color: PX } }, item); })))
+      )
+    );
+  };
+
+  // -- COMMUNITY
+  var rCommunity = function() {
+    return React.createElement("div", null,
+      React.createElement("div", { style: SS.hdr },
+        React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" } },
+          React.createElement("div", null,
+            React.createElement("div", { style: { fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: SC } }, "COMMUNITY"),
+            React.createElement("div", { style: { fontSize: 24, fontWeight: 700, letterSpacing: -.5, color: PX } }, "세팅 피드")
+          ),
+          React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 8 } },
+            feedsSync === "loading" && React.createElement("span", { style: { fontSize: 10, color: SC } }, "동기화 중..."),
+            feedsSync === "saving"  && React.createElement("span", { style: { fontSize: 10, color: OK } }, "저장 중..."),
+            feedsSync === "error"   && React.createElement("span", { style: { fontSize: 10, color: WN } }, "⚠ 동기화 오류"),
+            React.createElement("button", { onClick: doSyncFeeds, style: { width: 38, height: 38, border: BDR, borderRadius: 3, background: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: SC } },
+              feedsSync === "loading" ? React.createElement(Loader, { size: 14, style: { animation: "spin 1s linear infinite" } }) : React.createElement(RefreshCw, { size: 14 })
+            )
+          )
+        ),
+        React.createElement("div", { style: { fontSize: 11, color: SC, marginTop: 4 } }, "👥 " + feeds.length + "개 피드 · 공유 피드 (30초 자동 갱신)")
+      ),
+      feeds.map(function(s) {
+        var cardBg = s.imageData ? { backgroundImage: "url(" + s.imageData + ")", backgroundSize: "cover", backgroundPosition: "center" } : { background: "linear-gradient(135deg," + s.grad[0] + "," + s.grad[1] + ")" };
+        return React.createElement("div", { key: s.id, style: SS.card, onClick: function() { setFeedDetail(s); } },
+          React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", borderBottom: BDR } },
+            React.createElement("div", { style: { width: 34, height: 34, borderRadius: "50%", background: PX, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, color: "#fff", flexShrink: 0 } }, (s.author || "?")[0].toUpperCase()),
+            React.createElement("div", { style: { flex: 1 } }, React.createElement("div", { style: { fontSize: 13, fontWeight: 600, color: PX } }, s.author), React.createElement("div", { style: { fontSize: 11, color: SC } }, s.locName)),
+            React.createElement("span", { style: Object.assign({}, sTag(SC), { border: BDR, color: SC }) }, s.sty)
+          ),
+          React.createElement("div", { style: Object.assign({ width: "100%", height: 200, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 56, cursor: "pointer" }, cardBg) }, !s.imageData && s.emoji),
+          React.createElement("div", { style: { display: "flex", borderTop: BDR } },
+            [["총 무게", (s.kg || 0).toFixed(2) + "kg"], ["기온", (s.weather ? s.weather.temp : "?") + "°C"], ["야간", (s.weather ? s.weather.tn : "?") + "°C"]].map(function(item, j) {
+              return React.createElement("div", { key: item[0], style: sSc2(j === 2) }, React.createElement("div", { style: SS.sv }, item[1]), React.createElement("div", { style: SS.sl }, item[0]));
+            })
+          ),
+          React.createElement("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", padding: "8px 14px", borderTop: BDR } },
+            (s.gearUsed || []).slice(0, 3).map(function(g) { return React.createElement("span", { key: g, style: { fontSize: 10, padding: "3px 7px", border: BDR, borderRadius: 2, color: SC } }, g); }),
+            (s.gearUsed || []).length > 3 && React.createElement("span", { style: { fontSize: 10, color: SC, padding: "3px 0" } }, "+" + (s.gearUsed.length - 3))
+          ),
+          React.createElement("div", { style: { padding: "8px 14px 4px", fontSize: 13, lineHeight: 1.5, color: PX } }, s.caption),
+          React.createElement("div", { style: { display: "flex", gap: 14, padding: "6px 14px 12px", alignItems: "center" } },
+            React.createElement("span", { style: { fontSize: 12, color: SC, display: "flex", alignItems: "center", gap: 4 } }, React.createElement(Heart, { size: 13 }), "  " + (s.lk || 0)),
+            React.createElement("span", { style: { fontSize: 12, color: SC, display: "flex", alignItems: "center", gap: 4 } }, React.createElement(MessageCircle, { size: 13 }), "  " + (s.cm || 0)),
+            React.createElement("span", { style: { marginLeft: "auto", fontSize: 11, color: SC } }, s.date),
+            (function(){
+              var isMine = session && !session.guest && (session.userId===s.authorId||session.userId===s.author||session.nick===s.author||nick===s.author);
+              if (!isMine) return null;
+              return React.createElement(React.Fragment, null,
+                React.createElement("button", { onClick: function(e){ e.stopPropagation(); setEditFeed(s); setEditFeedCap(s.caption||""); setEditFeedLoc(s.locName||""); }, style:{ border:"0.5px solid "+BD, background:"none", cursor:"pointer", fontSize:12, padding:"3px 8px", borderRadius:3, color:SC } }, "수정"),
+                React.createElement("button", { onClick: function(e){ e.stopPropagation(); if(!window.confirm("삭제하시겠습니까?")) return; persistFeeds(feeds.filter(function(f){return f.id!==s.id;})); }, style:{ border:"0.5px solid "+WN+"80", background:"none", cursor:"pointer", fontSize:12, padding:"3px 8px", borderRadius:3, color:WN } }, "삭제")
+              );
+            })()
+          )
+        );
+      }),
+      feeds.length === 0 && React.createElement("div", { style: { textAlign: "center", padding: "60px 20px", color: SC } }, React.createElement("div", { style: { fontSize: 40, marginBottom: 12 } }, "📸"), React.createElement("div", { style: { fontSize: 14 } }, "아직 피드가 없습니다"), React.createElement("div", { style: { fontSize: 12, marginTop: 6 } }, "+ 버튼으로 첫 피드를 작성하세요"))
+    );
+  };
+
+  // -- MYPAGE subpages
+  var rSettings = function() {
+    var permStatus = "Notification" in window ? Notification.permission : "unsupported";
+    var permLabel  = permStatus === "granted" ? "허용됨 ✅" : permStatus === "denied" ? "차단됨 ❌" : permStatus === "unsupported" ? "미지원" : "미설정";
+    var permColor  = permStatus === "granted" ? OK : permStatus === "denied" ? WN : SC;
+    return React.createElement("div", null,
+      React.createElement("div", { style: Object.assign({}, SS.hdr, { display: "flex", alignItems: "center", gap: 10 }) },
+        React.createElement("button", { onClick: function() { setSubPage(null); }, style: { border: "none", background: "none", cursor: "pointer", minHeight: 44, color: PX, padding: "4px" } }, React.createElement(ArrowLeft, { size: 22 })),
+        React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: PX } }, "설정")
+      ),
+      React.createElement("div", { style: SS.card },
+        React.createElement("div", { style: { padding: "16px 14px", borderBottom: BDR } },
+          React.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 } },
+            React.createElement("div", null,
+              React.createElement("div", { style: { fontSize: 14, color: PX, fontWeight: 500, display: "flex", alignItems: "center", gap: 8 } }, React.createElement(Bell, { size: 16, color: SC }), "앱 알림"),
+              React.createElement("div", { style: { fontSize: 11, color: SC, marginTop: 3 } }, "날씨 위험·강풍·강수 실시간 알림")
+            ),
+            React.createElement("div", { onClick: handleNotifToggle, style: { width: 48, height: 28, borderRadius: 14, background: notifOn && permStatus === "granted" ? PX : BD, cursor: "pointer", position: "relative", transition: "background .2s", flexShrink: 0 } },
+              React.createElement("div", { style: { position: "absolute", top: 3, left: notifOn && permStatus === "granted" ? 22 : 3, width: 22, height: 22, borderRadius: "50%", background: "#fff", transition: "left .2s", boxShadow: "0 1px 4px rgba(0,0,0,.2)" } })
+            )
+          ),
+          React.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } },
+            React.createElement("span", { style: { fontSize: 11, color: permColor, fontWeight: 500 } }, "권한: " + permLabel),
+            permStatus === "granted" && notifOn && React.createElement("button", { onClick: sendTestNotif, style: { padding: "4px 10px", border: "0.5px solid " + OK, borderRadius: 3, background: "none", color: OK, fontSize: 10, cursor: "pointer" } }, "테스트 알림 보내기")
+          ),
+          permStatus === "denied" && React.createElement("div", { style: { marginTop: 6, fontSize: 11, color: WN, lineHeight: 1.5 } }, "브라우저 주소창 왼쪽 → 알림 → 허용으로 변경하세요"),
+          permStatus === "default" && React.createElement("button", { onClick: handleNotifToggle, style: { marginTop: 8, padding: "6px 14px", border: BDR, borderRadius: 3, background: PX, color: "#fff", fontSize: 11, cursor: "pointer", width: "100%" } }, "알림 권한 요청하기")
+        ),
+        React.createElement("div", { style: { padding: "16px 14px", borderBottom: BDR } },
+          React.createElement("div", { style: { fontSize: 14, color: PX, fontWeight: 500, marginBottom: 8 } }, "🔑 Gemini API Key"),
+          React.createElement("div", { style: { fontSize: 11, color: SC, marginBottom: 8, lineHeight: 1.5 } }, "할당량 초과 시 새 키 입력 (aistudio.google.com)"),
+          React.createElement("div", { style: { display: "flex", gap: 8 } },
+            React.createElement("input", { type: "password", placeholder: "AIzaSy...", defaultValue: localStorage.getItem("gn_gemini_key") || "",
+              id: "geminiKeyInput", style: { flex: 1, padding: "8px 10px", fontSize: 12, border: BDR, borderRadius: 4, background: SF, color: PX, fontFamily: MN } }),
+            React.createElement("button", { onClick: function() {
+              var k = document.getElementById("geminiKeyInput").value.trim();
+              if (k && k.length > 10) { localStorage.setItem("gn_gemini_key", k); GEMINI_KEY = k; alert("✅ 키 저장됨! 다시 검색해보세요."); }
+              else if (k === "") { localStorage.removeItem("gn_gemini_key"); alert("키 삭제됨 (기본 키로 복구됩니다)"); }
+              else { alert("AIzaSy... 형식의 키를 입력해주세요"); }
+            }, style: { padding: "0 14px", background: PX, color: "#fff", border: "none", borderRadius: 4, fontSize: 12, cursor: "pointer", whiteSpace: "nowrap" } }, "저장")
+          )
+        ),
+        React.createElement("div", { style: { padding: "16px 14px" } }, React.createElement("div", { style: { fontSize: 14, color: PX, fontWeight: 500 } }, "버전 정보"), React.createElement("div", { style: { fontSize: 12, color: SC, marginTop: 4, fontFamily: MN } }, "v 1.0"))
+      )
+    );
+  };
+
+  var rGuide = function() {
+    var slide = GUIDE_SLIDES[guideIdx];
+    return React.createElement("div", null,
+      React.createElement("div", { style: Object.assign({}, SS.hdr, { display: "flex", alignItems: "center", gap: 10 }) },
+        React.createElement("button", { onClick: function() { setSubPage(null); }, style: { border: "none", background: "none", cursor: "pointer", minHeight: 44, color: PX, padding: "4px" } }, React.createElement(ArrowLeft, { size: 22 })),
+        React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: PX } }, "가이드")
+      ),
+      React.createElement("div", { style: { padding: "0 16px" } },
+        React.createElement("div", { style: { background: SF, border: BDR, borderRadius: 8, padding: "40px 24px", textAlign: "center", marginBottom: 20, minHeight: 260 } },
+          React.createElement("div", { style: { fontSize: 56, marginBottom: 20 } }, slide.emoji),
+          React.createElement("div", { style: { fontSize: 18, fontWeight: 700, color: PX, marginBottom: 12 } }, slide.title),
+          React.createElement("div", { style: { fontSize: 14, color: SC, lineHeight: 1.7 } }, slide.desc)
+        ),
+        React.createElement("div", { style: { display: "flex", justifyContent: "center", gap: 6, marginBottom: 24 } },
+          GUIDE_SLIDES.map(function(sl, i) { return React.createElement("div", { key: i, onClick: function() { setGuideIdx(i); }, style: { width: guideIdx === i ? 20 : 6, height: 6, borderRadius: 3, background: guideIdx === i ? PX : BD, cursor: "pointer", transition: "all .2s" } }); })
+        ),
+        React.createElement("div", { style: { display: "flex", gap: 8 } },
+          guideIdx > 0 && React.createElement("button", { onClick: function() { setGuideIdx(guideIdx - 1); }, style: Object.assign({}, SS.btn2, { flex: 1 }) }, "← 이전"),
+          guideIdx < GUIDE_SLIDES.length - 1
+            ? React.createElement("button", { onClick: function() { setGuideIdx(guideIdx + 1); }, style: Object.assign({}, SS.btn1, { flex: 1 }) }, "다음 →")
+            : React.createElement("button", { onClick: function() { setSubPage(null); setGuideIdx(0); }, style: Object.assign({}, SS.btn1, { flex: 1 }) }, "완료")
+        )
+      )
+    );
+  };
+
+  var rSupport = function() {
+    var isLoggedIn = session && !session.guest;
+    var mailBody = "제목: " + csTitle + "%0D%0A내용: " + csBody + (isLoggedIn ? "%0D%0A보낸이: " + session.email : "%0D%0A보낸이: " + csEmail);
+    var mailHref = "mailto:hms0249@naver.com?subject=" + encodeURIComponent("[GearNest] " + csTitle) + "&body=" + mailBody;
+    return React.createElement("div", null,
+      React.createElement("div", { style: Object.assign({}, SS.hdr, { display: "flex", alignItems: "center", gap: 10 }) },
+        React.createElement("button", { onClick: function() { setSubPage(null); }, style: { border: "none", background: "none", cursor: "pointer", minHeight: 44, color: PX, padding: "4px" } }, React.createElement(ArrowLeft, { size: 22 })),
+        React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: PX } }, "고객센터")
+      ),
+      React.createElement("div", { style: { padding: "0 16px", display: "flex", flexDirection: "column", gap: 12 } },
+        React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "제목"), React.createElement("input", { value: csTitle, onChange: function(e) { setCsTitle(e.target.value); }, style: SS.ipt, placeholder: "문의 제목을 입력해 주세요" })),
+        !isLoggedIn && React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "이메일"), React.createElement("input", { type: "email", value: csEmail, onChange: function(e) { setCsEmail(e.target.value); }, style: SS.ipt, placeholder: "답변 받을 이메일" })),
+        React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "내용"), React.createElement("textarea", { value: csBody, onChange: function(e) { setCsBody(e.target.value); }, placeholder: "문의 내용을 자세히 입력해 주세요", style: Object.assign({}, SS.ipt, { height: 140, padding: "10px 12px", resize: "none", lineHeight: 1.6 }) })),
+        React.createElement("a", { href: mailHref, style: { display: "block", textDecoration: "none" } }, React.createElement("button", { style: Object.assign({}, SS.btn1, { width: "100%" }) }, "전송하기")),
+        React.createElement("div", { style: { fontSize: 11, color: SC, textAlign: "center", marginTop: 4 } }, "hms0249@naver.com 으로 전송됩니다")
+      )
+    );
+  };
+
+  var rNotice = function() {
+    return React.createElement("div", null,
+      React.createElement("div", { style: Object.assign({}, SS.hdr, { display: "flex", alignItems: "center", gap: 10 }) },
+        React.createElement("button", { onClick: function() { setSubPage(null); }, style: { border: "none", background: "none", cursor: "pointer", minHeight: 44, color: PX, padding: "4px" } }, React.createElement(ArrowLeft, { size: 22 })),
+        React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: PX } }, "공지사항")
+      ),
+      React.createElement("div", { style: SS.card },
+        NOTICES.map(function(n, i) {
+          return React.createElement("div", { key: i, style: { padding: "14px 16px", borderBottom: i < NOTICES.length - 1 ? BDR : "none" } },
+            React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 8, marginBottom: 4 } },
+              React.createElement("span", { style: { fontSize: 10, color: SC, fontFamily: MN } }, n.date),
+              React.createElement("span", { style: { fontSize: 13, fontWeight: 600, color: PX } }, n.title)
+            ),
+            React.createElement("div", { style: { fontSize: 12, color: SC, lineHeight: 1.6 } }, n.body)
+          );
+        })
+      )
+    );
+  };
+
+  var rProfileEdit = function() {
+    return React.createElement("div", null,
+      React.createElement("div", { style: Object.assign({}, SS.hdr, { display: "flex", alignItems: "center", gap: 10 }) },
+        React.createElement("button", { onClick: function() { setSubPage(null); }, style: { border: "none", background: "none", cursor: "pointer", minHeight: 44, color: PX, padding: "4px" } }, React.createElement(ArrowLeft, { size: 22 })),
+        React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: PX } }, "개인정보 수정")
+      ),
+      React.createElement("div", { style: { padding: "0 16px", display: "flex", flexDirection: "column", gap: 12 } },
+        React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "닉네임"), React.createElement("input", { value: editNick, onChange: function(e) { setEditNick(e.target.value); }, style: SS.ipt, placeholder: nick })),
+        React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "이메일"), React.createElement("input", { type: "email", value: editEmail, onChange: function(e) { setEditEmail(e.target.value); }, style: SS.ipt, placeholder: email || "example@email.com" })),
+        React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "핸드폰"), React.createElement("input", { type: "tel", value: editPhone, onChange: function(e) { setEditPhone(e.target.value); }, style: SS.ipt, placeholder: "010-0000-0000" })),
+        React.createElement("div", null,
+          React.createElement("div", { style: SS.flbl }, "주소"),
+          React.createElement("div", { style: { display: "flex", gap: 6 } },
+            React.createElement("input", { value: editAddr, onChange: function(e) { setEditAddr(e.target.value); }, style: Object.assign({}, SS.ipt, { flex: 1 }), placeholder: "도로명 또는 지번 주소" }),
+            React.createElement("button", { onClick: function() { var q = window.prompt("주소를 입력하세요", ""); if (q && q.trim()) setEditAddr(q.trim()); }, style: { flexShrink: 0, height: 44, padding: "0 12px", border: "0.5px solid " + WN, borderRadius: 3, background: WN, color: "#fff", fontSize: 11, cursor: "pointer", whiteSpace: "nowrap" } }, "주소검색")
+          )
+        ),
+        React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "상세주소"), React.createElement("input", { value: editAddrD, onChange: function(e) { setEditAddrD(e.target.value); }, style: SS.ipt, placeholder: "아파트 동/호수 등" })),
+        React.createElement("button", { onClick: function() {
+          if (!session) return;
+          var updates = {};
+          if (editNick.trim()) updates.nick = editNick.trim();
+          if (editEmail.trim()) updates.email = editEmail.trim();
+          var newSess = Object.assign({}, session, updates);
+          doSetSession(newSess);
+          if (!session.guest) {
+            var users = getUsers();
+            saveUsers(users.map(function(u) { return u.id !== session.userId ? u : Object.assign({}, u, updates, { phone: editPhone.trim(), addr: editAddr.trim(), addrDetail: editAddrD.trim() }); }));
+          }
+          setEditNick(""); setEditEmail(""); setEditPhone(""); setEditAddr(""); setEditAddrD("");
+          setSubPage(null);
+        }, style: SS.btn1 }, "저장하기")
+      )
+    );
+  };
+
+  var rMyPage = function() {
+    if (subPage === "settings")     return rSettings();
+    if (subPage === "guide")        return rGuide();
+    if (subPage === "support")      return rSupport();
+    if (subPage === "notice")       return rNotice();
+    if (subPage === "profile_edit") return rProfileEdit();
+    var menus = [
+      { id: "notice",   label: "공지사항", icon: "📢", action: function() { setSubPage("notice"); } },
+      { id: "guide",    label: "가이드",   icon: "📖", action: function() { setSubPage("guide"); setGuideIdx(0); } },
+      { id: "settings", label: "설정",     icon: "⚙️", action: function() { setSubPage("settings"); } },
+      { id: "support",  label: "고객센터", icon: "💬", action: function() { setSubPage("support"); } },
+    ];
+    return React.createElement("div", null,
+      React.createElement("div", { style: SS.hdr }, React.createElement("div", { style: { fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: SC } }, "MY PAGE"), React.createElement("div", { style: { fontSize: 24, fontWeight: 700, letterSpacing: -.5, color: PX } }, "내 정보")),
+      React.createElement("div", { style: SS.card },
+        React.createElement("div", { style: { padding: "20px 16px", display: "flex", alignItems: "flex-start", gap: 14 } },
+          React.createElement("div", { style: { flex: 1 } },
+            React.createElement("div", { style: { fontSize: 22, fontWeight: 700, color: PX, marginBottom: 4 } }, nick + " 님"),
+            email && React.createElement("div", { style: { fontSize: 12, color: SC, marginBottom: 8 } }, email),
+            !isGuest && React.createElement("button", { onClick: function() {
+              var u = getUsers().find(function(u) { return u.id === session.userId; }) || {};
+              setEditNick(session.nick || ""); setEditEmail(session.email || ""); setEditPhone(u.phone || ""); setEditAddr(u.addr || ""); setEditAddrD(u.addrDetail || "");
+              setSubPage("profile_edit");
+            }, style: { padding: "6px 14px", border: BDR, borderRadius: 20, background: "none", fontSize: 11, color: SC, cursor: "pointer" } }, "개인정보 수정 →")
+          ),
+          React.createElement("div", { style: { display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8 } },
+            React.createElement("div", { style: { width: 64, height: 64, border: BDR, borderRadius: 4, background: "#F5F5F5", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2 } },
+              React.createElement(UserCircle, { size: 32, color: SC }),
+              React.createElement("div", { style: { fontSize: 7, color: SC, letterSpacing: .5 } }, "AVATAR")
+            ),
+            isGuest
+              ? React.createElement("button", { onClick: function() { setAuthScreen(true); setAuthMode("login"); }, style: { display: "flex", alignItems: "center", gap: 5, padding: "6px 12px", border: BDR, borderRadius: 20, background: PX, color: "#fff", fontSize: 11, cursor: "pointer", whiteSpace: "nowrap" } },
+                  React.createElement(LogIn, { size: 12, color: "#fff" }), "로그인 / 회원가입"
+                )
+              : React.createElement("button", { onClick: doLogout, style: { display: "flex", alignItems: "center", gap: 5, padding: "6px 12px", border: "0.5px solid " + WN, borderRadius: 20, background: "transparent", color: WN, fontSize: 11, cursor: "pointer", whiteSpace: "nowrap" } },
+                  React.createElement(LogOut, { size: 12, color: WN }), "로그아웃"
+                )
+          )
+        ),
+        isGuest && React.createElement("div", { style: { padding: "0 16px 14px", fontSize: 12, color: SC } }, "비회원으로 이용 중 — 로그인하면 데이터가 저장됩니다")
+      ),
+      React.createElement("div", { style: SS.card },
+        menus.map(function(m, i) {
+          return React.createElement("button", { key: m.id, onClick: m.action, style: { display: "flex", width: "100%", alignItems: "center", gap: 12, padding: "16px 14px", border: "none", borderBottom: i < menus.length - 1 ? BDR : "none", background: SF, cursor: "pointer", textAlign: "left" } },
+            React.createElement("span", { style: { fontSize: 18, flexShrink: 0 } }, m.icon),
+            React.createElement("span", { style: { flex: 1, fontSize: 15, color: PX } }, m.label),
+            React.createElement(ChevronRight, { size: 16, color: BD })
+          );
+        })
+      )
+    );
+  };
+
+  // -- MODALS
+  var rGearModal = function() {
+    if (!editG && !addMode) return null;
+    var isEdit = !!editG;
+    var isSleep = (isEdit ? eC : aC) === "Sleep";
+    return React.createElement("div", { onClick: function() { setEditG(null); setAddMode(false); }, style: { position: "fixed", inset: 0, background: "rgba(0,0,0,.5)", zIndex: 50, display: "flex", alignItems: "flex-end", justifyContent: "center" } },
+      React.createElement("div", { onClick: function(e) { e.stopPropagation(); }, style: { background: SF, borderRadius: "16px 16px 0 0", width: "100%", maxWidth: 430, padding: 20, paddingBottom: "calc(20px + env(safe-area-inset-bottom,0px))", maxHeight: "90vh", overflowY: "auto" } },
+        React.createElement("div", { style: { width: 36, height: 4, background: BD, borderRadius: 2, margin: "0 auto 16px" } }),
+        React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 } },
+          React.createElement("div", { style: { fontSize: 17, fontWeight: 700, color: PX } }, isEdit ? "장비 수정" : "장비 추가"),
+          React.createElement("button", { onClick: function() { setEditG(null); setAddMode(false); }, style: { border: "none", background: "none", cursor: "pointer", color: SC, minHeight: 44, padding: "4px" } }, React.createElement(X, { size: 22 }))
+        ),
+        React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 12 } },
+          React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "장비명"), React.createElement("input", { value: isEdit ? eN : aN, onChange: function(e) { isEdit ? setEN(e.target.value) : setAN(e.target.value); }, style: SS.ipt, placeholder: "예: Arc Blast 55L" })),
+          React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "브랜드"), React.createElement("input", { value: isEdit ? eB : aB, onChange: function(e) { isEdit ? setEB(e.target.value) : setAB(e.target.value); }, style: SS.ipt, placeholder: "예: Zpacks" })),
+          React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "무게 (g)"), React.createElement("input", { type: "number", inputMode: "decimal", value: isEdit ? eW : aW, onChange: function(e) { isEdit ? setEW(e.target.value) : setAW(e.target.value); }, style: SS.ipt, placeholder: "340" })),
+          React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "메모"), React.createElement("textarea", { value: isEdit ? eMemo : aMemo, onChange: function(e) { isEdit ? setEMemo(e.target.value) : setAMemo(e.target.value); }, placeholder: "구매처 · 색상 · 특이사항...", style: Object.assign({}, SS.ipt, { height: 56, padding: "10px 12px", resize: "none", lineHeight: 1.5 }) })),
+          React.createElement("div", null,
+            React.createElement("div", { style: SS.flbl }, "Category"),
+            React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 5, marginTop: 4 } },
+              CATS.map(function(cc) {
+                var IC = CAT_ICONS[cc]; var on = isEdit ? eC === cc : aC === cc;
+                return React.createElement("button", { key: cc, onClick: function() { isEdit ? setEC(cc) : setAC(cc); }, style: sChip(on) }, React.createElement(IC, { size: 10 }), cc);
+              })
+            )
+          ),
+          isSleep && React.createElement("div", { style: { background: "#FAFAFA", border: BDR, borderRadius: 4, padding: "12px" } },
+            React.createElement("div", { style: { fontSize: 10, fontWeight: 600, marginBottom: 10, display: "flex", alignItems: "center", gap: 6, color: PX } }, React.createElement(Moon, { size: 12, color: PX }), "침낭 온도 정보"),
+            React.createElement("div", { style: { display: "flex", gap: 8 } },
+              React.createElement("div", { style: { flex: 1 } }, React.createElement("div", { style: { fontSize: 8, letterSpacing: 1.2, textTransform: "uppercase", color: OK, marginBottom: 4 } }, "최적 온도 (°C)"), React.createElement("input", { type: "number", inputMode: "decimal", value: isEdit ? eOT : aOT, onChange: function(e) { isEdit ? setEOT(e.target.value) : setAOT(e.target.value); }, style: Object.assign({}, SS.ipt, { height: 40, fontSize: 15, border: "0.5px solid " + OK }), placeholder: "-5" })),
+              React.createElement("div", { style: { flex: 1 } }, React.createElement("div", { style: { fontSize: 8, letterSpacing: 1.2, textTransform: "uppercase", color: WN, marginBottom: 4 } }, "한계 온도 (°C)"), React.createElement("input", { type: "number", inputMode: "decimal", value: isEdit ? eLT : aLT, onChange: function(e) { isEdit ? setELT(e.target.value) : setALT(e.target.value); }, style: Object.assign({}, SS.ipt, { height: 40, fontSize: 15, border: "0.5px solid " + WN }), placeholder: "-10" }))
+            )
+          ),
+          React.createElement("div", null,
+            React.createElement("div", { style: SS.flbl }, "Weight Type"),
+            React.createElement("div", { style: { display: "flex", gap: 5, marginTop: 4, flexWrap: "wrap" } },
+              WCS.map(function(wc) { var on = isEdit ? eWC === wc : aWC === wc; return React.createElement("button", { key: wc, onClick: function() { isEdit ? setEWC(wc) : setAWC(wc); }, style: Object.assign({}, sChip(on), { fontSize: 7.5, padding: "5px 8px" }) }, wc); })
+            )
+          ),
+          isEdit
+            ? React.createElement("div", { style: { display: "flex", gap: 8, marginTop: 4 } },
+                React.createElement("button", { onClick: saveEdit, style: Object.assign({}, SS.btn1, { flex: 2 }) }, "저장"),
+                React.createElement("button", { onClick: deleteG, style: { flex: 1, height: 48, background: "transparent", color: "#AA2200", border: "0.5px solid #AA2200", borderRadius: 3, fontSize: 11, letterSpacing: 1.5, cursor: "pointer" } }, "삭제")
+              )
+            : React.createElement("button", { onClick: addGear, style: Object.assign({}, SS.btn1, { marginTop: 4 }) }, "장비 추가")
+        )
+      )
+    );
+  };
+
+  var rFeedDetail = function() {
+    var s = feedDetail; if (!s) return null;
+    var bgStyle = s.imageData ? { backgroundImage: "url(" + s.imageData + ")", backgroundSize: "cover", backgroundPosition: "center" } : { background: "linear-gradient(135deg," + s.grad[0] + "," + s.grad[1] + ")" };
+    return React.createElement("div", { onClick: function() { setFeedDetail(null); }, style: { position: "fixed", inset: 0, background: "rgba(0,0,0,.65)", zIndex: 60, display: "flex", alignItems: "flex-end", justifyContent: "center" } },
+      React.createElement("div", { onClick: function(e) { e.stopPropagation(); }, style: { background: SF, width: "100%", maxWidth: 430, maxHeight: "93vh", overflowY: "auto", borderRadius: "16px 16px 0 0" } },
+        React.createElement("div", { style: Object.assign({ width: "100%", height: 300, position: "relative", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 72, flexShrink: 0 }, bgStyle) },
+          !s.imageData && s.emoji,
+          React.createElement("button", { onClick: function() { setFeedDetail(null); }, style: { position: "absolute", top: 14, right: 14, width: 34, height: 34, borderRadius: "50%", background: "rgba(0,0,0,.3)", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" } }, React.createElement(X, { size: 16, color: "#fff" })),
+          React.createElement("div", { style: { position: "absolute", bottom: 12, left: 14, fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", padding: "3px 8px", background: "rgba(0,0,0,.2)", color: "#fff", borderRadius: 2 } }, s.sty)
+        ),
+        React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 10, padding: "12px 14px", borderBottom: BDR } },
+          React.createElement("div", { style: { width: 36, height: 36, borderRadius: "50%", background: PX, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, color: "#fff", flexShrink: 0 } }, (s.author || "?")[0].toUpperCase()),
+          React.createElement("div", { style: { flex: 1 } }, React.createElement("div", { style: { fontSize: 14, fontWeight: 600, color: PX } }, s.author), React.createElement("div", { style: { fontSize: 11, color: SC } }, s.locName)),
+          React.createElement("div", { style: { textAlign: "right" } }, React.createElement("div", { style: { fontFamily: MN, fontSize: 20, fontWeight: 300, color: PX } }, (s.kg || 0).toFixed(2)), React.createElement("div", { style: { fontSize: 8, color: SC, textTransform: "uppercase" } }, "kg"))
+        ),
+        React.createElement("div", { style: { display: "flex", padding: "10px 14px", gap: 10, borderBottom: BDR, background: "#FAFAFA", alignItems: "center" } },
+          React.createElement("div", { style: { fontSize: 22 } }, wEmoji(s.weather && s.weather.cond)),
+          React.createElement("div", null,
+            React.createElement("div", { style: { fontSize: 13, fontWeight: 500, color: PX } }, (s.weather ? s.weather.temp : "?") + "°C · " + (s.weather ? s.weather.cond : "")),
+            React.createElement("div", { style: { fontSize: 11, color: SC } }, "야간 " + (s.weather ? s.weather.tn : "?") + "°C · 풍속 " + (s.weather ? s.weather.wind : "?") + "m/s")
+          )
+        ),
+        React.createElement("div", { style: { padding: "12px 14px", borderBottom: BDR } },
+          React.createElement("div", { style: { fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: SC, marginBottom: 8 } }, "사용 장비"),
+          React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 5 } }, (s.gearUsed || []).map(function(g) { return React.createElement("span", { key: g, style: { fontSize: 11, padding: "4px 8px", border: BDR, borderRadius: 2, color: PX } }, g); }))
+        ),
+        React.createElement("div", { style: { padding: "12px 14px", fontSize: 14, lineHeight: 1.6, borderBottom: BDR, color: PX } }, s.caption),
+        React.createElement("div", { style: { display: "flex", gap: 16, padding: "10px 14px", borderBottom: BDR } },
+          React.createElement("button", { style: { display: "flex", alignItems: "center", gap: 5, border: "none", background: "none", cursor: "pointer", color: PX, padding: 0 } }, React.createElement(Heart, { size: 18 }), React.createElement("span", { style: { fontSize: 13, fontWeight: 500 } }, s.lk || 0)),
+          React.createElement("button", { style: { display: "flex", alignItems: "center", gap: 5, border: "none", background: "none", cursor: "pointer", color: SC, padding: 0 } }, React.createElement(MessageCircle, { size: 18 }), React.createElement("span", { style: { fontSize: 13 } }, s.cm || 0))
+        ),
+        React.createElement("div", { style: { padding: "8px 14px 28px", fontSize: 11, color: SC } }, s.date),
+        // 본인 글만 수정/삭제
+        (session && (session.userId === s.authorId || s.author === nick)) && React.createElement("div", { style: { padding: "10px 14px 28px", display: "flex", gap: 8 } },
+          React.createElement("button", {
+            onClick: function() {
+              setEditFeed(s); setEditFeedCap(s.caption || ""); setEditFeedLoc(s.locName || "");
+              setFeedDetail(null);
+            },
+            style: { flex: 1, height: 44, border: BDR, borderRadius: 3, background: "none", color: PX, fontSize: 12, cursor: "pointer" }
+          }, "✏️ 수정"),
+          React.createElement("button", {
+            onClick: function() {
+              if (!window.confirm("이 피드를 삭제하시겠습니까?")) return;
+              var nextFeeds = feeds.filter(function(f) { return f.id !== s.id; });
+              persistFeeds(nextFeeds);
+              setFeedDetail(null);
+            },
+            style: { flex: 1, height: 44, border: "0.5px solid #AA2200", borderRadius: 3, background: "none", color: "#AA2200", fontSize: 12, cursor: "pointer" }
+          }, "🗑 삭제")
+        )
+      )
+    );
+  };
+
+  // -- 피드 수정 모달
+  var rFeedEditModal = function() {
+    if (!editFeed) return null;
+    return React.createElement("div", { onClick: function() { setEditFeed(null); }, style: { position: "fixed", inset: 0, background: "rgba(0,0,0,.55)", zIndex: 58, display: "flex", alignItems: "flex-end", justifyContent: "center" } },
+      React.createElement("div", { onClick: function(e) { e.stopPropagation(); }, style: { background: SF, width: "100%", maxWidth: 430, borderRadius: "16px 16px 0 0", padding: 20, paddingBottom: "calc(20px + env(safe-area-inset-bottom,0px))" } },
+        React.createElement("div", { style: { width: 36, height: 4, background: BD, borderRadius: 2, margin: "0 auto 16px" } }),
+        React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 } },
+          React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: PX } }, "피드 수정"),
+          React.createElement("button", { onClick: function() { setEditFeed(null); }, style: { border: "none", background: "none", cursor: "pointer", color: SC, padding: "4px" } }, React.createElement(X, { size: 22 }))
+        ),
+        React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 12 } },
+          React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "장소"), React.createElement("input", { value: editFeedLoc, onChange: function(e) { setEditFeedLoc(e.target.value); }, style: SS.ipt, placeholder: "캠핑 장소" })),
+          React.createElement("div", null, React.createElement("div", { style: SS.flbl }, "캡션"), React.createElement("textarea", { value: editFeedCap, onChange: function(e) { setEditFeedCap(e.target.value); }, style: Object.assign({}, SS.ipt, { height: 100, padding: "10px 12px", resize: "none", lineHeight: 1.5 }) })),
+          React.createElement("div", { style: { display: "flex", gap: 8 } },
+            React.createElement("button", { onClick: function() {
+              var nextFeeds = feeds.map(function(f) {
+                if (f.id !== editFeed.id) return f;
+                return Object.assign({}, f, { caption: editFeedCap, locName: editFeedLoc || f.locName });
+              });
+              persistFeeds(nextFeeds);
+              setEditFeed(null);
+            }, style: Object.assign({}, SS.btn1, { flex: 2 }) }, "저장"),
+            React.createElement("button", { onClick: function() { setEditFeed(null); }, style: Object.assign({}, SS.btn2, { flex: 1 }) }, "취소")
+          )
+        )
+      )
+    );
+  };
+
+  var rFABModal = function() {
+    if (!showFAB) return null;
+    return React.createElement("div", { onClick: function() { setShowFAB(false); }, style: { position: "fixed", inset: 0, background: "rgba(0,0,0,.55)", zIndex: 55, display: "flex", alignItems: "flex-end", justifyContent: "center" } },
+      React.createElement("div", { onClick: function(e) { e.stopPropagation(); }, style: { background: SF, width: "100%", maxWidth: 430, maxHeight: "90vh", overflowY: "auto", borderRadius: "16px 16px 0 0", padding: 20, paddingBottom: "calc(20px + env(safe-area-inset-bottom,0px))" } },
+        React.createElement("div", { style: { width: 36, height: 4, background: BD, borderRadius: 2, margin: "0 auto 16px" } }),
+        React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 } },
+          React.createElement("div", { style: { fontSize: 16, fontWeight: 700, color: PX, display: "flex", alignItems: "center", gap: 8 } }, React.createElement(Camera, { size: 16, color: PX }), "새 피드 작성"),
+          React.createElement("button", { onClick: function() { setShowFAB(false); }, style: { border: "none", background: "none", cursor: "pointer", color: SC, padding: "4px" } }, React.createElement(X, { size: 22 }))
+        ),
+        // Image upload
+        React.createElement("div", { style: { marginBottom: 14 } },
+          React.createElement("div", { style: SS.flbl }, "사진"),
+          React.createElement("div", { style: { display: "flex", gap: 8, marginTop: 4 } },
+            React.createElement("button", { onClick: function() { imgInputRef.current && imgInputRef.current.click(); }, style: { flex: 1, height: 52, border: BDR, borderRadius: 3, background: fabImage ? "#000" : SF, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, fontSize: 12, color: SC, position: "relative", overflow: "hidden" } },
+              fabImage ? React.createElement("img", { src: fabImage, alt: "selected", style: { width: "100%", height: "100%", objectFit: "cover", borderRadius: 3 } }) : React.createElement(React.Fragment, null, React.createElement(ImageIcon, { size: 18, color: SC }), React.createElement("span", null, "갤러리에서 선택"))
+            ),
+            fabImage && React.createElement("button", { onClick: function() { setFabImage(null); }, style: { width: 52, height: 52, border: BDR, borderRadius: 3, background: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: WN } }, React.createElement(X, { size: 18 }))
+          ),
+          React.createElement("input", { ref: imgInputRef, type: "file", accept: "image/*", onChange: handleImageFile, style: { display: "none" } })
+        ),
+        // Cover preset (if no image)
+        !fabImage && React.createElement("div", { style: { marginBottom: 14 } },
+          React.createElement("div", { style: SS.flbl }, "커버 프리셋"),
+          React.createElement("div", { style: { display: "flex", gap: 6, marginTop: 4, overflowX: "auto", paddingBottom: 4 } },
+            GRAD_PRESETS.map(function(gr, i) {
+              return React.createElement("div", { key: i, onClick: function() { setFabGrad(i); setFabEmoji(i); }, style: { flexShrink: 0, width: 52, height: 40, borderRadius: 4, background: "linear-gradient(135deg," + gr[0] + "," + gr[1] + ")", cursor: "pointer", border: fabGrad === i ? "2px solid " + PX : BDR, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 } }, EMOJI_PRESETS[i] || "⛺");
+            })
+          )
+        ),
+        React.createElement("div", { style: { marginBottom: 10 } }, React.createElement("div", { style: SS.flbl }, "장소"), React.createElement("input", { value: fabLoc, onChange: function(e) { setFabLoc(e.target.value); }, style: SS.ipt, placeholder: savedLoc ? savedLoc.name : "예: 설악산" })),
+        React.createElement("div", { style: { marginBottom: 10 } },
+          React.createElement("div", { style: { display: "flex", gap: 5, marginTop: 4 } },
+            ["Backpacking","Auto Camp","Moto Camp"].map(function(s) { return React.createElement("button", { key: s, onClick: function() { setFabSty(s); }, style: sChip(fabSty === s) }, s); })
+          )
+        ),
+        React.createElement("div", { style: { marginBottom: 10 } }, React.createElement("div", { style: SS.flbl }, "캡션"), React.createElement("textarea", { value: fabCap, onChange: function(e) { setFabCap(e.target.value); }, placeholder: "이번 캠핑은 어땠나요?", style: Object.assign({}, SS.ipt, { height: 80, padding: "10px 12px", resize: "none", lineHeight: 1.5 }) })),
+        React.createElement("div", { style: { marginBottom: 14 } },
+          React.createElement("div", { style: SS.flbl }, "사용한 장비 선택"),
+          React.createElement("div", { style: { border: BDR, borderRadius: 3, maxHeight: 180, overflowY: "auto", marginTop: 4 } },
+            gear.map(function(g) {
+              var checked = !!fabGear[g.id];
+              return React.createElement("div", { key: g.id, onClick: function() { setFabGear(function(p) { var n = Object.assign({}, p); n[g.id] = !n[g.id]; return n; }); }, style: { display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderBottom: BDR, cursor: "pointer", background: checked ? "#F9F9F9" : SF } },
+                checked ? React.createElement(CheckSquare, { size: 16, color: PX }) : React.createElement(Square, { size: 16, color: SC }),
+                React.createElement("div", { style: { flex: 1 } }, React.createElement("div", { style: { fontSize: 13, color: PX, fontWeight: checked ? 500 : 400 } }, g.n), React.createElement("div", { style: { fontSize: 10, color: SC } }, g.br + " · " + fw(g.wg)))
+              );
+            })
+          )
+        ),
+        React.createElement("button", { onClick: submitFeed, style: SS.btn1 }, "게시하기")
+      )
+    );
+  };
+
+  var rCalModal = function() {
+    if (!calModal || !calSel) return null;
+    var key = dateKey(calYear, calMonth, calSel);
+    var existing = campRecords[key];
+    return React.createElement("div", { onClick: function() { setCalModal(false); }, style: { position: "fixed", inset: 0, background: "rgba(0,0,0,.5)", zIndex: 55, display: "flex", alignItems: "flex-end", justifyContent: "center" } },
+      React.createElement("div", { onClick: function(e) { e.stopPropagation(); }, style: { background: SF, width: "100%", maxWidth: 430, maxHeight: "85vh", overflowY: "auto", borderRadius: "16px 16px 0 0", padding: 20, paddingBottom: "calc(20px + env(safe-area-inset-bottom,0px))" } },
+        React.createElement("div", { style: { width: 36, height: 4, background: BD, borderRadius: 2, margin: "0 auto 16px" } }),
+        React.createElement("div", { style: { fontSize: 15, fontWeight: 700, color: PX, marginBottom: 14, display: "flex", alignItems: "center", gap: 8 } }, React.createElement(CalendarDays, { size: 15, color: PX }), key + " 캠핑 기록"),
+        existing && React.createElement("div", { style: { padding: "8px 10px", background: "#F9F9F9", border: BDR, borderRadius: 3, marginBottom: 12, fontSize: 12, color: SC } }, "저장된 기록: " + existing.locName + " · " + existing.sty),
+        React.createElement("div", { style: { marginBottom: 10 } }, React.createElement("div", { style: SS.flbl }, "캠핑 장소"), React.createElement("input", { value: recLoc, onChange: function(e) { setRecLoc(e.target.value); }, style: SS.ipt, placeholder: "예: 설악산" })),
+        React.createElement("div", { style: { marginBottom: 10 } },
+          React.createElement("div", { style: { display: "flex", gap: 5, marginTop: 4 } },
+            ["Backpacking","Auto Camp","Moto Camp"].map(function(s) { return React.createElement("button", { key: s, onClick: function() { setRecSty(s); }, style: sChip(recSty === s) }, s); })
+          )
+        ),
+        React.createElement("div", { style: { marginBottom: 14 } },
+          React.createElement("div", { style: { border: BDR, borderRadius: 3, maxHeight: 160, overflowY: "auto", marginTop: 4 } },
+            gear.map(function(g) {
+              var checked = !!recGear[g.id];
+              return React.createElement("div", { key: g.id, onClick: function() { setRecGear(function(p) { var n = Object.assign({}, p); n[g.id] = !n[g.id]; return n; }); }, style: { display: "flex", alignItems: "center", gap: 10, padding: "9px 12px", borderBottom: BDR, cursor: "pointer" } },
+                checked ? React.createElement(CheckSquare, { size: 16, color: PX }) : React.createElement(Square, { size: 16, color: SC }),
+                React.createElement("div", { style: { flex: 1 } }, React.createElement("div", { style: { fontSize: 12, color: PX } }, g.n), React.createElement("div", { style: { fontSize: 10, color: SC } }, g.br + " · " + fw(g.wg)))
+              );
+            })
+          )
+        ),
+        React.createElement("button", { onClick: saveCalRecord, style: SS.btn1 }, "저장 + 피드 자동 등록")
+      )
+    );
+  };
+
+  // -- TABS
+  var TABS = [
+    { id: "home",      l: "Home",  I: LayoutGrid   },
+    { id: "gear",      l: "Gear",  I: Backpack     },
+    { id: "setups",    l: "Setups",I: ClipboardList },
+    { id: "weather",   l: "날씨",  I: Cloud        },
+    { id: "community", l: "피드",  I: Users        },
+    { id: "mypage",    l: "마이",  I: UserCircle   },
+  ];
+
+  return React.createElement(React.Fragment, null,
+    React.createElement("style", null, "@keyframes spin{to{transform:rotate(360deg)}} *::-webkit-scrollbar{display:none} *{box-sizing:border-box}"),
+    React.createElement("div", { onClick: function() { setShowGeo(false); setBplTooltip(false); }, style: { width: "100%", maxWidth: 430, height: "100dvh", margin: "0 auto", display: "flex", flexDirection: "column", background: BG, fontFamily: "-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif", fontSize: 14, color: PX, position: "relative", overflow: "hidden" } },
+      React.createElement("div", { style: { flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch", paddingBottom: 68 } },
+        tab === "home"      && rHome(),
+        tab === "gear"      && rGear(),
+        tab === "setups"    && rSetups(),
+        tab === "weather"   && rWeather(),
+        tab === "community" && rCommunity(),
+        tab === "mypage"    && rMyPage()
+      ),
+      (tab === "home" || tab === "community") && React.createElement("button", { onClick: function() { setShowFAB(true); }, style: { position: "absolute", bottom: 76, right: 20, width: 52, height: 52, borderRadius: "50%", background: PX, border: "none", cursor: "pointer", zIndex: 31, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 16px rgba(0,0,0,.25)" } },
+        React.createElement(Plus, { size: 22, color: "#fff" })
+      ),
+      React.createElement("div", { style: { position: "absolute", bottom: 0, left: 0, right: 0, height: 60, background: SF, borderTop: BDR, display: "flex", zIndex: 30, paddingBottom: "env(safe-area-inset-bottom,0px)" } },
+        TABS.map(function(t) {
+          var active = tab === t.id;
+          return React.createElement("button", { key: t.id, onClick: function() { setTab(t.id); setSubPage(null); }, style: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 3, border: "none", background: "none", cursor: "pointer", fontSize: 6, letterSpacing: .5, textTransform: "uppercase", color: active ? PX : SC, fontWeight: active ? 700 : 400, transition: "color .15s" } },
+            React.createElement(t.I, { size: 19 }), t.l
+          );
+        })
+      ),
+      rGearModal(),
+      rFeedDetail(),
+      rFeedEditModal(),
+      rFABModal(),
+      rCalModal()
+    )
+  );
+}
+
+
+try{ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(GearNest));}catch(e){document.getElementById('root').innerHTML='<div style="padding:32px"><b>❌ 오류</b><pre style="margin-top:8px;font-size:11px;white-space:pre-wrap">'+e.message+'\n'+e.stack+'</pre></div>';console.error(e);}
+})();
+</script>
+</body>
+</html>
